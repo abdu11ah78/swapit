@@ -1,0 +1,8 @@
+{
+  "id": "string",
+  "headline": "string",
+  "subtext": "string (optional)",
+  "ctaText": "string",
+  "ctaLink": "string",
+  "imageUrl": "string"
+}
