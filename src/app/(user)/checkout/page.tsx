@@ -4,7 +4,7 @@ async function fetchTenant() {
   return {
     tenantId: "tenant123",
     name: "Ecommerce",
-    templateId: "classic", 
+    templateId: "modern", 
   };
 }
 

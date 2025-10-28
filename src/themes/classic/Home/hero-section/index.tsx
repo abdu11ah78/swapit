@@ -23,7 +23,7 @@ type HeroSlide = {
 }
 
 export function HeroSection() {
-  const [slides, setSlides] = React.useState<HeroSlide[]>([
+  const [slides] = React.useState<HeroSlide[]>([
     {
       id: "1",
       headline: "Shop the Best from InstaBizShop",

@@ -4,17 +4,17 @@ async function fetchTenant() {
   return {
     tenantId: "tenant123",
     name: "Ecommerce",
-    templateId: "classic", 
+    templateId: "modern", 
   };
 }
 
-export default async function HomePage() {
+export default async function CartPage() {
   const tenant = await fetchTenant();
   const theme = themeRegistry[tenant.templateId as keyof typeof themeRegistry];
 
   return (
     <div>
-      <theme.Cart.CategoryPage />
+      <theme.Cart.CartPage />
     </div>
   );
 }
