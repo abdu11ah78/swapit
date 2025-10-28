@@ -5,6 +5,7 @@ import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react"
 import { ArrowLeft, ArrowRight } from "lucide-react"
+import { motion, Variants } from "framer-motion"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -40,6 +41,17 @@ function useCarousel() {
   }
 
   return context
+}
+
+// --- FRAMER VARIANTS ---
+const buttonVariants: Variants = {
+  hover: {
+    scale: 1.05,
+    y: -2,
+    boxShadow: "0 8px 20px rgba(0, 0, 0, 0.3)",
+    transition: { type: "spring", stiffness: 300, damping: 20 },
+  },
+  tap: { scale: 0.98 },
 }
 
 function Carousel({
@@ -173,61 +185,93 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
 
 function CarouselPrevious({
   className,
-  variant = "outline",
+  variant = "modernOutline",
   size = "icon",
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
+  const [hovered, setHovered] = React.useState(false)
 
   return (
-    <Button
-      data-slot="carousel-previous"
-      variant={variant}
-      size={size}
-      className={cn(
-        "absolute size-8 rounded-full",
-        orientation === "horizontal"
-          ? "top-1/2 -left-12 -translate-y-1/2"
-          : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
-      )}
-      disabled={!canScrollPrev}
-      onClick={scrollPrev}
-      {...props}
+    <motion.div
+      variants={buttonVariants}
+      whileHover={canScrollPrev ? "hover" : undefined}
+      whileTap={canScrollPrev ? "tap" : undefined}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="absolute"
     >
-      <ArrowLeft />
-      <span className="sr-only">Previous slide</span>
-    </Button>
+      <Button
+        data-slot="carousel-previous"
+        variant={variant}
+        size={size}
+        className={cn(
+          "size-10 rounded-full relative overflow-hidden",
+          orientation === "horizontal"
+            ? "top-1/2 -left-14 -translate-y-1/2"
+            : "-top-14 left-1/2 -translate-x-1/2 rotate-90",
+          className
+        )}
+        disabled={!canScrollPrev}
+        onClick={scrollPrev}
+        {...props}
+      >
+        {/* Dynamic Glow on Hover */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-r from-neutral-600/20 to-neutral-500/20 transition-opacity duration-500 rounded-full ${
+            hovered && canScrollPrev ? "opacity-100" : "opacity-0"
+          }`}
+        />
+        <ArrowLeft className="relative z-10" />
+        <span className="sr-only">Previous slide</span>
+      </Button>
+    </motion.div>
   )
 }
 
 function CarouselNext({
   className,
-  variant = "outline",
+  variant = "modernOutline",
   size = "icon",
   ...props
 }: React.ComponentProps<typeof Button>) {
   const { orientation, scrollNext, canScrollNext } = useCarousel()
+  const [hovered, setHovered] = React.useState(false)
 
   return (
-    <Button
-      data-slot="carousel-next"
-      variant={variant}
-      size={size}
-      className={cn(
-        "absolute size-8 rounded-full",
-        orientation === "horizontal"
-          ? "top-1/2 -right-12 -translate-y-1/2"
-          : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
-      )}
-      disabled={!canScrollNext}
-      onClick={scrollNext}
-      {...props}
+    <motion.div
+      variants={buttonVariants}
+      whileHover={canScrollNext ? "hover" : undefined}
+      whileTap={canScrollNext ? "tap" : undefined}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="absolute"
     >
-      <ArrowRight />
-      <span className="sr-only">Next slide</span>
-    </Button>
+      <Button
+        data-slot="carousel-next"
+        variant={variant}
+        size={size}
+        className={cn(
+          "size-10 rounded-full relative overflow-hidden",
+          orientation === "horizontal"
+            ? "top-1/2 -right-14 -translate-y-1/2"
+            : "-bottom-14 left-1/2 -translate-x-1/2 rotate-90",
+          className
+        )}
+        disabled={!canScrollNext}
+        onClick={scrollNext}
+        {...props}
+      >
+        {/* Dynamic Glow on Hover */}
+        <div
+          className={`absolute inset-0 bg-gradient-to-r from-neutral-600/20 to-neutral-500/20 transition-opacity duration-500 rounded-full ${
+            hovered && canScrollNext ? "opacity-100" : "opacity-0"
+          }`}
+        />
+        <ArrowRight className="relative z-10" />
+        <span className="sr-only">Next slide</span>
+      </Button>
+    </motion.div>
   )
 }
 

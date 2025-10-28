@@ -10,7 +10,7 @@ export type ShopHeroProps = {
 }
 
 export function ShopHero({
-  title = "Shop All Products",
+  title= "",
   subtitle = "Discover our latest collections and best sellers",
   backgroundUrl = "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=1920&q=80",
 }: ShopHeroProps) {

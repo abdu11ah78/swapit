@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState, useEffect } from "react"
@@ -6,6 +7,7 @@ import { Product } from "@/themes/classic/shop/product-grid"
 import { themeRegistry } from "@/themes"
 
 export default function ShopPage() {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [tenant, setTenant] = useState<any>(null)
   const [filters, setFilters] = useState<Filters>({
     search: "",
@@ -16,7 +18,7 @@ export default function ShopPage() {
   const [products, setProducts] = useState<Product[]>([])
 
   useEffect(() => {
-    setTenant({ tenantId: "tenant123", name: "Ecommerce", templateId: "classic" })
+    setTenant({ tenantId: "tenant123", name: "Ecommerce", templateId: "modern" })
   }, [])
 
   useEffect(() => {
@@ -51,17 +53,17 @@ export default function ShopPage() {
   return (
     <>
       <theme.Shop.ShopHero
-        title="Shop All Products"
+        title="Shop All Product"
         subtitle="Discover our latest collections and best sellers"
         backgroundUrl="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=1920&q=80"
       />
 
       <theme.Shop.ShopFilters onChange={setFilters} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
         <theme.Shop.ProductGrid products={products} />
         <theme.Shop.ShopPagination />
-      </div>
+      
     </>
   )
 }

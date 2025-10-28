@@ -11,7 +11,7 @@ export default async function CategoryPage({ params }: Props) {
   const tenant = {
     tenantId: "tenant123",
     name: "Ecommerce",
-    templateId: "classic",
+    templateId: "modern",
   }
 
   const theme = themeRegistry[tenant.templateId as keyof typeof themeRegistry]

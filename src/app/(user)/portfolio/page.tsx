@@ -4,7 +4,7 @@ async function fetchTenant() {
   return {
     tenantId: "tenant123",
     name: "Ecommerce",
-    templateId: "classic", 
+    templateId: "modern", 
   };
 }
 
@@ -14,9 +14,19 @@ export default async function PortfolioPage() {
 
   return (
     <div>
-      <theme.Portfolio.PortfolioHero />
-      <theme.Portfolio.ServicesSection />
-      <theme.Portfolio.ShowcaseSection />
+     <section id="hero">
+    <theme.Portfolio.HeroSection />
+  </section>
+
+  <section id="services">
+    <theme.Portfolio.ServiceSection/>
+  </section>
+
+  <section id="gallery">
+    <theme.Portfolio.OurGallery />
+  </section>
+
+
     </div>
   );
 }
