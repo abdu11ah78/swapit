@@ -164,10 +164,10 @@ export function PromoBanner({
                 initial={{ opacity: 0, x: 50 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                className="md:w-2/5 h-48 sm:h-64 md:h-auto relative overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200"
+                className="md:w-2/5 h-48 sm:h-64 md:h-auto relative overflow-hidden bg-linear-to-br from-gray-100 to-gray-200"
               >
                 <motion.img
-                  src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                  src="https://images.pexels.com/photos/31311077/pexels-photo-31311077.jpeg"
                   alt="Promo Offer"
                   className="w-full h-full object-cover"
                   initial={{ scale: 1.1 }}
