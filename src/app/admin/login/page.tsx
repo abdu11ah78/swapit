@@ -249,7 +249,7 @@ export default function AdminLoginPage() {
                   whileTap={{ scale: 0.95 }}
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition"
+                  className="absolute cursor-pointer right-3 top-3.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </motion.button>
@@ -283,7 +283,7 @@ export default function AdminLoginPage() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
 
-                className="w-full mt-2 py-3 px-4 bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg"
+                className="w-full cursor-pointer mt-2 py-3 px-4 bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-lg"
               >
                 {isLoading ? (
                   <>

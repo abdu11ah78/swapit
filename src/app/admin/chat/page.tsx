@@ -159,7 +159,7 @@ export default function ChatPage() {
                       transition={{ delay: 0.2 + idx * 0.05 }}
                       onClick={() => setSelectedChatId(conv.id)}
                       whileHover={{ x: 4 }}
-                      className={`w-full p-3 rounded-lg text-left transition-all ${
+                      className={`w-full p-3 cursor-pointer rounded-lg text-left transition-all ${
                         selectedChatId === conv.id
                           ? "bg-blue-600 dark:bg-blue-500 text-white"
                           : "bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white"
@@ -220,14 +220,14 @@ export default function ChatPage() {
                         <motion.button
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
+                          className="p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
                         >
                           <Phone className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                         </motion.button>
                         <motion.button
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
+                          className="p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
                         >
                           <MoreVertical className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                         </motion.button>
@@ -272,7 +272,7 @@ export default function ChatPage() {
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
+                        className="p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
                       >
                         <Paperclip className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                       </motion.button>
@@ -287,7 +287,7 @@ export default function ChatPage() {
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
+                        className="p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
                       >
                         <Smile className="w-5 h-5 text-gray-600 dark:text-gray-400" />
                       </motion.button>
@@ -296,7 +296,7 @@ export default function ChatPage() {
                         whileTap={{ scale: 0.95 }}
                         onClick={handleSendMessage}
                         disabled={!messageInput.trim()}
-                        className="p-2 bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="p-2 cursor-pointer bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         <Send className="w-5 h-5" />
                       </motion.button>

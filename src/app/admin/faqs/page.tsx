@@ -153,7 +153,7 @@ export default function FAQsPage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsAddingFaq(true)}
-              className="px-6 py-2 bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg font-medium flex items-center gap-2 transition"
+              className="px-6 py-2 cursor-pointer bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg font-medium flex items-center gap-2 transition"
             >
               <Plus className="w-5 h-5" />
               Add FAQ
@@ -200,7 +200,7 @@ export default function FAQsPage() {
                       setFormData({ question: "", answer: "", category: "Products" })
                       setErrors({})
                     }}
-                    className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                    className="text-gray-600 cursor-pointer dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                   >
                     ✕
                   </motion.button>
@@ -266,7 +266,7 @@ export default function FAQsPage() {
                         setFormData({ question: "", answer: "", category: "Products" })
                         setErrors({})
                       }}
-                      className="flex-1 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition flex items-center justify-center gap-2"
+                      className="flex-1 px-4 py-2  cursor-pointer border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition flex items-center justify-center gap-2"
                     >
                       <X className="w-4 h-4" />
                       Cancel
@@ -275,7 +275,7 @@ export default function FAQsPage() {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={handleAddFaq}
-                      className="flex-1 px-4 py-2 bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg font-medium flex items-center justify-center gap-2 transition"
+                      className="flex-1 px-4 py-2 cursor-pointer bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg font-medium flex items-center justify-center gap-2 transition"
                     >
                       <Save className="w-4 h-4" />
                       Add
@@ -312,7 +312,7 @@ export default function FAQsPage() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-lg font-medium transition ${
+                className={`px-4 py-2 cursor-pointer rounded-lg font-medium transition ${
                   selectedCategory === category
                     ? "bg-blue-600 dark:bg-blue-500 text-white"
                     : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
@@ -346,7 +346,7 @@ export default function FAQsPage() {
                       onClick={() => setExpanded(expanded === faq.id ? null : faq.id)}
                       onHoverStart={() => setExpanded(faq.id)}
                       onHoverEnd={() => (expanded === faq.id ? setExpanded(faq.id) : setExpanded(null))}
-                      className="w-full"
+                      className="w-full cursor-pointer"
                     >
                       <CardContent className="pt-6">
                         <div className="flex items-start justify-between gap-4">
@@ -382,7 +382,7 @@ export default function FAQsPage() {
                               <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="flex-1 px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded text-sm font-medium hover:bg-blue-100 dark:hover:bg-blue-900/40 transition flex items-center justify-center gap-1"
+                                className="flex-1 cursor-pointer px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded text-sm font-medium hover:bg-blue-100 dark:hover:bg-blue-900/40 transition flex items-center justify-center gap-1"
                               >
                                 <Edit2 className="w-4 h-4" />
                                 Edit
@@ -391,7 +391,7 @@ export default function FAQsPage() {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => handleDeleteFaq(faq.id)}
-                                className="flex-1 px-3 py-1 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center justify-center gap-1"
+                                className="flex-1 cursor-pointer px-3 py-1 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center justify-center gap-1"
                               >
                                 <Trash2 className="w-4 h-4" />
                                 Delete

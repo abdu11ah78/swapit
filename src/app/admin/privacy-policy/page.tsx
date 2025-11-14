@@ -229,7 +229,7 @@ export default function PrivacyPolicyPage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setPreviewMode(!previewMode)}
-                    className="flex-1 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition flex items-center justify-center gap-2"
+                    className="flex-1 cursor-pointer px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition flex items-center justify-center gap-2"
                   >
                     <Eye className="w-4 h-4" />
                     Preview
@@ -238,7 +238,7 @@ export default function PrivacyPolicyPage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleDownloadPolicy}
-                    className="flex-1 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition flex items-center justify-center gap-2"
+                    className="flex-1 cursor-pointer px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition flex items-center justify-center gap-2"
                   >
                     <Download className="w-4 h-4" />
                     Download
@@ -248,7 +248,7 @@ export default function PrivacyPolicyPage() {
                     whileTap={{ scale: 0.98 }}
                     onClick={handleReset}
                     disabled={!hasChanges}
-                    className="flex-1 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="flex-1 cursor-pointer px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     <X className="w-4 h-4" />
                     Reset
@@ -322,7 +322,7 @@ export default function PrivacyPolicyPage() {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setShowVersions(!showVersions)}
-                  className="w-full px-4 py-2 bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/40 transition font-medium text-sm flex items-center justify-center gap-2"
+                  className="w-full cursor-pointer px-4 py-2 bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/40 transition font-medium text-sm flex items-center justify-center gap-2"
                 >
                   <Clock className="w-4 h-4" />
                   View Versions
@@ -330,7 +330,7 @@ export default function PrivacyPolicyPage() {
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/40 transition font-medium text-sm flex items-center justify-center gap-2"
+                  className="w-full cursor-pointer px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-600 dark:text-green-400 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/40 transition font-medium text-sm flex items-center justify-center gap-2"
                 >
                   <Share2 className="w-4 h-4" />
                   Share Policy
@@ -377,7 +377,7 @@ export default function PrivacyPolicyPage() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => handleRestoreVersion(version)}
-                            className="w-full px-2 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded text-xs font-medium hover:bg-blue-100 dark:hover:bg-blue-900/40 transition mt-2"
+                            className="w-full cursor-pointer px-2 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded text-xs font-medium hover:bg-blue-100 dark:hover:bg-blue-900/40 transition mt-2"
                           >
                             Restore
                           </motion.button>
@@ -411,7 +411,7 @@ export default function PrivacyPolicyPage() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setPreviewMode(false)}
-                  className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                  className="text-gray-600 cursor-pointer dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >
                   ✕
                 </motion.button>

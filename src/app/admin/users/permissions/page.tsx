@@ -320,7 +320,7 @@ export default function PermissionsPage() {
             transition={{ delay: 0.3 }}
             whileHover={hasChanges ? { scale: 1.05, x: -5 } : {}}
             whileTap={hasChanges ? { scale: 0.95 } : {}}
-            className="px-8 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-8 py-3 cursor-pointer border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             <motion.div animate={hasChanges ? { rotate: [0, 360] } : { rotate: 0 }} transition={{ duration: 0.5, repeat: hasChanges ? Infinity : 0, repeatDelay: 2 }}>
               <RotateCcw className="w-4 h-4" />

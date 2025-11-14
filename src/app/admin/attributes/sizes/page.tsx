@@ -18,7 +18,7 @@ export default function SizesPage() {
         className="flex justify-between items-center"
       >
         <h1 className="text-3xl font-bold text-foreground">Sizes</h1>
-        <Button className="flex items-center gap-2">
+        <Button className="flex items-center gap-2 cursor-pointer">
           <Plus className="w-4 h-4" />
           Add Size
         </Button>
@@ -41,7 +41,7 @@ export default function SizesPage() {
                 <p className="text-center text-muted-foreground text-sm mb-4">Used in {size.count} products</p>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
-                  className="w-full p-2 bg-destructive/10 hover:bg-destructive/20 text-destructive rounded-lg transition-colors flex items-center justify-center gap-2"
+                  className="w-full p-2 cursor-pointer bg-destructive/10 hover:bg-destructive/20 text-destructive rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   <Trash2 className="w-4 h-4" />
                 </motion.button>

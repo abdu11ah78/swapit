@@ -10,7 +10,7 @@ export function ThemeToggle() {
   return (
     <motion.button
       onClick={toggleTheme}
-      className="p-2 rounded-lg bg-card hover:bg-secondary text-foreground transition-colors"
+      className="p-2 rounded-lg cursor-pointer bg-card hover:bg-secondary text-foreground transition-colors"
       whileTap={{ scale: 0.95 }}
       title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
     >

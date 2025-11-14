@@ -99,7 +99,7 @@ export default function ProductListPage() {
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
-                          className="p-2 hover:bg-secondary rounded-lg transition-colors"
+                          className="p-2 cursor-pointer hover:bg-secondary rounded-lg transition-colors"
                         >
                           <Eye className="w-4 h-4" />
                         </motion.button>
@@ -120,7 +120,7 @@ export default function ProductListPage() {
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                           onClick={() => handleDelete(product.id)}
-                          className="p-2 hover:bg-destructive/20 text-destructive rounded-lg transition-colors"
+                          className="p-2 cursor-pointer hover:bg-destructive/20 text-destructive rounded-lg transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />
                         </motion.button>

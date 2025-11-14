@@ -83,7 +83,7 @@ export function Navbar({ onMenuClick, user = adminData }: NavbarProps) {
         <div className="flex items-center gap-4">
           <motion.button
             onClick={onMenuClick}
-            className="lg:hidden p-2 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors duration-150"
+            className="lg:hidden p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors duration-150"
             whileTap={{ scale: 0.95 }}
           >
             <Menu size={20} className="text-gray-700 dark:text-gray-300" />
@@ -111,7 +111,7 @@ export function Navbar({ onMenuClick, user = adminData }: NavbarProps) {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors duration-150 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+            className="p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors duration-150 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
             aria-label="Toggle theme"
           >
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
@@ -121,7 +121,7 @@ export function Navbar({ onMenuClick, user = adminData }: NavbarProps) {
           <div className="relative group">
             <motion.button
               onClick={() => setHasNotifications(false)} 
-              className="relative p-2 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors duration-150 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+              className="relative p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors duration-150 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
               whileTap={{ scale: 0.95 }}
             >
               <Bell size={20} />
@@ -170,7 +170,7 @@ export function Navbar({ onMenuClick, user = adminData }: NavbarProps) {
           >
             <motion.button
               // Removed onClick
-              className="flex items-center gap-3 p-1.5 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors duration-150"
+              className="flex items-center cursor-pointer gap-3 p-1.5 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors duration-150"
               whileTap={{ scale: 0.95 }}
             >
               <div className="hidden sm:flex flex-col items-end">

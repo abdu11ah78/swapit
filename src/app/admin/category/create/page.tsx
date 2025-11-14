@@ -180,7 +180,7 @@ export default function CreateCategoryPage() {
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => handleFieldChange("color", color.hex)}
-                      className={`w-10 h-10 rounded-lg transition-all border-2 ${
+                      className={`w-10 h-10 cursor-pointer rounded-lg transition-all border-2 ${
                         formData.color === color.hex
                           ? "border-gray-900 dark:border-white ring-2 ring-offset-2 ring-blue-500"
                           : "border-gray-300 dark:border-gray-600"
@@ -227,7 +227,7 @@ export default function CreateCategoryPage() {
                 whileTap={{ scale: 0.98 }}
                 onClick={handleReset}
                 disabled={!hasChanges}
-                className="flex-1 px-4 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                className="flex-1 px-4 py-3 cursor-pointer border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               >
                 <X className="w-4 h-4" />
                 Reset

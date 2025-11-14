@@ -117,7 +117,7 @@ export default function CalendarPage() {
                   onClick={() => navigateMonth(-1)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                  className="p-2 rounded-full cursor-pointer text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </motion.button>
@@ -133,7 +133,7 @@ export default function CalendarPage() {
                   onClick={() => navigateMonth(1)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="p-2 rounded-full text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                  className="p-2 rounded-full cursor-pointer text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
                 >
                   <ChevronRight className="w-6 h-6" />
                 </motion.button>

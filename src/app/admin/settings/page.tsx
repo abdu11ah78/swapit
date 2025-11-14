@@ -317,7 +317,7 @@ export default function SettingsPage() {
             whileTap={{ scale: 0.98 }}
             onClick={handleReset}
             disabled={!hasChanges}
-            className="px-8 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            className="px-8 py-3 cursor-pointer border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
           >
             <RotateCcw className="w-4 h-4" />
             Reset

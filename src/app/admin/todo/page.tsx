@@ -154,7 +154,7 @@ export default function TodoPage() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handleAddTodo}
-                    className="px-4 py-2 bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg font-medium flex items-center gap-2 transition"
+                    className="px-4 py-2 cursor-pointer bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg font-medium flex items-center gap-2 transition"
                   >
                     <Plus className="w-5 h-5" />
                     <span className="hidden sm:inline">Add Task</span>
@@ -207,7 +207,7 @@ export default function TodoPage() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setFilterStatus(status)}
-                      className={`px-4 py-2 rounded-lg font-medium transition ${
+                      className={`px-4 py-2 cursor-pointer rounded-lg font-medium transition ${
                         filterStatus === status
                           ? "bg-blue-600 dark:bg-blue-500 text-white"
                           : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
@@ -252,7 +252,7 @@ export default function TodoPage() {
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => toggleTodo(todo.id)}
-                          className="shrink-0 transition"
+                          className="shrink-0 cursor-pointer transition"
                         >
                           {todo.completed ? (
                             <CheckCircle2 className="w-6 h-6 text-green-500" />
@@ -282,7 +282,7 @@ export default function TodoPage() {
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.95 }}
                           onClick={() => handleDeleteTodo(todo.id)}
-                          className="shrink-0 opacity-0 group-hover:opacity-100 p-1.5 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 rounded transition-all"
+                          className="shrink-0 cursor-pointer opacity-0 group-hover:opacity-100 p-1.5 hover:bg-red-100 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 rounded transition-all"
                         >
                           <Trash2 className="w-4 h-4" />
                         </motion.button>

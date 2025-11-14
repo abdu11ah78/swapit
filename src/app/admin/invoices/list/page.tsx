@@ -47,10 +47,10 @@ export default function InvoicesListPage() {
                     <TableCell>{formatDate(invoice.date)}</TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <motion.button whileHover={{ scale: 1.1 }} className="p-2 hover:bg-secondary rounded-lg">
+                        <motion.button whileHover={{ scale: 1.1 }} className="p-2 cursor-pointer hover:bg-secondary rounded-lg">
                           <Eye className="w-4 h-4" />
                         </motion.button>
-                        <motion.button whileHover={{ scale: 1.1 }} className="p-2 hover:bg-secondary rounded-lg">
+                        <motion.button whileHover={{ scale: 1.1 }} className="p-2 cursor-pointer hover:bg-secondary rounded-lg">
                           <Download className="w-4 h-4" />
                         </motion.button>
                       </div>

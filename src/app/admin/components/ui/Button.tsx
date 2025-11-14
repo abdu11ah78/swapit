@@ -9,7 +9,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export function Button({ children, variant = "primary", size = "md", className, ...props }: ButtonProps) {
-  const baseStyles = "font-medium rounded-lg transition-all active:scale-95 disabled:opacity-50"
+  const baseStyles = "font-medium rounded-lg transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
 
   const variants = {
     primary: "bg-primary text-primary-foreground hover:opacity-90",

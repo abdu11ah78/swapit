@@ -67,7 +67,7 @@ export default function ProductGridPage() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     onClick={() => deleteProduct(product.id)}
-                    className="flex-1 p-2 bg-destructive/10 hover:bg-destructive/20 text-destructive rounded-lg transition-colors flex items-center justify-center gap-2"
+                    className="flex-1 cursor-pointer p-2 bg-destructive/10 hover:bg-destructive/20 text-destructive rounded-lg transition-colors flex items-center justify-center gap-2"
                   >
                     <Trash2 className="w-4 h-4" />
                   </motion.button>

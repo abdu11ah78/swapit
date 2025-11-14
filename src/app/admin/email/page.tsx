@@ -255,7 +255,7 @@ export default function EmailPage() {
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setShowPreview(true)}
                     disabled={!formData.emailContent.trim()}
-                    className="flex-1 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                    className="flex-1 cursor-pointer px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     <Eye className="w-4 h-4" />
                     Preview
@@ -265,7 +265,7 @@ export default function EmailPage() {
                     whileTap={{ scale: 0.98 }}
                     onClick={handleReset}
                     disabled={!hasChanges}
-                    className="flex-1 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex-1 cursor-pointer px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Reset
                   </motion.button>
@@ -361,7 +361,7 @@ export default function EmailPage() {
                           <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="flex-1 px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded transition text-sm font-medium hover:bg-blue-100 dark:hover:bg-blue-900/40 flex items-center justify-center gap-1"
+                            className="flex-1 cursor-pointer px-3 py-1 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded transition text-sm font-medium hover:bg-blue-100 dark:hover:bg-blue-900/40 flex items-center justify-center gap-1"
                           >
                             <Eye className="w-4 h-4" />
                             View
@@ -369,7 +369,7 @@ export default function EmailPage() {
                           <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="flex-1 px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded transition text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center gap-1"
+                            className="flex-1 cursor-pointer px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded transition text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 flex items-center justify-center gap-1"
                           >
                             <Edit2 className="w-4 h-4" />
                             Edit
@@ -378,7 +378,7 @@ export default function EmailPage() {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => handleDeleteCampaign(campaign.id)}
-                            className="flex-1 px-3 py-1 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded transition text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/40 flex items-center justify-center gap-1"
+                            className="flex-1 cursor-pointer px-3 py-1 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded transition text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/40 flex items-center justify-center gap-1"
                           >
                             <Trash2 className="w-4 h-4" />
                             Delete
@@ -413,7 +413,7 @@ export default function EmailPage() {
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                   onClick={() => setShowPreview(false)}
-                  className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                  className="text-gray-600 cursor-pointer dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                 >
                   ✕
                 </motion.button>

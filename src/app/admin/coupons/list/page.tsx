@@ -44,13 +44,13 @@ export default function CouponsListPage() {
                   <div className="flex gap-2">
                     <motion.button
                       whileHover={{ scale: 1.1 }}
-                      className="p-2 hover:bg-secondary rounded-lg transition-colors"
+                      className="p-2 cursor-pointer hover:bg-secondary rounded-lg transition-colors"
                     >
                       <Copy className="w-4 h-4" />
                     </motion.button>
                     <motion.button
                       whileHover={{ scale: 1.1 }}
-                      className="p-2 hover:bg-destructive/20 text-destructive rounded-lg transition-colors"
+                      className="p-2 cursor-pointer hover:bg-destructive/20 text-destructive rounded-lg transition-colors"
                     >
                       <Trash2 className="w-4 h-4" />
                     </motion.button>

@@ -17,7 +17,7 @@ export default function ColorsPage() {
         className="flex justify-between items-center"
       >
         <h1 className="text-3xl font-bold text-foreground">Colors</h1>
-        <Button className="flex items-center gap-2">
+        <Button className="flex items-center gap-2 cursor-pointer">
           <Plus className="w-4 h-4" />
           Add Color
         </Button>
@@ -38,7 +38,7 @@ export default function ColorsPage() {
                 <p className="text-xs text-muted-foreground mt-2">{color.count} products</p>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
-                  className="w-full mt-4 p-2 bg-destructive/10 hover:bg-destructive/20 text-destructive rounded-lg transition-colors flex items-center justify-center gap-2"
+                  className="w-full mt-4 p-2 bg-destructive/10 cursor-pointer hover:bg-destructive/20 text-destructive rounded-lg transition-colors flex items-center justify-center gap-2"
                 >
                   <Trash2 className="w-4 h-4" />
                 </motion.button>

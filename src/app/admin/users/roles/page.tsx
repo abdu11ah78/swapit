@@ -109,7 +109,7 @@ export default function RolesPage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleAddRole}
-              className="px-6 py-3 bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg font-medium flex items-center gap-2 transition"
+              className="px-6 py-3 cursor-pointer bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg font-medium flex items-center gap-2 transition"
             >
               <Plus className="w-5 h-5" />
               Add Role
@@ -200,7 +200,7 @@ export default function RolesPage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleCancel}
-                    className="flex-1 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition flex items-center justify-center gap-2"
+                    className="flex-1 px-4 cursor-pointer py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition flex items-center justify-center gap-2"
                   >
                     <X className="w-4 h-4" />
                     Cancel
@@ -248,7 +248,7 @@ export default function RolesPage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setDeleteConfirm(null)}
-                    className="flex-1 px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+                    className="flex-1 cursor-pointer px-4 py-2 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition"
                   >
                     Cancel
                   </motion.button>
@@ -256,7 +256,7 @@ export default function RolesPage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleDeleteRole(deleteConfirm)}
-                    className="flex-1 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition"
+                    className="flex-1 cursor-pointer px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition"
                   >
                     Delete
                   </motion.button>
@@ -309,7 +309,7 @@ export default function RolesPage() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => handleEditRole(role)}
-                      className="flex-1 p-2 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded-lg transition flex items-center justify-center gap-2 border border-blue-200 dark:border-blue-800"
+                      className="flex-1 cursor-pointer p-2 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded-lg transition flex items-center justify-center gap-2 border border-blue-200 dark:border-blue-800"
                     >
                       <Edit2 className="w-4 h-4" />
                       <span className="text-sm font-medium">Edit</span>
@@ -318,7 +318,7 @@ export default function RolesPage() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setDeleteConfirm(role.id)}
-                      className="flex-1 p-2 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-600 dark:text-red-400 rounded-lg transition flex items-center justify-center gap-2 border border-red-200 dark:border-red-800"
+                      className="flex-1  cursor-pointerp-2 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-600 dark:text-red-400 rounded-lg transition flex items-center justify-center gap-2 border border-red-200 dark:border-red-800"
                     >
                       <Trash2 className="w-4 h-4" />
                       <span className="text-sm font-medium">Delete</span>
@@ -343,7 +343,7 @@ export default function RolesPage() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleAddRole}
-              className="px-6 py-2 bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg font-medium flex items-center gap-2 mx-auto transition"
+              className="px-6 cursor-pointer py-2 bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg font-medium flex items-center gap-2 mx-auto transition"
             >
               <Plus className="w-4 h-4" />
               Create First Role

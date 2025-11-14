@@ -40,13 +40,13 @@ export default function AllReviewsPage() {
                 <div className="flex gap-2">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
-                    className="p-2 bg-green-500/10 hover:bg-green-500/20 text-green-500 rounded-lg transition-colors"
+                    className="p-2 cursor-pointer bg-green-500/10 hover:bg-green-500/20 text-green-500 rounded-lg transition-colors"
                   >
                     <ThumbsUp className="w-4 h-4" />
                   </motion.button>
                   <motion.button
                     whileHover={{ scale: 1.05 }}
-                    className="p-2 bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-lg transition-colors"
+                    className="p-2 cursor-pointer bg-red-500/10 hover:bg-red-500/20 text-red-500 rounded-lg transition-colors"
                   >
                     <ThumbsDown className="w-4 h-4" />
                   </motion.button>

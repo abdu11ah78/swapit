@@ -20,7 +20,8 @@ import {
   Lock, 
   ChevronDown,
   X,
-  Store, // Assuming 'Store' icon is a good placeholder for a logo
+  Store,
+  Blocks // Assuming 'Store' icon is a good placeholder for a logo
 } from "lucide-react"
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
@@ -224,6 +225,11 @@ const adminRoutes: RouteSection[] = [
           { label: "FAQs", icon: HelpCircle, href: "/admin/faqs" },
         ],
       },
+       {
+        label: "Widgets",
+        icon: Blocks,
+        href: "/admin/widgets",
+      },
     ],
   },
 ]
@@ -393,7 +399,7 @@ export function Sidebar({
                         {hasSubmenu ? (
                           <motion.button
                             onClick={() => toggleSubmenu(item.label)}
-                            className="flex-1 flex items-center gap-3 text-left w-full"
+                            className="flex-1 flex cursor-pointer items-center gap-3 text-left w-full"
                             whileTap={{ scale: 0.98 }}
                           >
                             <item.icon size={18} className="shrink-0" />

@@ -78,14 +78,14 @@ export default function AllOrdersPage() {
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
-                          className="p-2 hover:bg-secondary rounded-lg transition-colors"
+                          className="p-2 cursor-pointer hover:bg-secondary rounded-lg transition-colors"
                         >
                           <Eye className="w-4 h-4" />
                         </motion.button>
                         <motion.button
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
-                          className="p-2 hover:bg-secondary rounded-lg transition-colors"
+                          className="p-2 cursor-pointer hover:bg-secondary rounded-lg transition-colors"
                         >
                           <Download className="w-4 h-4" />
                         </motion.button>
