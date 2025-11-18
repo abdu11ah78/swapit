@@ -465,7 +465,7 @@ export function FeaturedCategories({ categories = defaultCategories }: Props) {
           className="mt-20 text-center"
         >
           <Link
-            href="/categories"
+            href="/shop"
             className="inline-flex items-center gap-2 px-8 py-3 bg-gray-900 hover:bg-gray-800 text-white font-semibold rounded-lg transition-colors group"
           >
             View All Categories

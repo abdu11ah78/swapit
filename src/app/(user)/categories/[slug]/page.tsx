@@ -18,7 +18,8 @@ export default async function CategoryPage({ params }: Props) {
 
   return (
     <div>
+      <section id="CategoryPage">
       <theme.Shop.CategoryPage slug={slug} />
-    </div>
+    </section></div>
   )
 }
