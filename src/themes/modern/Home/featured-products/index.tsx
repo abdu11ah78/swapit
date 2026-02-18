@@ -4,216 +4,142 @@ import Image from "next/image"
 import Link from "next/link"
 import React, { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ShoppingCart, Heart } from "lucide-react"
+import { Coins, Heart, Repeat, ShieldCheck, Zap, ArrowRight } from "lucide-react"
 import { useAppContext } from "@/context/AppContext"
 
-export type ProductImage = {
+export type ItemImage = {
   url: string
   alt?: string
 }
 
-export type Product = {
+export type Item = {
   id: string
   name: string
-  price: string
+  price: string // LT Coins
   href: string
-  images: ProductImage[]
+  images: ItemImage[]
   rating?: number
   description?: string
+  aiValue?: string
+  isSwapAvailable?: boolean
+  trustScore?: number
 }
 
 type Props = {
-  products?: Product[]
+  items?: Item[]
 }
 
-const demoProducts: Product[] = [
+const demoItems: Item[] = [
   {
     id: "1",
-    name: "Classic T-Shirt",
-    price: "$25.00",
-    href: "/products/1",
-    rating: 4.5,
-    description: "A timeless essential, crafted from soft, breathable cotton.",
+    name: "MacBook Pro M1 (Used)",
+    price: "4500 LTC",
+    href: "/items/1",
+    rating: 4.9,
+    description: "Mint condition, 16GB RAM, 512GB SSD. Looking for a high-end camera swap or LTC.",
+    aiValue: "4200 LTC",
+    isSwapAvailable: true,
+    trustScore: 98,
     images: [
       {
-        url: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=500&q=60",
-        alt: "Front view",
-      },
-      {
-        url: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=500&q=60",
-        alt: "Side view",
+        url: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=500&q=60",
+        alt: "MacBook Pro",
       },
     ],
   },
   {
     id: "2",
-    name: "Wireless Headphones",
-    price: "$120.00",
-    href: "/products/2",
+    name: "Canon EOS R5",
+    price: "8500 LTC",
+    href: "/items/2",
     rating: 4.8,
-    description: "Crystal-clear audio with noise-cancelling technology.",
+    description: "Professional mirrorless camera. Barely used. AI Fairness: 95%",
+    aiValue: "8700 LTC",
+    isSwapAvailable: true,
+    trustScore: 100,
     images: [
       {
-        url: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=60",
-        alt: "Device front",
-      },
-      {
-        url: "https://images.unsplash.com/photo-1484704849700-f032a568e944?auto=format&fit=crop&w=500&q=60",
-        alt: "Device angle",
+        url: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=500&q=60",
+        alt: "Canon Camera",
       },
     ],
   },
   {
     id: "3",
-    name: "Freshly Baked Bread",
-    price: "$4.50",
-    href: "/products/3",
-    rating: 4.3,
-    description: "Artisan bread with natural ingredients for perfect crust.",
+    name: "Vintage Vinyl Collection",
+    price: "1200 LTC",
+    href: "/items/3",
+    rating: 4.5,
+    description: "30+ classic rock vinyls. All in good condition.",
+    aiValue: "1150 LTC",
+    isSwapAvailable: true,
+    trustScore: 85,
     images: [
       {
-        url: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=500&q=60",
-        alt: "Product view",
-      },
-      {
-        url: "https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=500&q=60",
-        alt: "Product detail",
+        url: "https://images.unsplash.com/photo-1603048588665-791ca8aea617?auto=format&fit=crop&w=500&q=60",
+        alt: "Vinyl Records",
       },
     ],
   },
   {
     id: "4",
-    name: "Luxury Face Cream",
-    price: "$45.00",
-    href: "/products/4",
-    rating: 4.9,
-    description: "Rich hydrating cream with anti-aging botanicals.",
+    name: "Gaming Chair (Ergonomic)",
+    price: "900 LTC",
+    href: "/items/4",
+    rating: 4.2,
+    description: "High back support, adjustable armrests. A few minor scratches.",
+    aiValue: "850 LTC",
+    isSwapAvailable: true,
+    trustScore: 92,
     images: [
       {
-        url: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?auto=format&fit=crop&w=500&q=60",
-        alt: "Product view",
-      },
-      {
-        url: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=500&q=60",
-        alt: "Product detail",
-      },
-    ],
-  },
-  {
-    id: "5",
-    name: "Casual Sneakers",
-    price: "$85.00",
-    href: "/products/5",
-    rating: 4.6,
-    description: "Comfortable and stylish for your daily adventures.",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=500&q=60",
-        alt: "Front view",
-      },
-      {
-        url: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=500&q=60",
-        alt: "Side view",
-      },
-    ],
-  },
-  {
-    id: "6",
-    name: "Premium Watch",
-    price: "$199.00",
-    href: "/products/6",
-    rating: 4.7,
-    description: "Sophisticated timepiece with precision engineering.",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=500&q=60",
-        alt: "Watch front",
-      },
-      {
-        url: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=500&q=60",
-        alt: "Watch angle",
-      },
-    ],
-  },
-  {
-    id: "7",
-    name: "Sunglasses",
-    price: "$65.00",
-    href: "/products/7",
-    rating: 4.4,
-    description: "Stylish and protective for any sunny day.",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?auto=format&fit=crop&w=500&q=60",
-        alt: "Product view",
-      },
-      {
-        url: "https://images.unsplash.com/photo-1509695307050-d4066910ec1e?auto=format&fit=crop&w=500&q=60",
-        alt: "Product detail",
-      },
-    ],
-  },
-  {
-    id: "8",
-    name: "Leather Wallet",
-    price: "$35.00",
-    href: "/products/8",
-    rating: 4.5,
-    description: "Sleek and durable with ample space for cards and cash.",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=500&q=60",
-        alt: "Product view",
-      },
-      {
-        url: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?auto=format&fit=crop&w=500&q=60",
-        alt: "Product detail",
+        url: "https://images.unsplash.com/photo-1598550476439-6847785fce6e?auto=format&fit=crop&w=500&q=60",
+        alt: "Gaming Chair",
       },
     ],
   },
 ]
 
-interface ProductCardProps {
-  product: Product
+interface ItemCardProps {
+  item: Item
   isHovered: boolean
-  setHoveredProduct: (id: string | null) => void
+  setHoveredItem: (id: string | null) => void
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({
-  product,
+const ItemCard: React.FC<ItemCardProps> = ({
+  item,
   isHovered,
-  setHoveredProduct,
+  setHoveredItem,
 }) => {
-  const { cart, wishlist, addToCart, addToWishlist, removeFromWishlist } = useAppContext()
+  const { wallet, wishlist, addToWallet, addToWishlist, removeFromWishlist } = useAppContext()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [direction, setDirection] = useState<"left" | "right">("left")
-  const imageCount = product.images.length
+  const imageCount = item.images.length
 
-  const isInWishlist = wishlist.some((item) => item.id === product.id)
-  const isInCart = cart.some((item) => item.id === product.id)
+  const isInWishlist = wishlist.some((w) => w.id === item.id)
+  const isInWallet = wallet.some((w) => w.id === item.id)
 
-  // Convert price string to number
-  const priceNumber = parseFloat(product.price.replace('$', ''))
-  
-  const cartItem = {
-    id: product.id,
-    name: product.name,
+  const priceNumber = parseFloat(item.price.replace(' LTC', ''))
+
+  const walletItem = {
+    id: item.id,
+    name: item.name,
     price: priceNumber,
-    imageUrl: product.images[0]?.url || '',
+    imageUrl: item.images[0]?.url || '',
     quantity: 1
   }
 
   const handleWishlistToggle = () => {
     if (isInWishlist) {
-      removeFromWishlist(product.id)
+      removeFromWishlist(item.id)
     } else {
-      addToWishlist(cartItem)
+      addToWishlist(walletItem)
     }
   }
 
-  const handleAddToCart = () => {
-    if (!isInCart) {
-      addToCart(cartItem)
+  const handleAddToWallet = () => {
+    if (!isInWallet) {
+      addToWallet(walletItem)
     }
   }
 
@@ -247,15 +173,40 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
   return (
     <motion.div
-      onMouseEnter={() => setHoveredProduct(product.id)}
-      onMouseLeave={() => setHoveredProduct(null)}
-      className="group relative w-full h-96 rounded-xl overflow-hidden bg-white border border-gray-200 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer"
+      onMouseEnter={() => setHoveredItem(item.id)}
+      onMouseLeave={() => setHoveredItem(null)}
+      className="group relative w-full h-[420px] rounded-2xl overflow-hidden bg-slate-900 border border-slate-800 shadow-2xl hover:shadow-indigo-500/10 transition-all duration-500 cursor-pointer"
     >
+      {/* AI Estimated Value Badge */}
+      <div className="absolute top-4 left-4 z-20 flex flex-col gap-2">
+        {item.aiValue && (
+          <motion.div
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            className="bg-indigo-600/90 backdrop-blur-md text-white text-[10px] font-black px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg border border-indigo-400/30 uppercase tracking-widest"
+          >
+            <Zap className="w-3 h-3 text-yellow-400" />
+            AI Value: {item.aiValue}
+          </motion.div>
+        )}
+        {item.isSwapAvailable && (
+          <motion.div
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            className="bg-emerald-600/90 backdrop-blur-md text-white text-[10px] font-black px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg border border-emerald-400/30 uppercase tracking-widest"
+          >
+            <Repeat className="w-3 h-3" />
+            Swap Ready
+          </motion.div>
+        )}
+      </div>
+
       {/* Image Container */}
       <div className="relative w-full h-full">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
-            key={`${product.id}-${currentImageIndex}`}
+            key={`${item.id}-${currentImageIndex}`}
             custom={direction}
             variants={slideVariants}
             initial="enter"
@@ -268,8 +219,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
             className="absolute inset-0"
           >
             <Image
-              src={product.images[currentImageIndex].url}
-              alt={product.images[currentImageIndex].alt || product.name}
+              src={item.images[currentImageIndex].url}
+              alt={item.images[currentImageIndex].alt || item.name}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
               className="object-cover"
@@ -277,24 +228,23 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </motion.div>
         </AnimatePresence>
 
-        {/* Dark Overlay that expands on hover */}
+        {/* Dark Overlay */}
         <motion.div
-          className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"
+          className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"
           animate={{
-            opacity: isHovered ? 0.8 : 0.3,
+            opacity: isHovered ? 0.9 : 0.5,
           }}
           transition={{ duration: 0.4 }}
         />
 
         {/* Wishlist Button */}
         <motion.button
-          className={`absolute top-3 right-3 p-2.5 cursor-pointer bg-white rounded-full shadow-md hover:bg-gray-100 transition-colors z-20 ${
-            isInWishlist ? 'bg-red-50' : ''
-          }`}
+          className={`absolute top-4 right-4 p-2.5 cursor-pointer rounded-full shadow-lg transition-all z-20 ${isInWishlist ? 'bg-indigo-600 text-white' : 'bg-slate-800/80 text-slate-300 backdrop-blur-md border border-slate-700 hover:bg-slate-700'
+            }`}
           initial={{ scale: 0, opacity: 0 }}
           animate={{ scale: isHovered ? 1 : 0.7, opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 0.3 }}
-          whileHover={{ scale: 1.15 }}
+          whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={(e) => {
             e.preventDefault()
@@ -302,173 +252,116 @@ const ProductCard: React.FC<ProductCardProps> = ({
             handleWishlistToggle()
           }}
         >
-          <Heart className={`w-5 h-5 ${isInWishlist ? 'text-red-500 fill-red-500' : 'text-black fill-black'}`} />
+          <Heart className={`w-5 h-5 ${isInWishlist ? 'fill-current' : ''}`} />
         </motion.button>
 
-        {/* Image Counter */}
-        {imageCount > 1 && (
+        {/* Content Panel */}
+        <div className="absolute inset-0 flex flex-col justify-end p-6">
           <motion.div
-            className="absolute bottom-16 left-1/2 -translate-x-1/2 flex gap-1.5 z-10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHovered ? 1 : 0.6 }}
-            transition={{ duration: 0.3 }}
+            initial={{ y: 20, opacity: 0 }}
+            animate={{ y: isHovered ? 0 : 10, opacity: 1 }}
+            transition={{ duration: 0.4 }}
           >
-            {product.images.map((_, idx) => (
-              <motion.button
-                key={idx}
-                onClick={(e) => {
-                  e.preventDefault()
-                  e.stopPropagation()
-                  if (idx > currentImageIndex) setDirection("left")
-                  else if (idx < currentImageIndex) setDirection("right")
-                  setCurrentImageIndex(idx)
-                }}
-                className={`h-1.5 rounded-full transition-all cursor-pointer  ${
-                  idx === currentImageIndex
-                    ? "w-6 bg-white"
-                    : "w-1.5 bg-white/50 hover:bg-white/70"
-                }`}
-              />
-            ))}
-          </motion.div>
-        )}
-
-        {/* Content Panel - Slides up on hover */}
-        <motion.div
-          className="absolute bottom-0 left-0 right-0 z-10"
-          animate={{ y: isHovered ? 0 : "100%" }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
-        >
-          <div className="relative w-full bg-gradient-to-t from-black via-black/80 to-transparent pt-16 px-4 pb-4">
-            {/* Title */}
-            <Link href={product.href}>
-              <h3 className="text-lg font-bold text-white mb-1 line-clamp-1 hover:underline">
-                {product.name}
-              </h3>
-            </Link>
-
-            {/* Description */}
-            {product.description && (
-              <p className="text-xs text-gray-300 mb-2 line-clamp-2">
-                {product.description}
-              </p>
-            )}
-
-            {/* Rating */}
-            {product.rating && (
-              <div className="flex items-center gap-2 mb-3">
-                <div className="flex gap-0.5">
-                  {[...Array(5)].map((_, i) => (
-                    <span
-                      key={i}
-                      className={`text-xs ${
-                        i < Math.floor(product.rating!)
-                          ? "text-yellow-400"
-                          : "text-gray-500"
-                      }`}
-                    >
-                      ★
-                    </span>
-                  ))}
-                </div>
-                <span className="text-xs text-gray-400">
-                  {product.rating}
-                </span>
+            {/* Trust Score */}
+            {item.trustScore && (
+              <div className="flex items-center gap-1.5 mb-2">
+                <ShieldCheck className="w-3 h-3 text-indigo-400" />
+                <span className="text-[10px] font-black text-indigo-400 uppercase tracking-widest">Trust Score: {item.trustScore}%</span>
               </div>
             )}
 
+            <h3 className="text-xl font-black text-white mb-2 line-clamp-1 group-hover:text-indigo-400 transition-colors">
+              {item.name}
+            </h3>
+
+            <p className="text-sm text-slate-400 mb-4 line-clamp-2 font-medium">
+              {item.description}
+            </p>
+
             {/* Footer with Price and Button */}
-            <div className="flex items-center justify-between gap-3">
-              <p className="text-xl font-bold text-white">
-                {product.price}
-              </p>
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex flex-col">
+                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Asking Value</span>
+                <p className="text-2xl font-black text-white">{item.price}</p>
+              </div>
+
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`flex-1 py-2 font-semibold rounded-lg cursor-pointer flex items-center justify-center gap-2 transition-colors text-sm ${
-                  isInCart
-                    ? 'bg-green-500 hover:bg-green-600 text-white'
-                    : 'bg-white hover:bg-gray-100 text-black'
-                }`}
+                className={`px-6 py-3 font-black rounded-xl cursor-pointer flex items-center justify-center gap-2 transition-all text-xs tracking-widest uppercase shadow-xl ${isInWallet
+                  ? 'bg-emerald-500 text-white'
+                  : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-500/20'
+                  }`}
                 onClick={(e) => {
                   e.preventDefault()
                   e.stopPropagation()
-                  handleAddToCart()
+                  handleAddToWallet()
                 }}
-                disabled={isInCart}
+                disabled={isInWallet}
               >
-                <ShoppingCart className="w-4 h-4" />
-                {isInCart ? 'Added' : 'Add'}
+                <Coins className="w-4 h-4" />
+                {isInWallet ? 'Saved' : 'Bid'}
               </motion.button>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
     </motion.div>
   )
 }
 
-export function FeaturedProducts({ products = demoProducts }: Props) {
-  const [hoveredProduct, setHoveredProduct] = useState<string | null>(null)
-  const visible = products.slice(0, 8)
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.1,
-      },
-    },
-  }
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  }
+export function FeaturedProducts({ items = demoItems }: Props) {
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null)
+  const visible = items.slice(0, 8)
 
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-slate-950 relative overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-0 left-1/4 w-px h-full bg-slate-900 hidden md:block" />
+      <div className="absolute top-0 right-1/4 w-px h-full bg-slate-900 hidden md:block" />
+
+      <div className="max-w-7xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true, margin: "-100px" }}
-          className="mb-12"
+          className="mb-16 md:flex md:items-end md:justify-between"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold text-black mb-2">
-            Featured Products
-          </h2>
-          <p className="text-gray-600 text-sm font-medium">
-            Our best sellers and most loved picks
-          </p>
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-12 h-[2px] bg-indigo-500" />
+              <span className="text-xs font-black text-indigo-500 uppercase tracking-[0.3em]">Protocol Selection</span>
+            </div>
+            <h2 className="text-5xl sm:text-6xl font-black text-white tracking-tighter">
+              FEATURED SWAPS
+            </h2>
+          </div>
+          <Link href="/shop" className="hidden md:flex items-center gap-2 text-slate-400 hover:text-white transition-colors group font-black text-xs uppercase tracking-widest">
+            Browse All Terminal
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </motion.div>
 
-        {/* Products Grid */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          {visible.map((product) => (
-            <motion.div key={product.id} variants={itemVariants}>
-              <ProductCard
-                product={product}
-                isHovered={hoveredProduct === product.id}
-                setHoveredProduct={setHoveredProduct}
-              />
-            </motion.div>
+        {/* Items Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {visible.map((item) => (
+            <ItemCard
+              key={item.id}
+              item={item}
+              isHovered={hoveredItem === item.id}
+              setHoveredItem={setHoveredItem}
+            />
           ))}
-        </motion.div>
+        </div>
+
+        <div className="mt-12 md:hidden">
+          <Link href="/shop" className="flex items-center justify-center gap-2 py-5 border border-slate-800 rounded-2xl text-slate-400 font-black text-xs uppercase tracking-widest">
+            Browse All Terminal
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </div>
     </section>
   )

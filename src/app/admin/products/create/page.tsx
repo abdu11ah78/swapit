@@ -1,378 +1,317 @@
 "use client"
 
 import type React from "react"
-
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { Card, CardHeader, CardTitle, CardContent } from "../../components/ui/Card"
-import { Button } from "../../components/ui/Button"
-import { Input } from "../../components/ui/Input"
-import { useAdmin } from "../../context/AdminContext"
+import { useState, useMemo } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import {
+  ArrowLeft, Upload, X, Plus, Sparkles, ShieldCheck,
+  MapPin, Zap, Info, Gavel, RefreshCw, Cpu
+} from "lucide-react"
 import { useRouter } from "next/navigation"
-import { ArrowLeft, Upload, X, Plus } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import toast from 'react-hot-toast'
 
-export default function CreateProductPage() {
+interface AssetCondition {
+  label: string
+  value: string
+  multiplier: number
+}
+
+const CONDITIONS: AssetCondition[] = [
+  { label: "Pristine", value: "pristine", multiplier: 1.0 },
+  { label: "Near-Mint", value: "near_mint", multiplier: 0.85 },
+  { label: "Operational", value: "operational", multiplier: 0.6 },
+  { label: "Salvage", value: "salvage", multiplier: 0.2 },
+]
+
+export default function ItemCreationTerminal() {
   const router = useRouter()
-  const { addProduct } = useAdmin()
   const [formData, setFormData] = useState({
     name: "",
-    sku: "",
     category: "",
-    price: "",
-    cost: "",
-    stock: "",
+    baseValue: "",
     description: "",
-    size: "",
-    color: "",
-    weight: "",
+    location: "Neo-Tokyo Node",
+    condition: "near_mint",
+    isBarterEnabled: true,
+    isAuctionEnabled: false,
   })
 
   const [uploadedImages, setUploadedImages] = useState<Array<{ id: string; url: string; file: File }>>([])
-  const [errors, setErrors] = useState<Record<string, string>>({})
-  const colors = [
-    { name: "Navy", hex: "#1a3a52" },
-    { name: "Pink", hex: "#ff69b4" },
-    { name: "Teal", hex: "#20b2aa" },
-    { name: "Purple", hex: "#9370db" },
-    { name: "Blue", hex: "#4169e1" },
-    { name: "Coral", hex: "#ff7f50" },
-  ]
-
-  const sizes = ["XS", "S", "M", "L", "XL", "XXL"]
+  const [isAiCalculating, setIsAiCalculating] = useState(false)
+  const [aiValuation, setAiValuation] = useState<number | null>(null)
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.currentTarget.files
     if (files) {
-      const newErrors = { ...errors }
-      delete newErrors.images
-
       Array.from(files).forEach((file, index) => {
-        // Validate file size (5MB max)
-        if (file.size > 5 * 1024 * 1024) {
-          newErrors.images = `File "${file.name}" is too large. Maximum size is 5MB.`
-          return
-        }
-
-        // Validate file type
-        if (!file.type.startsWith("image/")) {
-          newErrors.images = `File "${file.name}" is not a valid image format.`
-          return
-        }
-
         const reader = new FileReader()
         reader.onload = (event) => {
-          const id = `${Date.now()}-${index}-${Math.random()}`
-          const url = event.target?.result as string
-          setUploadedImages((prev) => [...prev, { id, url, file }])
-        }
-        reader.onerror = () => {
-          newErrors.images = `Error reading file: ${file.name}`
+          const id = `${Date.now()}-${index}`
+          setUploadedImages((prev) => [...prev, { id, url: event.target?.result as string, file }])
         }
         reader.readAsDataURL(file)
       })
-
-      setErrors(newErrors)
     }
   }
 
-  const removeImage = (id: string) => {
-    setUploadedImages((prev) => prev.filter((img) => img.id !== id))
+  const simulateAiValuation = () => {
+    if (!formData.name || !formData.category) {
+      toast.error("Enter name and category for AI audit")
+      return
+    }
+    setIsAiCalculating(true)
+    setTimeout(() => {
+      const base = parseInt(formData.baseValue) || 500
+      const multi = CONDITIONS.find(c => c.value === formData.condition)?.multiplier || 1
+      setAiValuation(base * multi * (0.9 + Math.random() * 0.2))
+      setIsAiCalculating(false)
+      toast.success("AI Valuation Protocol Complete")
+    }, 1500)
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const newErrors: Record<string, string> = {}
-
-    // Validate required fields
-    if (!formData.name.trim()) newErrors.name = "Product name is required"
-    if (!formData.sku.trim()) newErrors.sku = "SKU is required"
-    if (!formData.category) newErrors.category = "Category is required"
-    if (!formData.price) newErrors.price = "Price is required"
-    if (!formData.cost) newErrors.cost = "Cost is required"
-    if (!formData.stock) newErrors.stock = "Stock is required"
-    if (!formData.description.trim()) newErrors.description = "Description is required"
-    if (uploadedImages.length === 0) newErrors.images = "At least one image is required"
-
-    // Validate numeric fields
-    if (formData.price && Number.parseFloat(formData.price) <= 0) {
-      newErrors.price = "Price must be greater than 0"
-    }
-    if (formData.cost && Number.parseFloat(formData.cost) < 0) {
-      newErrors.cost = "Cost cannot be negative"
-    }
-    if (formData.stock && Number.parseInt(formData.stock) < 0) {
-      newErrors.stock = "Stock cannot be negative"
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors)
-      return
-    }
-
-    const newProduct = {
-      id: Date.now().toString(),
-      ...formData,
-      price: Number.parseFloat(formData.price),
-      cost: Number.parseFloat(formData.cost),
-      stock: Number.parseInt(formData.stock),
-      image: uploadedImages.length > 0 ? uploadedImages[0].url : "/placeholder.svg?key=d5kr9",
-      status: "draft" as const,
-      createdAt: new Date().toISOString().split("T")[0],
-      updatedAt: new Date().toISOString().split("T")[0],
-    }
-    addProduct(newProduct)
+    toast.success("Listing deployed to global trade grid")
     router.push("/admin/products/list")
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-24 md:pt-32 px-4 md:px-8">
-      <div className="max-w-5xl mx-auto space-y-8">
+    <div className="min-h-screen bg-slate-950 text-white pt-24 md:pt-32 px-4 md:px-8 pb-20 selection:bg-indigo-500/30">
+      {/* Background FX */}
+      <div className="fixed inset-0 pointer-events-none opacity-5">
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.1),transparent)]" />
+      </div>
+
+      <div className="max-w-6xl mx-auto space-y-12 relative z-10">
+        {/* Header */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
-          <Link href="/admin/products/list" className="flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:underline mb-4">
+          <Link href="/admin/products/list" className="flex items-center gap-2 text-slate-500 hover:text-white transition-colors mb-6 uppercase text-[10px] font-black tracking-widest">
             <ArrowLeft className="w-4 h-4" />
-            Back to Products
+            Archive Control
           </Link>
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Add Product Photo</h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-1">Create a new product and upload images</p>
+          <div className="flex items-center gap-2 mb-2">
+            <Cpu size={16} className="text-indigo-400" />
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400">Inventory Uplink</span>
+          </div>
+          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">Post New Asset</h1>
         </motion.div>
 
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
-          {/* Image Upload Section */}
-          <Card className="border-2 border-dashed">
-            <CardContent className="pt-8">
-              <div className="text-center mb-6">
-                <Upload className="w-12 h-12 text-blue-500 mx-auto mb-3" />
-                <p className="text-gray-800 dark:text-gray-200 font-medium">Drop your images here, or</p>
-                <label className="text-blue-600 dark:text-blue-400 cursor-pointer hover:text-blue-700 dark:hover:text-blue-300 font-medium">
-                  click to browse
-                  <input
-                    type="file"
-                    multiple
-                    accept="image/*"
-                    onChange={handleImageUpload}
-                    className="hidden"
-                  />
-                </label>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">jpeg, png or gif up to 5mb</p>
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Left: Metadata */}
+          <div className="lg:col-span-2 space-y-10">
+            {/* Visual Input */}
+            <div className="p-10 rounded-[3rem] bg-slate-900/50 backdrop-blur-3xl border border-slate-800">
+              <div className="flex items-center justify-between mb-8">
+                <h3 className="text-xl font-black uppercase tracking-tighter">High-Res Documentation</h3>
+                <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{uploadedImages.length}/5 Slots</span>
               </div>
 
-              {uploadedImages.length > 0 ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <AnimatePresence mode="popLayout">
                   {uploadedImages.map((img) => (
-                    <div key={img.id} className="relative group">
-                      <Image src={img.url} alt="preview" width={128} height={128} className="w-full h-32 object-cover rounded-lg" />
+                    <motion.div
+                      key={img.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="relative aspect-square rounded-[2rem] overflow-hidden border border-slate-700 bg-slate-800"
+                    >
+                      <Image src={img.url} alt="asset preview" fill className="object-cover grayscale" />
                       <button
                         type="button"
-                        onClick={() => removeImage(img.id)}
-                        className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition"
+                        onClick={() => setUploadedImages(prev => prev.filter(i => i.id !== img.id))}
+                        className="absolute top-3 right-3 p-2 bg-red-500/80 text-white rounded-full hover:bg-red-600 transition-colors"
                       >
-                        <X className="w-4 h-4" />
+                        <X size={12} />
                       </button>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+
+                {uploadedImages.length < 5 && (
+                  <label className="aspect-square rounded-[2rem] border-2 border-dashed border-slate-800 hover:border-indigo-500/50 hover:bg-indigo-500/5 transition-all cursor-pointer flex flex-col items-center justify-center gap-4 group">
+                    <div className="p-4 rounded-full bg-slate-800/50 group-hover:bg-indigo-500/20 transition-colors">
+                      <Plus className="w-6 h-6 text-slate-600 group-hover:text-indigo-400" />
                     </div>
-                  ))}
-                  <label className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg h-32 flex items-center justify-center cursor-pointer hover:border-blue-500 dark:hover:border-blue-400 transition bg-gray-50 dark:bg-gray-800">
-                    <Plus className="w-6 h-6 text-gray-400 dark:text-gray-500" />
-                    <input type="file" multiple accept="image/*" onChange={handleImageUpload} className="hidden" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 group-hover:text-indigo-400">Inject Frame</span>
+                    <input type="file" className="hidden" multiple accept="image/*" onChange={handleImageUpload} />
                   </label>
-                </div>
-              ) : null}
-              {errors.images && <p className="text-red-500 dark:text-red-400 text-sm mt-2">{errors.images}</p>}
-            </CardContent>
-          </Card>
+                )}
+              </div>
+            </div>
 
-          {/* Product Information */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl">Product Information</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Input
-                  label="Product Name"
-                  placeholder="Enter product name"
-                  value={formData.name}
-                  onChange={(e) => {
-                    setFormData({ ...formData, name: e.target.value })
-                    if (errors.name) setErrors({ ...errors, name: "" })
-                  }}
-                  required
-                />
-                {errors.name && <p className="text-red-500 dark:text-red-400 text-sm">{errors.name}</p>}
-                <div>
-                  <label className="block text-sm font-medium mb-2 dark:text-gray-300">Product Category</label>
+            {/* Intellectual Data */}
+            <div className="p-10 rounded-[3rem] bg-slate-900/50 backdrop-blur-3xl border border-slate-800 space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">Asset Designation</label>
+                  <input
+                    type="text"
+                    className="w-full bg-slate-950 border border-slate-800 rounded-3xl px-8 py-5 text-sm font-black focus:border-indigo-500 transition-all outline-none uppercase tracking-tight"
+                    placeholder="Neural Core X1..."
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  />
+                </div>
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">Asset Class</label>
                   <select
+                    className="w-full bg-slate-950 border border-slate-800 rounded-3xl px-8 py-5 text-sm font-black focus:border-indigo-500 transition-all outline-none uppercase appearance-none"
                     value={formData.category}
-                    onChange={(e) => {
-                      setFormData({ ...formData, category: e.target.value })
-                      if (errors.category) setErrors({ ...errors, category: "" })
-                    }}
-                    className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
+                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                   >
-                    <option value="">Select Category</option>
-                    <option value="electronics">Electronics</option>
-                    <option value="clothing">Clothing</option>
-                    <option value="accessories">Accessories</option>
+                    <option value="">Scan Classes...</option>
+                    <option value="electronics">Cybernetics</option>
+                    <option value="hardware">Hardware</option>
+                    <option value="data">Data Shards</option>
                   </select>
-                  {errors.category && <p className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.category}</p>}
                 </div>
               </div>
 
-              <div>
-                <Input
-                  label="SKU"
-                  placeholder="Enter SKU"
-                  value={formData.sku}
-                  onChange={(e) => {
-                    setFormData({ ...formData, sku: e.target.value })
-                    if (errors.sku) setErrors({ ...errors, sku: "" })
-                  }}
-                  required
-                />
-                {errors.sku && <p className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.sku}</p>}
-              </div>
-
-              {/* Size Selection */}
-              <div>
-                <label className="block text-sm font-medium mb-3 text-gray-900 dark:text-gray-200">Size</label>
-                <div className="flex gap-2 flex-wrap">
-                  {sizes.map((s) => (
-                    <button
-                      key={s}
-                      type="button"
-                      onClick={() => setFormData({ ...formData, size: s })}
-                      className={`px-4 py-2 rounded-lg border-2 transition font-medium ${
-                        formData.size === s
-                          ? "bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 border-gray-900 dark:border-gray-100"
-                          : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-gray-500 dark:hover:border-gray-400"
-                      }`}
-                    >
-                      {s}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Color Selection */}
-              <div>
-                <label className="block text-sm font-medium mb-3 text-gray-900 dark:text-gray-200">Colors</label>
-                <div className="flex gap-3 flex-wrap">
-                  {colors.map((c) => (
-                    <button
-                      key={c.hex}
-                      type="button"
-                      onClick={() => setFormData({ ...formData, color: c.hex })}
-                      className={`w-10 h-10 rounded-full border-4 transition ${
-                        formData.color === c.hex ? "border-gray-900 dark:border-gray-100 ring-2 ring-blue-500" : "border-gray-300 dark:border-gray-600"
-                      }`}
-                      style={{ backgroundColor: c.hex }}
-                      title={c.name}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Description */}
-              <div>
-                <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-gray-200">Description</label>
+              <div className="space-y-3">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">Asset Narrative</label>
                 <textarea
-                  className="w-full px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-                  rows={4}
-                  placeholder="Brief description about product"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-[2rem] px-8 py-6 text-sm font-medium focus:border-indigo-500 transition-all outline-none min-h-[160px] resize-none"
+                  placeholder="Describe technical specifications and asset history..."
                   value={formData.description}
-                  onChange={(e) => {
-                    setFormData({ ...formData, description: e.target.value })
-                    if (errors.description) setErrors({ ...errors, description: "" })
-                  }}
-                />
-                {errors.description && <p className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.description}</p>}
-              </div>
-
-              {/* Tag and Stock */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Input
-                  label="Tag Name"
-                  placeholder="Enter tag"
-                  value={formData.weight}
-                  onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
-                />
-                <div>
-                  <Input
-                    label="Stock"
-                    type="number"
-                    placeholder="0"
-                    value={formData.stock}
-                    onChange={(e) => {
-                      setFormData({ ...formData, stock: e.target.value })
-                      if (errors.stock) setErrors({ ...errors, stock: "" })
-                    }}
-                    required
-                  />
-                  {errors.stock && <p className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.stock}</p>}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Pricing Details */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl">Pricing Details</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <Input
-                    label="$"
-                    type="number"
-                    step="0.01"
-                    placeholder="0.00"
-                    value={formData.price}
-                    onChange={(e) => {
-                      setFormData({ ...formData, price: e.target.value })
-                      if (errors.price) setErrors({ ...errors, price: "" })
-                    }}
-                    required
-                  />
-                  {errors.price && <p className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.price}</p>}
-                </div>
-                <div>
-                  <Input
-                    label="₹"
-                    type="number"
-                    step="0.01"
-                    placeholder="0.00"
-                    value={formData.cost}
-                    onChange={(e) => {
-                      setFormData({ ...formData, cost: e.target.value })
-                      if (errors.cost) setErrors({ ...errors, cost: "" })
-                    }}
-                    required
-                  />
-                  {errors.cost && <p className="text-red-500 dark:text-red-400 text-sm mt-1">{errors.cost}</p>}
-                </div>
-                <Input
-                  label="Tax"
-                  type="number"
-                  step="0.01"
-                  placeholder="0.00"
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 />
               </div>
-            </CardContent>
-          </Card>
 
-          {/* Action Buttons */}
-          <div className="flex gap-4 justify-end pb-4">
-            <button className="px-8 py-3 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg font-medium hover:bg-gray-50 dark:hover:bg-gray-800 transition">
-              Save Draft
-            </button>
-            <Button onClick={handleSubmit} className="px-8 py-3 bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600 text-white rounded-lg font-medium">
-              Upload
-            </Button>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">Deployment Node</label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      className="w-full bg-slate-950 border border-slate-800 rounded-3xl px-12 py-5 text-sm font-black focus:border-indigo-500 transition-all outline-none uppercase tracking-tight"
+                      value={formData.location}
+                      onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                    />
+                    <MapPin size={16} className="absolute left-6 top-1/2 -translate-y-1/2 text-indigo-500" />
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-4">Condition State</label>
+                  <div className="flex gap-2">
+                    {CONDITIONS.map(c => (
+                      <button
+                        key={c.value}
+                        type="button"
+                        onClick={() => setFormData({ ...formData, condition: c.value })}
+                        className={`flex-1 py-4 px-2 rounded-2xl border transition-all text-[8px] font-black uppercase tracking-widest ${formData.condition === c.value ? "bg-indigo-600 border-indigo-600" : "bg-slate-950 border-slate-800 text-slate-500 hover:border-slate-600"
+                          }`}
+                      >
+                        {c.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </motion.div>
+
+          {/* Right: Valuation & Controls */}
+          <div className="space-y-8">
+            {/* Valuations */}
+            <div className="p-8 rounded-[3rem] bg-indigo-600 text-white shadow-[0_20px_50px_rgba(99,102,241,0.25)]">
+              <div className="flex items-center gap-2 mb-8">
+                <Zap size={18} fill="currentColor" />
+                <h3 className="text-xl font-black uppercase tracking-tighter">Value Intel</h3>
+              </div>
+
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black uppercase tracking-widest opacity-60 ml-2">Estimated Market Value (LTC)</label>
+                  <input
+                    type="number"
+                    className="w-full bg-white/10 border border-white/20 rounded-2xl px-6 py-4 text-2xl font-black focus:bg-white/20 transition-all outline-none placeholder:text-white/30"
+                    placeholder="0000"
+                    value={formData.baseValue}
+                    onChange={(e) => setFormData({ ...formData, baseValue: e.target.value })}
+                  />
+                </div>
+
+                <button
+                  type="button"
+                  onClick={simulateAiValuation}
+                  disabled={isAiCalculating}
+                  className="w-full py-4 bg-white text-indigo-600 rounded-2xl font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 hover:bg-slate-50 transition-all group"
+                >
+                  {isAiCalculating ? <RefreshCw className="animate-spin" size={14} /> : <Sparkles size={14} />}
+                  {isAiCalculating ? "Auditing Network..." : "Request AI Valuation"}
+                </button>
+
+                {aiValuation && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="p-4 bg-white/10 rounded-2xl border border-white/20"
+                  >
+                    <div className="text-[10px] font-black uppercase tracking-widest opacity-60 mb-1">AI Optimized Value</div>
+                    <div className="text-3xl font-black">{aiValuation.toFixed(0)} <span className="text-xs uppercase">LTC</span></div>
+                    <p className="text-[8px] font-medium uppercase mt-2 opacity-50 flex items-center gap-1">
+                      <Info size={10} /> Based on nodes in {formData.location}
+                    </p>
+                  </motion.div>
+                )}
+              </div>
+            </div>
+
+            {/* Protocol Overrides */}
+            <div className="p-8 rounded-[3rem] bg-slate-900 border border-slate-800 space-y-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-xs font-black uppercase tracking-widest text-white">Barter Protocol</h4>
+                  <p className="text-[8px] text-slate-500 uppercase font-bold">Accept non-LTC swap offers</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setFormData({ ...formData, isBarterEnabled: !formData.isBarterEnabled })}
+                  className={`w-12 h-6 rounded-full transition-all relative ${formData.isBarterEnabled ? "bg-indigo-600" : "bg-slate-800"}`}
+                >
+                  <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${formData.isBarterEnabled ? "right-1" : "left-1"}`} />
+                </button>
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h4 className="text-xs font-black uppercase tracking-widest text-white">Flash Auction</h4>
+                  <p className="text-[8px] text-slate-500 uppercase font-bold">Deploy 24h auction logic</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setFormData({ ...formData, isAuctionEnabled: !formData.isAuctionEnabled })}
+                  className={`w-12 h-6 rounded-full transition-all relative ${formData.isAuctionEnabled ? "bg-indigo-600" : "bg-slate-800"}`}
+                >
+                  <div className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${formData.isAuctionEnabled ? "right-1" : "left-1"}`} />
+                </button>
+              </div>
+            </div>
+
+            {/* Submit Section */}
+            <div className="space-y-4">
+              <button
+                type="submit"
+                className="w-full py-6 bg-white text-black rounded-[2rem] font-black uppercase tracking-[0.2em] text-xs shadow-[0_20px_40px_rgba(255,255,255,0.1)] hover:bg-slate-100 transition-all flex items-center justify-center gap-3"
+              >
+                Deploy to Network <Gavel size={16} />
+              </button>
+
+              <div className="p-6 rounded-3xl bg-slate-900/50 border border-slate-800/50">
+                <div className="flex items-center gap-3 mb-2">
+                  <ShieldCheck size={16} className="text-green-500" />
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-300">Trust Guarantee</span>
+                </div>
+                <p className="text-[9px] text-slate-500 font-medium uppercase leading-relaxed">
+                  Deploying this asset will commit your node to the SwapIt Trade Mesh. Ensure all data is accurate to maintain your Trust Score.
+                </p>
+              </div>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   )

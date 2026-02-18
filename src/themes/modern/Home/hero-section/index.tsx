@@ -3,7 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Button } from "@/components/ui/button" 
+import { Button } from "@/components/ui/button"
 import {
   Carousel,
   CarouselContent,
@@ -26,28 +26,28 @@ export function HeroSection() {
   const [slides] = React.useState<HeroSlide[]>([
     {
       id: "1",
-      headline: "The Cybernetic Marketplace",
-      subtext: "Your trusted protocol for online & offline commerce. New drops every hour.",
-      ctaText: "Shop Now",
+      headline: "The Future of Barter",
+      subtext: "Swap items instantly with AI-powered valuation. Your trusted protocol for smart trading.",
+      ctaText: "Start Swapping",
       ctaLink: "/shop",
       imageUrl:
         "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=1920&q=80",
     },
     {
       id: "2",
-      headline: "Scalable Growth Protocol",
-      subtext: "Seamless sales across all channels. Built on robust, secure systems.",
-      ctaText: "Get Started",
-      ctaLink: "/about",
+      headline: "Smart AI Valuation",
+      subtext: "Never wonder about a fair trade again. Our AI analyzes market trends for LT Coin estimates.",
+      ctaText: "Post Your Item",
+      ctaLink: "/items/new",
       imageUrl:
         "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&w=1920&q=80",
     },
     {
       id: "3",
-      headline: "Discover New Data Streams",
-      subtext: "Hand-picked collections and verified inventory for superior quality.",
-      ctaText: "Browse Categories",
-      ctaLink: "/categories",
+      headline: "Discover Smart Matches",
+      subtext: "Let AI find the perfect trade for you. verified inventory for superior quality swaps.",
+      ctaText: "AI Match Now",
+      ctaLink: "/smart-match",
       imageUrl:
         "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=1920&q=80",
     },
@@ -58,14 +58,14 @@ export function HeroSection() {
   const totalSlides = slides.length
 
   // FIX: State for particle positions to avoid hydration mismatch
-  const [particlePositions, setParticlePositions] = React.useState<{left: string}[]>([])
+  const [particlePositions, setParticlePositions] = React.useState<{ left: string }[]>([])
   const particleCount = 5;
 
 
   React.useEffect(() => {
     // Generate and store particle positions only once on the client mount
     const newPositions = [...Array(particleCount)].map(() => ({
-        left: `${Math.random() * 100}%`,
+      left: `${Math.random() * 100}%`,
     }));
     setParticlePositions(newPositions);
   }, []); // <-- Empty dependency array runs this only once on client mount
@@ -143,7 +143,7 @@ export function HeroSection() {
         transition={{ duration: 0.8 }}
       >
         {/* TOP CONTENT (Main Headline, Subtext, CTA) */}
-        <div> 
+        <div>
           <AnimatePresence mode="wait">
             <motion.div
               key={currentSlide}
@@ -163,9 +163,8 @@ export function HeroSection() {
                   {slides.map((_, idx) => (
                     <motion.div
                       key={idx}
-                      className={`h-1 transition-all ${
-                        idx === currentSlide ? "w-12 bg-gray-200" : "w-2 bg-gray-700"
-                      }`}
+                      className={`h-1 transition-all ${idx === currentSlide ? "w-12 bg-gray-200" : "w-2 bg-gray-700"
+                        }`}
                       initial={{ scaleX: 0 }}
                       animate={{ scaleX: 1 }}
                       transition={{ delay: idx * 0.1 }}
@@ -234,7 +233,7 @@ export function HeroSection() {
 
         {/* BOTTOM NAVIGATION CONTROLS */}
         <motion.div
-          className="flex items-center justify-start gap-4" 
+          className="flex items-center justify-start gap-4"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6 }}
@@ -279,8 +278,8 @@ export function HeroSection() {
           }}
           style={{
             // Uses the stable, client-generated position from state
-            left: pos.left, 
-            top: "100%", 
+            left: pos.left,
+            top: "100%",
           }}
         />
       ))}

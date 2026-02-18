@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { Trash2, ShoppingBag, ArrowRight, Heart } from "lucide-react"
+import { Trash2, Wallet, ArrowRight, Heart, Zap, ShieldCheck, History, Check, Gavel } from "lucide-react"
 import { useAppContext } from "@/context/AppContext"
 import { useRouter } from "next/navigation"
 import { useState, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
 
-interface SimilarProduct {
+interface RecommendedAsset {
   id: string
   name: string
   price: number
@@ -17,315 +16,262 @@ interface SimilarProduct {
   href: string
 }
 
-export function CartPage() {
-  const { cart, removeFromCart, updateQuantity, wishlist, addToWishlist, removeFromWishlist } = useAppContext()
+export function WalletPage() {
+  const { wallet, removeFromWallet, updateQuantity, wishlist, addToWishlist, removeFromWishlist } = useAppContext()
   const router = useRouter()
-  const [agreedToTerms, setAgreedToTerms] = useState(false)
+  const [agreedToProtocol, setAgreedToProtocol] = useState(false)
 
-  // Calculate totals
-  const subtotal = cart.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0)
-  const itemCount = cart.reduce((acc, item) => acc + (item.quantity || 1), 0)
-  const freeShippingThreshold = 500
-  const shippingCost = subtotal >= freeShippingThreshold ? 0 : 50
-  const tax = subtotal * 0.1 // 10% tax
-  const total = subtotal + shippingCost + tax
+  // Calculate totals in LTC
+  const subtotal = wallet.reduce((acc, item) => acc + item.price * (item.quantity || 1), 0)
+  const assetCount = wallet.reduce((acc, item) => acc + (item.quantity || 1), 0)
+  const networkFee = wallet.length > 0 ? (subtotal > 1000 ? 0 : 25) : 0
+  const governanceFee = subtotal * 0.05 // 5% protocol fee
+  const totalLTC = subtotal + networkFee + governanceFee
 
-  // Mock similar products (in real app, fetch from API based on cart items)
-  const similarProducts: SimilarProduct[] = useMemo(() => {
+  // Mock recommended assets
+  const recommendedAssets: RecommendedAsset[] = useMemo(() => {
     return [
-      { id: "sim1", name: "Premium Leather Bag", price: 129.99, imageUrl: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80", href: "/product/sim1" },
-      { id: "sim2", name: "Classic Watch", price: 249.99, imageUrl: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=300&q=80", href: "/product/sim2" },
-      { id: "sim3", name: "Sunglasses Pro", price: 179.99, imageUrl: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80", href: "/product/sim3" },
-      { id: "sim4", name: "Designer Scarf", price: 89.99, imageUrl: "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80", href: "/product/sim4" },
+      { id: "sim1", name: "Neural Link Core", price: 850, imageUrl: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=300&q=80", href: "/items/sim1" },
+      { id: "sim2", name: "Data Shard Rev 4", price: 420, imageUrl: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80", href: "/items/sim2" },
+      { id: "sim3", name: "Uplink Module", price: 1200, imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=300&q=80", href: "/items/sim3" },
+      { id: "sim4", name: "Sync Processor", price: 310, imageUrl: "https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=300&q=80", href: "/items/sim4" },
     ]
   }, [])
 
-  const handleCheckout = () => {
-    router.push("/checkout")
-  }
-
-  const handleRemoveItem = (itemId: string) => {
-    removeFromCart(itemId)
-  }
-
-  const handleQuantityChange = (itemId: string, newQuantity: number) => {
-    if (newQuantity <= 0) {
-      removeFromCart(itemId)
-    } else {
-      updateQuantity(itemId, newQuantity)
-    }
-  }
-
-  const toggleWishlist = (item: any) => {
-    const isInWishlist = wishlist.some((w) => w.id === item.id)
-    if (isInWishlist) {
-      removeFromWishlist(item.id)
-    } else {
-      addToWishlist(item)
-    }
+  const handleConfirmTrades = () => {
+    router.push("/confirm-trade")
   }
 
   return (
-    <div className="min-h-screen bg-white pt-24 sm:pt-30 pb-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Page Title */}
+    <div className="min-h-screen bg-slate-950 text-white pt-24 sm:pt-30 pb-12 selection:bg-indigo-500/30">
+      <div className="fixed inset-0 opacity-5 pointer-events-none">
+        <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="wallet-grid" width="80" height="80" patternUnits="userSpaceOnUse">
+              <path d="M 80 0 L 0 0 0 80" fill="none" stroke="white" strokeWidth="0.5" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#wallet-grid)" />
+        </svg>
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mb-8"
+          className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6"
         >
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">Shopping Cart</h1>
-          <p className="text-gray-600">{itemCount} items in your cart</p>
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" />
+              <span className="text-[10px] font-black uppercase tracking-widest text-indigo-400">Trading Terminal Active</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter">Digital Wallet</h1>
+            <p className="text-slate-500 mt-2 font-medium">{assetCount} ACTIVE TRADE SIGNALS DETECTED</p>
+          </div>
+
+          <div className="p-6 rounded-[2rem] bg-indigo-600/10 border border-indigo-600/20 backdrop-blur-xl">
+            <div className="text-[10px] font-black uppercase tracking-widest text-indigo-400 mb-1">Total Trading Power</div>
+            <div className="text-3xl font-black">{totalLTC.toFixed(0)} LTC</div>
+          </div>
         </motion.div>
 
-        {cart.length === 0 ? (
-          // Empty Cart State
+        {wallet.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="flex flex-col items-center justify-center py-24 text-center"
+            className="flex flex-col items-center justify-center py-24 text-center bg-slate-900/50 rounded-[3rem] border border-slate-800"
           >
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              <ShoppingBag className="w-20 h-20 text-gray-300 mx-auto mb-4" />
-            </motion.div>
-            <h2 className="text-2xl font-semibold text-gray-900 mb-2">Your cart is empty</h2>
-            <p className="text-gray-600 mb-6">Start shopping to add items to your cart</p>
+            <Wallet className="w-20 h-20 text-slate-800 mx-auto mb-6" />
+            <h2 className="text-2xl font-black uppercase tracking-tighter mb-2">No Active Bids</h2>
+            <p className="text-slate-500 mb-10 max-w-sm">Your wallet is currently offline. Synchronize with the network to start trading assets.</p>
             <motion.button
               onClick={() => router.push("/shop")}
-              className="px-8 py-3 bg-black text-white rounded-lg font-semibold cursor-pointer hover:bg-gray-800 transition-colors flex items-center gap-2"
+              className="px-8 py-4 bg-white text-black rounded-full font-black uppercase tracking-widest text-xs flex items-center gap-2"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Continue Shopping <ArrowRight className="w-4 h-4" />
+              Enter Global Shop <ArrowRight className="w-4 h-4" />
             </motion.button>
           </motion.div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Cart Items */}
-            <div className="lg:col-span-2">
-              <motion.div
-                className="bg-white rounded-lg border border-gray-200"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-              >
-                <AnimatePresence mode="popLayout">
-                  {cart.map((item, index) => (
-                    <motion.div
-                      key={item.id}
-                      layout
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 20 }}
-                      transition={{ delay: index * 0.05 }}
-                      className="flex gap-4 p-4 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors"
-                    >
-                      {/* Product Image */}
-                      <div className="relative w-20 h-20 flex-shrink-0">
-                        <Image
-                          src={item.imageUrl}
-                          alt={item.name}
-                          fill
-                          className="object-cover rounded-lg"
-                        />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <div className="lg:col-span-2 space-y-4">
+              <AnimatePresence mode="popLayout">
+                {wallet.map((item, index) => (
+                  <motion.div
+                    key={item.id}
+                    layout
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ delay: index * 0.05 }}
+                    className="group relative flex gap-6 p-6 bg-slate-900/50 backdrop-blur-xl border border-slate-800 hover:border-indigo-500/30 rounded-[2.5rem] transition-all"
+                  >
+                    <div className="relative w-24 h-24 flex-shrink-0 rounded-2xl overflow-hidden border border-slate-700">
+                      <Image
+                        src={item.imageUrl}
+                        alt={item.name}
+                        fill
+                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                      />
+                    </div>
+                    <div className="flex-1 min-w-0 flex flex-col justify-center">
+                      <div className="flex items-center gap-2 mb-1">
+                        <Zap size={10} className="text-indigo-500" />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Asset Record</span>
                       </div>
-
-                      {/* Product Details */}
-                      <div className="flex-1 min-w-0">
-                        <h3 className="text-sm sm:text-base font-semibold text-gray-900 truncate">{item.name}</h3>
-                        <p className="text-lg sm:text-xl font-bold text-gray-900 mt-1">${item.price.toFixed(2)}</p>
-                      </div>
-
-                      {/* Quantity & Price */}
-                      <div className="flex flex-col items-end gap-3">
-                        {/* Quantity Controls */}
-                        <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
-                          <motion.button
-                            onClick={() => handleQuantityChange(item.id, (item.quantity || 1) - 1)}
-                            className="w-6 h-6 flex items-center justify-center cursor-pointer hover:bg-gray-200 rounded transition-colors"
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            −
-                          </motion.button>
-                          <span className="w-6 text-center font-semibold text-sm">{item.quantity || 1}</span>
-                          <motion.button
-                            onClick={() => handleQuantityChange(item.id, (item.quantity || 1) + 1)}
-                            className="w-6 h-6 flex items-center justify-center cursor-pointer hover:bg-gray-200 rounded transition-colors"
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            +
-                          </motion.button>
-                        </div>
-
-                        {/* Total Price */}
-                        <p className="text-sm sm:text-base font-bold text-black">
-                          ${(item.price * (item.quantity || 1)).toFixed(2)}
-                        </p>
-                      </div>
-
-                      {/* Remove Button */}
+                      <h3 className="text-lg font-black uppercase tracking-tight truncate">{item.name}</h3>
+                      <div className="text-2xl font-black text-indigo-400 mt-1">{item.price} LTC</div>
+                    </div>
+                    <div className="flex flex-col items-end justify-between">
                       <motion.button
-                        onClick={() => handleRemoveItem(item.id)}
-                        className="text-gray-400 hover:text-red-500 cursor-pointer transition-colors"
+                        onClick={() => removeFromWallet(item.id)}
+                        className="p-2 text-slate-600 hover:text-red-500 transition-colors"
                         whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
                       >
-                        <Trash2 className="w-5 h-5" />
+                        <Trash2 size={18} />
                       </motion.button>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </motion.div>
+                      <div className="flex items-center gap-3 bg-slate-950 rounded-2xl p-1.5 border border-slate-800">
+                        <button
+                          onClick={() => updateQuantity(item.id, (item.quantity || 1) - 1)}
+                          className="w-8 h-8 flex items-center justify-center hover:bg-slate-800 rounded-xl transition-colors"
+                        >
+                          −
+                        </button>
+                        <span className="w-6 text-center font-black text-sm">{item.quantity || 1}</span>
+                        <button
+                          onClick={() => updateQuantity(item.id, (item.quantity || 1) + 1)}
+                          className="w-8 h-8 flex items-center justify-center hover:bg-slate-800 rounded-xl transition-colors"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
 
-            {/* Order Summary Sidebar */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               className="lg:col-span-1"
             >
-              <div className="bg-gray-50 rounded-lg border border-gray-200 p-6 sticky top-24">
-                <h2 className="text-lg font-bold text-gray-900 mb-6">Order Summary</h2>
-
-                {/* Summary Items */}
-                <div className="space-y-4 mb-6 pb-6 border-b border-gray-200">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Subtotal:</span>
-                    <span className="font-semibold text-gray-900">${subtotal.toFixed(2)}</span>
+              <div className="bg-slate-900/50 backdrop-blur-3xl rounded-[3rem] border border-slate-800 p-8 sticky top-30">
+                <div className="flex items-center gap-2 mb-8">
+                  <History size={18} className="text-indigo-400" />
+                  <h2 className="text-xl font-black uppercase tracking-tighter">Trade Intel</h2>
+                </div>
+                <div className="space-y-4 mb-8 pb-8 border-b border-slate-800">
+                  <div className="flex justify-between text-xs font-black uppercase tracking-widest">
+                    <span className="text-slate-500">Gross Asset Value</span>
+                    <span>{subtotal.toFixed(0)} LTC</span>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Shipping:</span>
-                    <span className="font-semibold text-gray-900">
-                      {shippingCost === 0 ? (
-                        <span className="text-green-600">FREE</span>
+                  <div className="flex justify-between text-xs font-black uppercase tracking-widest">
+                    <span className="text-slate-500">Network Transmission</span>
+                    <span>
+                      {networkFee === 0 ? (
+                        <span className="text-indigo-400 italic">PRIORITY FREE</span>
                       ) : (
-                        `$${shippingCost.toFixed(2)}`
+                        `${networkFee} LTC`
                       )}
                     </span>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Tax (10%):</span>
-                    <span className="font-semibold text-gray-900">${tax.toFixed(2)}</span>
+                  <div className="flex justify-between text-xs font-black uppercase tracking-widest">
+                    <span className="text-slate-500">Protocol Governance (5%)</span>
+                    <span>{governanceFee.toFixed(0)} LTC</span>
                   </div>
                 </div>
-
-                {/* Total */}
-                <div className="flex justify-between mb-6">
-                  <span className="text-lg font-bold text-gray-900">Total:</span>
-                  <motion.span
-                    className="text-2xl font-bold text-red-600"
-                    key={total}
+                <div className="mb-10">
+                  <div className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Consolidated Bid Power</div>
+                  <motion.div
+                    className="text-5xl font-black text-white"
+                    key={totalLTC}
                     initial={{ scale: 0.95 }}
                     animate={{ scale: 1 }}
-                    transition={{ type: "spring", stiffness: 300 }}
                   >
-                    ${total.toFixed(2)}
-                  </motion.span>
+                    {totalLTC.toFixed(0)}<span className="text-indigo-500 ml-2">LTC</span>
+                  </motion.div>
                 </div>
-
-                {/* Terms Checkbox */}
-                <motion.label
-                  className="flex items-start gap-2 mb-4 cursor-pointer"
-                  whileHover={{ x: 2 }}
-                >
-                  <input
-                    type="checkbox"
-                    checked={agreedToTerms}
-                    onChange={(e) => setAgreedToTerms(e.target.checked)}
-                    className="mt-0.5 w-4 h-4 rounded border-gray-300 text-black focus:ring-black cursor-pointer"
-                  />
-                  <span className="text-xs text-gray-600">
-                    I agree with the{" "}
-                    <a href="#" className="text-black underline font-medium">
-                      terms and conditions
-                    </a>
+                <label className="flex items-start gap-3 mb-8 cursor-pointer group">
+                  <div className="relative mt-1">
+                    <input
+                      type="checkbox"
+                      checked={agreedToProtocol}
+                      onChange={(e) => setAgreedToProtocol(e.target.checked)}
+                      className="peer sr-only"
+                    />
+                    <div className="w-5 h-5 border-2 border-slate-700 rounded-lg peer-checked:bg-indigo-600 peer-checked:border-indigo-600 transition-all" />
+                    <Check size={12} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white opacity-0 peer-checked:opacity-100 transition-opacity" />
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 leading-tight">
+                    I confirm my identity and adhere to the <a href="#" className="text-white underline decoration-indigo-500">SwapIt Protocol V2.1</a> terms.
                   </span>
-                </motion.label>
-
-                {/* Checkout Button */}
+                </label>
                 <motion.button
-                  onClick={handleCheckout}
-                  disabled={!agreedToTerms}
-                  className={`w-full py-3 rounded-lg cursor-pointer font-semibold text-sm transition-all ${
-                    agreedToTerms
-                      ? "bg-black text-white hover:bg-gray-800"
-                      : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  }`}
-                  whileHover={agreedToTerms ? { scale: 1.02 } : {}}
-                  whileTap={agreedToTerms ? { scale: 0.98 } : {}}
+                  onClick={handleConfirmTrades}
+                  disabled={!agreedToProtocol}
+                  className={`w-full py-5 rounded-full font-black uppercase tracking-widest text-[10px] transition-all flex items-center justify-center gap-2 ${agreedToProtocol
+                      ? "bg-indigo-600 text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:bg-indigo-500"
+                      : "bg-slate-800 text-slate-600 cursor-not-allowed"
+                    }`}
+                  whileHover={agreedToProtocol ? { scale: 1.02 } : {}}
+                  whileTap={agreedToProtocol ? { scale: 0.98 } : {}}
                 >
-                  Proceed to Checkout
+                  Confirm Active Bids <Gavel size={14} className={agreedToProtocol ? "text-white" : "text-slate-600"} />
                 </motion.button>
-
-                {/* Continue Shopping */}
-                <motion.button
+                <button
                   onClick={() => router.push("/shop")}
-                  className="w-full mt-3 py-3 border-2 border-gray-900 text-gray-900 rounded-lg font-semibold text-sm cursor-pointer hover:bg-gray-900 hover:text-white transition-colors"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className="w-full mt-4 py-4 text-slate-500 hover:text-white transition-colors text-[10px] font-black uppercase tracking-widest"
                 >
-                  Continue Shopping
-                </motion.button>
+                  Continue Browsing Signals
+                </button>
               </div>
             </motion.div>
           </div>
         )}
 
-        {/* Similar Products Section */}
-        {cart.length > 0 && (
+        {wallet.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-16 pt-16 border-t border-gray-200"
+            className="mt-24"
           >
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-8">Similar Products</h2>
-
+            <div className="flex items-center gap-4 mb-10">
+              <ShieldCheck size={24} className="text-indigo-400" />
+              <h2 className="text-2xl font-black uppercase tracking-tighter">AI-Matched Opportunities</h2>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {similarProducts.map((product, index) => (
+              {recommendedAssets.map((asset, index) => (
                 <motion.div
-                  key={product.id}
+                  key={asset.id}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
-                  className="group"
+                  className="group relative p-4 rounded-[2rem] bg-slate-900 border border-slate-800 hover:border-indigo-500/30 transition-all"
                 >
-                  <Link href={product.href}>
-                    <div className="relative overflow-hidden rounded-lg bg-gray-100 h-64 mb-4 cursor-pointer">
+                  <Link href={asset.href}>
+                    <div className="relative aspect-square rounded-2xl overflow-hidden bg-slate-800 mb-6">
                       <Image
-                        src={product.imageUrl}
-                        alt={product.name}
+                        src={asset.imageUrl}
+                        alt={asset.name}
                         fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-300"
+                        className="object-cover group-hover:scale-110 transition-transform duration-700 grayscale hover:grayscale-0"
                       />
-                      <motion.button
-                        onClick={(e) => {
-                          e.preventDefault()
-                          toggleWishlist({ id: product.id, name: product.name, price: product.price, imageUrl: product.imageUrl })
-                        }}
-                        className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md cursor-pointer hover:shadow-lg transition-shadow"
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                      >
-                        <Heart className={`w-5 h-5 ${wishlist.some((w) => w.id === product.id) ? "fill-red-500 text-red-500" : "text-gray-600"}`} />
-                      </motion.button>
                     </div>
                   </Link>
-
-                  <h3 className="text-sm font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-black transition-colors">
-                    {product.name}
+                  <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 group-hover:text-white transition-colors line-clamp-1 mb-2">
+                    {asset.name}
                   </h3>
-                  <p className="text-lg font-bold text-gray-900 mb-4">${product.price.toFixed(2)}</p>
-
+                  <div className="text-xl font-black mb-6">{asset.price} LTC</div>
                   <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-full py-2 bg-black text-white rounded-lg font-semibold text-sm cursor-pointer hover:bg-gray-800 transition-colors"
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    className="w-full py-3 bg-slate-800 hover:bg-indigo-600 text-white rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all"
                   >
-                    Add to Cart
+                    Quick Signal
                   </motion.button>
                 </motion.div>
               ))}
@@ -337,4 +283,4 @@ export function CartPage() {
   )
 }
 
-export default CartPage
+export default WalletPage

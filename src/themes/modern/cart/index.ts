@@ -1,2 +1,2 @@
-export { CartSidebar } from './cartSidebar';
-export { CartPage } from "./cartPage";
+export { WalletSidebar as CartSidebar } from './cartSidebar';
+export { WalletPage as CartPage } from "./cartPage";
