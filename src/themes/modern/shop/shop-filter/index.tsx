@@ -21,8 +21,10 @@ export type Filters = {
   sortBy: string
 }
 
+type CategoryOption = { name: string; slug: string }
+
 type ShopFiltersProps = {
-  categories?: string[]
+  categories?: CategoryOption[]
   onChange: (filters: Filters) => void
 }
 
@@ -58,12 +60,17 @@ const buttonVariants: Variants = {
 
 // --- MODERN SHOP FILTERS ---
 export function ShopFilters({
-  categories = ["Clothing", "Electronics", "Bakery", "Beauty"],
+  categories = [
+    { name: "Clothing", slug: "clothing" },
+    { name: "Electronics", slug: "electronics" },
+    { name: "Bakery", slug: "bakery" },
+    { name: "Beauty", slug: "beauty" },
+  ],
   onChange,
 }: ShopFiltersProps) {
   const [search, setSearch] = useState("")
   const [category, setCategory] = useState<string | undefined>()
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500])
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 5000])
   const [sortBy, setSortBy] = useState("latest")
   const [hoveredElement, setHoveredElement] = useState<string | null>(null)
 
@@ -78,7 +85,7 @@ export function ShopFilters({
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="filters-grid" width="60" height="60" patternUnits="userSpaceOnUse">
-              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="gray" strokeWidth="0.5"/>
+              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="gray" strokeWidth="0.5" />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#filters-grid)" />
@@ -142,7 +149,7 @@ export function ShopFilters({
               animate={{ scale: [1, 1.3, 1] }}
               transition={{ duration: 2, repeat: Infinity }}
             />
-            <span className="text-xs font-semibold text-gray-700 uppercase tracking-widest">Advanced Filters</span>
+            <span className="text-xs font-semibold text-gray-700 uppercase tracking-widest">Barter Protocols</span>
           </motion.div>
         </motion.div>
 
@@ -166,7 +173,7 @@ export function ShopFilters({
             <div className="relative group overflow-hidden rounded-2xl">
               <Search size={18} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-700/60 group-hover:text-gray-800 transition-colors z-10 pointer-events-none" />
               <Input
-                placeholder="Search products..."
+                placeholder="Scan item database..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full pl-12 bg-white/50 border-2 border-white/30 text-gray-900 placeholder-gray-600/50 focus:border-gray-600/50 focus:ring-gray-400 rounded-2xl font-medium focus:bg-white/70 transition-all duration-300 backdrop-blur-sm"
@@ -192,12 +199,12 @@ export function ShopFilters({
               <Filter size={18} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-700/60 group-hover:text-gray-800 transition-colors z-20 pointer-events-none" />
               <Select value={category} onValueChange={setCategory}>
                 <SelectTrigger className="w-full pl-12 bg-white/50 border-2 border-white/30 text-gray-900 focus:border-gray-600/50 focus:ring-gray-400 rounded-2xl font-medium hover:bg-white/70 transition-all duration-300 backdrop-blur-sm">
-                  <SelectValue placeholder="Select category" />
+                  <SelectValue placeholder="Listing Type" />
                 </SelectTrigger>
                 <SelectContent className="bg-white/90 backdrop-blur-xl border-2 border-white/40 text-gray-900 rounded-2xl">
                   {categories.map((cat) => (
-                    <SelectItem key={cat} value={cat} className="hover:bg-gray-400/20 focus:bg-gray-400/20">
-                      {cat}
+                    <SelectItem key={cat.slug} value={cat.slug} className="hover:bg-gray-400/20 focus:bg-gray-400/20">
+                      {cat.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -221,15 +228,15 @@ export function ShopFilters({
           >
             <label className="text-sm font-semibold mb-3 flex items-center gap-2 text-gray-800">
               <Sparkles size={16} />
-              Price Range
+              LT Coin Range
             </label>
             <div className="relative group">
               <Slider
                 value={priceRange}
                 onValueChange={(val) => setPriceRange(val as [number, number])}
                 min={0}
-                max={1000}
-                step={10}
+                max={10000}
+                step={50}
                 className="bg-white/50 rounded-2xl backdrop-blur-sm"
               />
               <motion.span
@@ -237,7 +244,7 @@ export function ShopFilters({
                 animate={{ opacity: [0.7, 1, 0.7] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                ${priceRange[0]} – ${priceRange[1]}
+                {priceRange[0]} LTC – {priceRange[1]} LTC
               </motion.span>
               {/* Dynamic Glow on Hover */}
               <motion.div
@@ -260,13 +267,13 @@ export function ShopFilters({
               <SortAsc size={18} className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-700/60 group-hover:text-gray-800 transition-colors z-20 pointer-events-none" />
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger className="w-full pl-12 bg-white/50 border-2 border-white/30 text-gray-900 focus:border-gray-600/50 focus:ring-gray-400 rounded-2xl font-medium hover:bg-white/70 transition-all duration-300 backdrop-blur-sm">
-                  <SelectValue placeholder="Sort by" />
+                  <SelectValue placeholder="Protocol Sort" />
                 </SelectTrigger>
                 <SelectContent className="bg-white/90 backdrop-blur-xl border-2 border-white/40 text-gray-900 rounded-2xl">
-                  <SelectItem value="latest" className="hover:bg-gray-400/20 focus:bg-gray-400/20">Latest</SelectItem>
-                  <SelectItem value="price_low" className="hover:bg-gray-400/20 focus:bg-gray-400/20">Price: Low to High</SelectItem>
-                  <SelectItem value="price_high" className="hover:bg-gray-400/20 focus:bg-gray-400/20">Price: High to Low</SelectItem>
-                  <SelectItem value="bestseller" className="hover:bg-gray-400/20 focus:bg-gray-400/20">Best Sellers</SelectItem>
+                  <SelectItem value="latest" className="hover:bg-gray-400/20 focus:bg-gray-400/20">Latest Signals</SelectItem>
+                  <SelectItem value="value_low" className="hover:bg-gray-400/20 focus:bg-gray-400/20">Value: Low to High</SelectItem>
+                  <SelectItem value="value_high" className="hover:bg-gray-400/20 focus:bg-gray-400/20">Value: High to Low</SelectItem>
+                  <SelectItem value="trust" className="hover:bg-gray-400/20 focus:bg-gray-400/20">Trader Trust Score</SelectItem>
                 </SelectContent>
               </Select>
               {/* Dynamic Glow on Hover */}

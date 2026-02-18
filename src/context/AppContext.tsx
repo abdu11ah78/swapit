@@ -1,36 +1,78 @@
 "use client"
 
-import { createContext, useContext, useState, ReactNode } from "react"
+import { createContext, useContext, useState, useEffect, ReactNode } from "react"
 
-export type CartItem = {
+export type WalletItem = {
   id: string
   name: string
-  price: number
+  price: number // LT Points Value
   imageUrl: string
   quantity: number
 }
 
 export type AppContextType = {
-  cart: CartItem[]
-  wishlist: CartItem[]
-  addToCart: (item: CartItem) => void
+  wallet: WalletItem[]
+  wishlist: WalletItem[]
+  isLoggedIn: boolean
+  currentUser: any
+  addToWallet: (item: WalletItem) => void
   updateQuantity: (id: string, quantity: number) => void
-  removeFromCart: (id: string) => void
-  addToWishlist: (item: CartItem) => void
+  removeFromWallet: (id: string) => void
+  addToWishlist: (item: WalletItem) => void
   removeFromWishlist: (id: string) => void
-  clearCart: () => void
+  clearWallet: () => void
+  login: (user: any) => void
+  logout: () => void
+  isAiMode: boolean
+  toggleAiMode: () => void
 }
 
 export const AppContext = createContext<AppContextType | undefined>(undefined)
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<CartItem[]>([])
-  const [wishlist, setWishlist] = useState<CartItem[]>([])
+  const [wallet, setWallet] = useState<WalletItem[]>([])
+  const [wishlist, setWishlist] = useState<WalletItem[]>([])
 
-  // addToCart respects incoming item.quantity and merges with existing
-  const addToCart = (item: CartItem) => {
+  // Auth state
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [currentUser, setCurrentUser] = useState<any>(null)
+
+  // AI/View Mode state
+  const [isAiMode, setIsAiMode] = useState(false)
+
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedLogin = localStorage.getItem("isLoggedIn") === "true"
+      if (storedLogin) {
+        setIsLoggedIn(true)
+        setCurrentUser(JSON.parse(localStorage.getItem("currentUser") || "null"))
+      }
+    }
+  }, [])
+
+  const login = (user: any) => {
+    localStorage.setItem("isLoggedIn", "true")
+    localStorage.setItem("currentUser", JSON.stringify(user))
+    setIsLoggedIn(true)
+    setCurrentUser(user)
+  }
+
+  const logout = () => {
+    localStorage.removeItem("isLoggedIn")
+    localStorage.removeItem("currentUser")
+    setIsLoggedIn(false)
+    setCurrentUser(null)
+  }
+
+  const toggleAiMode = () => {
+    setIsAiMode(prev => !prev)
+  }
+
+  // addToWallet respects incoming item.quantity and merges with existing
+  const addToWallet = (item: WalletItem) => {
     const qty = Math.max(1, Number(item.quantity ?? 1))
-    setCart((prev) => {
+    setWallet((prev) => {
       const exists = prev.find((p) => p.id === item.id)
       if (exists) {
         return prev.map((p) =>
@@ -44,18 +86,18 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   // directly set the quantity (replace)
   const updateQuantity = (id: string, quantity: number) => {
     if (quantity < 0) return
-    setCart((prev) => {
+    setWallet((prev) => {
       // if quantity is 0, remove it
       if (quantity === 0) return prev.filter((p) => p.id !== id)
       return prev.map((p) => (p.id === id ? { ...p, quantity } : p))
     })
   }
 
-  const removeFromCart = (id: string) => {
-    setCart((prev) => prev.filter((p) => p.id !== id))
+  const removeFromWallet = (id: string) => {
+    setWallet((prev) => prev.filter((p) => p.id !== id))
   }
 
-  const addToWishlist = (item: CartItem) => {
+  const addToWishlist = (item: WalletItem) => {
     if (!wishlist.find((p) => p.id === item.id)) {
       setWishlist((prev) => [...prev, item])
     }
@@ -68,14 +110,20 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AppContext.Provider
       value={{
-        cart,
+        wallet,
         wishlist,
-        addToCart,
+        isLoggedIn,
+        currentUser,
+        addToWallet,
         updateQuantity,
-        removeFromCart,
+        removeFromWallet,
         addToWishlist,
         removeFromWishlist,
-        clearCart: () => setCart([]),
+        clearWallet: () => setWallet([]),
+        login,
+        logout,
+        isAiMode,
+        toggleAiMode
       }}
     >
       {children}

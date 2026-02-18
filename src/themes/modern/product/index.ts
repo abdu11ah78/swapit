@@ -1,1 +1,1 @@
-export { ProductDetailPage } from './product-detail';
+export { ItemDetailPage, ItemDetailPage as ProductDetailPage } from './product-detail';

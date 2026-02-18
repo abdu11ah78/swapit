@@ -1,1 +1,1 @@
-export { CheckoutPage } from "./checkout-section";
+export { TradeConfirmationPage as CheckoutPage } from "./checkout-section";

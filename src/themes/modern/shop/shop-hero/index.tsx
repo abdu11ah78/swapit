@@ -13,7 +13,7 @@ export type ShopHeroProps = {
 // 💡 Configuration object (easily editable / fetchable from backend later)
 const heroConfig = {
   overlayGradient: "from-black/60 via-black/40 to-transparent",
-  headingGradient: "from-white via-neutral-200 to-neutral-400",
+  headingGradient: "from-white via-indigo-200 to-purple-400",
   glowColor: "bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.15)_0%,_transparent_70%)]",
   shadow:
     "shadow-[0_0_40px_rgba(255,255,255,0.25),_inset_0_0_60px_rgba(255,255,255,0.1)]",
@@ -26,16 +26,16 @@ const heroConfig = {
 
 // 💡 SOLUTION: Create a type-safe base transition object using the Transition type
 const baseTransition: Transition = {
-    duration: heroConfig.transition.duration,
-    // The easing array is now correctly interpreted as a valid Easing[] type
-    ease: heroConfig.transition.ease as [number, number, number, number], 
+  duration: heroConfig.transition.duration,
+  // The easing array is now correctly interpreted as a valid Easing[] type
+  ease: heroConfig.transition.ease as [number, number, number, number],
 };
 
 
 export function ShopHero({
-  title = "Shop All Products",
-  subtitle = "Discover our latest collections and best sellers",
-  backgroundUrl = "https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=1920&q=80",
+  title = "BROWSING TERMINAL",
+  subtitle = "Real-time access to the SwapIt global trade protocol.",
+  backgroundUrl = "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80",
 }: ShopHeroProps) {
   return (
     <section className="relative w-full h-[50vh] md:h-[70vh] flex items-center justify-center overflow-hidden">
@@ -60,7 +60,7 @@ export function ShopHero({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         // 💡 Use the type-safe object
-        transition={baseTransition} 
+        transition={baseTransition}
         className={`absolute inset-0 bg-gradient-to-t ${heroConfig.overlayGradient}`}
       />
 

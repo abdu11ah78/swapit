@@ -1,27 +1,15 @@
-// app/layout.tsx (Updated)
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "@/styles/globals.css";
-// IMPORT AppProvider HERE
-import { AppProvider } from '@/context/AppContext'; 
+import { AppProvider } from '@/context/AppContext';
+import { Toaster } from "react-hot-toast";
 
-// ... (font definitions and metadata remain the same)
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
+const font = Outfit({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "InstabizSite - Empowering Small Business E-commerce",
-  description: "Created By Entecra",
+  title: "SwapIt - Premier Barter Marketplace",
+  description: "The ultimate marketplace for detailed asset exchange.",
 };
-
 
 export default function RootLayout({
   children,
@@ -30,12 +18,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* WRAP THE CHILDREN WITH AppProvider */}
+      <body className={font.className}>
         <AppProvider>
-          {children} 
+          {children}
+          <Toaster position="bottom-right" />
         </AppProvider>
       </body>
     </html>

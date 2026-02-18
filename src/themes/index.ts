@@ -1,9 +1,12 @@
 import * as Classic from "./classic";
 import * as Modern from "./modern";
-export type TemplateId = "classic" | "modern";
+import * as Pro from "./pro"; // <-- import your Pro theme
+
+export type TemplateId = "classic" | "modern" | "pro";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const themeRegistry: Record<TemplateId, any> = {
-    "classic": Classic,
-    "modern": Modern
+    classic: Classic,
+    modern: Modern,
+    pro: Pro, // <-- add Pro here
 };
