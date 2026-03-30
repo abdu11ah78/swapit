@@ -1,0 +1,34 @@
+# Visual Studio
+.vs/
+[Bb]in/
+[Oo]bj/
+*.user
+*.userosscache
+*.sln.docstates
+
+# .NET
+*.exe
+*.dll
+*.pdb
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Database files
+*.mdf
+*.ldf
+*.ndf
+
+# Local settings
+appsettings.Development.json
+
+# Logs
+logs/
+*.log
+
+# Node (if used in frontend)
+node_modules/
+dist/
+.env
+.DS_Store
