@@ -45,6 +45,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    // Seed database
+    using var scope = app.Services.CreateScope();
+    var context = scope.ServiceProvider.GetRequiredService<IApplicationDbContext>();
+    await context.SeedAsync();
 }
 
 app.UseApiExceptionHandling();

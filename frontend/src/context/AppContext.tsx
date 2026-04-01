@@ -60,24 +60,24 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const storedLogin = localStorage.getItem("isLoggedIn") === "true" || !!getAccessToken()
+      const storedLogin = sessionStorage.getItem("isLoggedIn") === "true" || !!getAccessToken()
       if (storedLogin) {
         setIsLoggedIn(true)
-        setCurrentUser(JSON.parse(localStorage.getItem("currentUser") || "null") as CurrentUser | null)
+        setCurrentUser(JSON.parse(sessionStorage.getItem("currentUser") || "null") as CurrentUser | null)
       }
     }
   }, [])
 
   const login = (user: CurrentUser) => {
-    localStorage.setItem("isLoggedIn", "true")
-    localStorage.setItem("currentUser", JSON.stringify(user))
+    sessionStorage.setItem("isLoggedIn", "true")
+    sessionStorage.setItem("currentUser", JSON.stringify(user))
     setIsLoggedIn(true)
     setCurrentUser(user)
   }
 
   const logout = () => {
-    localStorage.removeItem("isLoggedIn")
-    localStorage.removeItem("currentUser")
+    sessionStorage.removeItem("isLoggedIn")
+    sessionStorage.removeItem("currentUser")
     clearAccessToken()
     setIsLoggedIn(false)
     setCurrentUser(null)

@@ -18,6 +18,37 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<TradeEvent> TradeEvents => Set<TradeEvent>();
     public DbSet<EmailVerificationToken> EmailVerificationTokens => Set<EmailVerificationToken>();
 
+    public async Task SeedAsync()
+    {
+        if (!await Users.AnyAsync())
+        {
+            var adminUser = new User(Guid.NewGuid().ToString("N"), "admin@example.com")
+            {
+                Name = "Admin User",
+                Role = UserRole.Admin,
+            };
+            var hasher = new Microsoft.AspNetCore.Identity.PasswordHasher<User>();
+            adminUser.PasswordHash = hasher.HashPassword(adminUser, "admin123");
+
+            Users.Add(adminUser);
+            await SaveChangesAsync();
+
+            if (!await Items.AnyAsync())
+            {
+                var items = new List<Item>
+                {
+                    new(Guid.NewGuid().ToString("N"), "iPhone 15 Pro", "Brand new iPhone 15 Pro, 256GB, Blue Titanium.", "[\"https://images.unsplash.com/photo-1696446701796-da61225697cc?w=800\"]", "Electronics", "New", "Lahore", adminUser.Id) { LtpValue = 1500 },
+                    new(Guid.NewGuid().ToString("N"), "MacBook Air M2", "MacBook Air M2, 8GB RAM, 256GB SSD. Silver color.", "[\"https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=800\"]", "Electronics", "Like New", "Karachi", adminUser.Id) { LtpValue = 1200 },
+                    new(Guid.NewGuid().ToString("N"), "Honda Civic 2022", "Honda Civic RS 2022, White color, 15,000 km driven.", "[\"https://images.unsplash.com/photo-1632245889027-8a060b2fe200?w=800\"]", "Vehicles", "Excellent", "Islamabad", adminUser.Id) { LtpValue = 50000 },
+                    new(Guid.NewGuid().ToString("N"), "Sony PS5", "PlayStation 5 Disc Edition with 2 controllers and 3 games.", "[\"https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=800\"]", "Gaming", "Gently Used", "Lahore", adminUser.Id) { LtpValue = 600 },
+                    new(Guid.NewGuid().ToString("N"), "Rolex Submariner", "Authentic Rolex Submariner, Date window, Black dial.", "[\"https://images.unsplash.com/photo-1547996160-81dfa63595dd?w=800\"]", "Luxury", "Mint", "Faisalabad", adminUser.Id) { LtpValue = 12000 }
+                };
+                Items.AddRange(items);
+                await SaveChangesAsync();
+            }
+        }
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
