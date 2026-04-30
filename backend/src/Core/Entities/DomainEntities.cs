@@ -27,15 +27,21 @@ public class User(string id, string email)
     public ICollection<Trade> TradesAsSeller { get; set; } = new List<Trade>();
 }
 
-public class Item(string id, string title, string description, string images, string category, string condition, string location, string ownerId)
+public class Item(string id, string title, string description, string images, string categoryId, string condition, string ownerId)
 {
     public string Id { get; set; } = id;
     public string Title { get; set; } = title;
     public string Description { get; set; } = description;
     public string Images { get; set; } = images;
-    public string Category { get; set; } = category;
+    
+    public string CategoryId { get; set; } = categoryId;
+    public Category Category { get; set; } = null!;
+
+    public string? ProvinceId { get; set; }
+    public Province? Province { get; set; }
+
     public string Condition { get; set; } = condition;
-    public string Location { get; set; } = location;
+    public string? Location { get; set; } 
     public int LtpValue { get; set; }
     public ItemStatus Status { get; set; } = ItemStatus.Available;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
@@ -47,6 +53,51 @@ public class Item(string id, string title, string description, string images, st
     public ICollection<Trade> Trades { get; set; } = new List<Trade>();
     public ICollection<Offer> Offers { get; set; } = new List<Offer>();
     public ICollection<OfferItem> OfferLinks { get; set; } = new List<OfferItem>();
+    public ICollection<ItemAttributeValue> AttributeValues { get; set; } = new List<ItemAttributeValue>();
+}
+
+public class Category(string id, string name, string icon)
+{
+    public string Id { get; set; } = id;
+    public string Name { get; set; } = name;
+    public string Icon { get; set; } = icon;
+    public bool IsActive { get; set; } = true;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public ICollection<CategoryAttribute> Attributes { get; set; } = new List<CategoryAttribute>();
+    public ICollection<Item> Items { get; set; } = new List<Item>();
+}
+
+public class CategoryAttribute(string id, string name, string type, string categoryId)
+{
+    public string Id { get; set; } = id;
+    public string Name { get; set; } = name;
+    public string Type { get; set; } = type; // text, number, selection
+    public string? Options { get; set; } // JSON string for options
+    public bool IsRequired { get; set; }
+    
+    public string CategoryId { get; set; } = categoryId;
+    public Category Category { get; set; } = null!;
+    public ICollection<ItemAttributeValue> Values { get; set; } = new List<ItemAttributeValue>();
+}
+
+public class ItemAttributeValue(string id, string itemId, string attributeId, string value)
+{
+    public string Id { get; set; } = id;
+    public string ItemId { get; set; } = itemId;
+    public Item Item { get; set; } = null!;
+    public string AttributeId { get; set; } = attributeId;
+    public CategoryAttribute Attribute { get; set; } = null!;
+    public string Value { get; set; } = value;
+}
+
+public class Province(string id, string name)
+{
+    public string Id { get; set; } = id;
+    public string Name { get; set; } = name;
+    public bool IsActive { get; set; } = true;
+
+    public ICollection<Item> Items { get; set; } = new List<Item>();
 }
 
 public class Trade(string id, string buyerId, string sellerId, string itemId)

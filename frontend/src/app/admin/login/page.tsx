@@ -2,33 +2,40 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useAppContext } from "@/context/AppContext";
+import { loginRequest } from "@/features/auth/auth.api";
+import { setAccessToken } from "@/lib/auth-storage";
+import toast from "react-hot-toast";
 
 export default function AdminLoginPage() {
   const router = useRouter();
+  const { login } = useAppContext();
   const [email, setEmail] = useState("admin@example.com");
   const [password, setPassword] = useState("admin123");
-  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
     setLoading(true);
     try {
-      const response = await fetch("/api/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        setError(data.message || "Login failed");
+      const data = await loginRequest({ email, password });
+      
+      if (data.role?.toUpperCase() !== "ADMIN") {
+        toast.error("Access denied. Admin privileges required.");
         return;
       }
-      localStorage.setItem("adminToken", data.token);
+
+      setAccessToken(data.token);
+      login({
+        id: data.userId,
+        email: email,
+        role: data.role
+      });
+
+      toast.success("Admin access authorized.");
       router.push("/admin");
-    } catch {
-      setError("Could not reach login service");
+    } catch (err: any) {
+      toast.error(err.response?.data?.message || "Authentication failed");
     } finally {
       setLoading(false);
     }
@@ -40,7 +47,6 @@ export default function AdminLoginPage() {
         <h1 className="text-2xl font-black text-white">Admin Login</h1>
         <input className="w-full rounded-lg bg-slate-950 border border-slate-800 text-white px-3 py-2" value={email} onChange={(e) => setEmail(e.target.value)} />
         <input type="password" className="w-full rounded-lg bg-slate-950 border border-slate-800 text-white px-3 py-2" value={password} onChange={(e) => setPassword(e.target.value)} />
-        {error ? <p className="text-red-400 text-sm">{error}</p> : null}
         <button disabled={loading} className="w-full rounded-lg bg-fuchsia-600 hover:bg-fuchsia-700 text-white py-2 font-bold">
           {loading ? "Signing in..." : "Sign in"}
         </button>

@@ -5,6 +5,7 @@ import { AppProvider } from '@/context/AppContext';
 import { Toaster } from "react-hot-toast";
 import Providers from "@/app/Providers";
 import { Toaster as SonnerToaster } from "sonner";
+import { MaintenanceOverlay } from "@/components/common/MaintenanceOverlay";
 
 const font = Outfit({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={font.className}>
         <Providers>
           <AppProvider>
+            <MaintenanceOverlay />
             {children}
             <Toaster position="bottom-right" />
             <SonnerToaster richColors position="top-right" />

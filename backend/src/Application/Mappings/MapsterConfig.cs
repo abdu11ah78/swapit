@@ -48,6 +48,20 @@ public static class MapsterConfig
         TypeAdapterConfig<Item, ItemResponseDto>
             .NewConfig()
             .Map(dest => dest.OwnerName, src => src.Owner.Name)
-            .Map(dest => dest.OwnerTrustScore, src => src.Owner.TrustScore);
+            .Map(dest => dest.OwnerTrustScore, src => src.Owner.TrustScore)
+            .Map(dest => dest.Status, src => src.Status.ToString().ToUpperInvariant())
+            .Map(dest => dest.Images, src => MapsterConfig.ParseImages(src.Images));
+    }
+
+    private static string[] ParseImages(string json)
+    {
+        try
+        {
+            return System.Text.Json.JsonSerializer.Deserialize<string[]>(json) ?? [];
+        }
+        catch
+        {
+            return [];
+        }
     }
 }

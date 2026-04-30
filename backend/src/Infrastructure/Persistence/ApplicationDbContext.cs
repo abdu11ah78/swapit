@@ -9,6 +9,10 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 {
     public DbSet<User> Users => Set<User>();
     public DbSet<Item> Items => Set<Item>();
+    public DbSet<Category> Categories => Set<Category>();
+    public DbSet<CategoryAttribute> CategoryAttributes => Set<CategoryAttribute>();
+    public DbSet<ItemAttributeValue> ItemAttributeValues => Set<ItemAttributeValue>();
+    public DbSet<Province> Provinces => Set<Province>();
     public DbSet<Trade> Trades => Set<Trade>();
     public DbSet<Offer> Offers => Set<Offer>();
     public DbSet<Review> Reviews => Set<Review>();
@@ -20,6 +24,57 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public async Task SeedAsync()
     {
+        // Ensure database and tables are created before seeding
+        await Database.EnsureCreatedAsync();
+
+        // 1. Seed Provinces (States)
+        if (!await Provinces.AnyAsync())
+        {
+            var provinces = new List<Province>
+            {
+                new(Guid.NewGuid().ToString("N"), "Punjab"),
+                new(Guid.NewGuid().ToString("N"), "Sindh"),
+                new(Guid.NewGuid().ToString("N"), "KPK"),
+                new(Guid.NewGuid().ToString("N"), "Balochistan"),
+                new(Guid.NewGuid().ToString("N"), "Gilgit Baltistan")
+            };
+            Provinces.AddRange(provinces);
+            await SaveChangesAsync();
+        }
+
+        // 2. Seed Categories and Attributes
+        if (!await Categories.AnyAsync())
+        {
+            var electronics = new Category(Guid.NewGuid().ToString("N"), "Electronics", "Cpu");
+            var vehicles = new Category(Guid.NewGuid().ToString("N"), "Vehicles", "Car");
+            var realEstate = new Category(Guid.NewGuid().ToString("N"), "Real Estate", "Home");
+            var fashion = new Category(Guid.NewGuid().ToString("N"), "Fashion", "Shirt");
+            var hobby = new Category(Guid.NewGuid().ToString("N"), "Hobby & Sport", "Trophy");
+
+            Categories.AddRange(electronics, vehicles, realEstate, fashion, hobby);
+            await SaveChangesAsync();
+
+            // Seed Attributes for Electronics
+            CategoryAttributes.AddRange(new List<CategoryAttribute>
+            {
+                new(Guid.NewGuid().ToString("N"), "Brand", "text", electronics.Id) { IsRequired = true },
+                new(Guid.NewGuid().ToString("N"), "Model", "text", electronics.Id) { IsRequired = true },
+                new(Guid.NewGuid().ToString("N"), "Warranty", "selection", electronics.Id) { Options = "[\"No Warranty\", \"1-6 Months\", \"6-12 Months\", \"More than 1 Year\"]" }
+            });
+
+            // Seed Attributes for Vehicles
+            CategoryAttributes.AddRange(new List<CategoryAttribute>
+            {
+                new(Guid.NewGuid().ToString("N"), "Make", "text", vehicles.Id) { IsRequired = true },
+                new(Guid.NewGuid().ToString("N"), "Model Year", "number", vehicles.Id) { IsRequired = true },
+                new(Guid.NewGuid().ToString("N"), "Mileage (KM)", "number", vehicles.Id),
+                new(Guid.NewGuid().ToString("N"), "Fuel Type", "selection", vehicles.Id) { Options = "[\"Petrol\", \"Diesel\", \"Electric\", \"Hybrid\", \"CNG\"]" }
+            });
+
+            await SaveChangesAsync();
+        }
+
+        // 3. Seed Admin
         if (!await Users.AnyAsync())
         {
             var adminUser = new User(Guid.NewGuid().ToString("N"), "admin@example.com")
@@ -33,15 +88,26 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             Users.Add(adminUser);
             await SaveChangesAsync();
 
+            // 4. Seed Items (using newly created IDs)
             if (!await Items.AnyAsync())
             {
+                var catId = (await Categories.FirstAsync(c => c.Name == "Electronics")).Id;
+                var provId = (await Provinces.FirstAsync(p => p.Name == "Punjab")).Id;
+
                 var items = new List<Item>
                 {
-                    new(Guid.NewGuid().ToString("N"), "iPhone 15 Pro", "Brand new iPhone 15 Pro, 256GB, Blue Titanium.", "[\"https://images.unsplash.com/photo-1696446701796-da61225697cc?w=800\"]", "Electronics", "New", "Lahore", adminUser.Id) { LtpValue = 1500 },
-                    new(Guid.NewGuid().ToString("N"), "MacBook Air M2", "MacBook Air M2, 8GB RAM, 256GB SSD. Silver color.", "[\"https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=800\"]", "Electronics", "Like New", "Karachi", adminUser.Id) { LtpValue = 1200 },
-                    new(Guid.NewGuid().ToString("N"), "Honda Civic 2022", "Honda Civic RS 2022, White color, 15,000 km driven.", "[\"https://images.unsplash.com/photo-1632245889027-8a060b2fe200?w=800\"]", "Vehicles", "Excellent", "Islamabad", adminUser.Id) { LtpValue = 50000 },
-                    new(Guid.NewGuid().ToString("N"), "Sony PS5", "PlayStation 5 Disc Edition with 2 controllers and 3 games.", "[\"https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?w=800\"]", "Gaming", "Gently Used", "Lahore", adminUser.Id) { LtpValue = 600 },
-                    new(Guid.NewGuid().ToString("N"), "Rolex Submariner", "Authentic Rolex Submariner, Date window, Black dial.", "[\"https://images.unsplash.com/photo-1547996160-81dfa63595dd?w=800\"]", "Luxury", "Mint", "Faisalabad", adminUser.Id) { LtpValue = 12000 }
+                    new(Guid.NewGuid().ToString("N"), "iPhone 15 Pro", "Brand new iPhone 15 Pro, 256GB, Blue Titanium.", "[\"https://images.unsplash.com/photo-1696446701796-da61225697cc?w=800\"]", catId, "New", adminUser.Id) 
+                    { 
+                        LtpValue = 1500,
+                        ProvinceId = provId,
+                        Location = "Gulberg, Lahore"
+                    },
+                    new(Guid.NewGuid().ToString("N"), "MacBook Air M2", "MacBook Air M2, 8GB RAM, 256GB SSD. Silver color.", "[\"https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=800\"]", catId, "Like New", adminUser.Id) 
+                    { 
+                        LtpValue = 1200,
+                        ProvinceId = provId,
+                        Location = "DHA Phase 5, Karachi"
+                    }
                 };
                 Items.AddRange(items);
                 await SaveChangesAsync();
@@ -75,6 +141,43 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.HasMany(x => x.TradesAsSeller).WithOne(x => x.Seller).HasForeignKey(x => x.SellerId).OnDelete(DeleteBehavior.Restrict);
         });
 
+        modelBuilder.Entity<Category>(entity =>
+        {
+            entity.ToTable("Categories");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasMaxLength(64);
+            entity.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            entity.HasMany(x => x.Attributes).WithOne(x => x.Category).HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasMany(x => x.Items).WithOne(x => x.Category).HasForeignKey(x => x.CategoryId).OnDelete(DeleteBehavior.Restrict);
+        });
+
+        modelBuilder.Entity<CategoryAttribute>(entity =>
+        {
+            entity.ToTable("CategoryAttributes");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasMaxLength(64);
+            entity.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            entity.Property(x => x.Type).IsRequired().HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<ItemAttributeValue>(entity =>
+        {
+            entity.ToTable("ItemAttributeValues");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasMaxLength(64);
+            entity.HasOne(x => x.Item).WithMany(x => x.AttributeValues).HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.Cascade);
+            entity.HasOne(x => x.Attribute).WithMany(x => x.Values).HasForeignKey(x => x.AttributeId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<Province>(entity =>
+        {
+            entity.ToTable("Provinces");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasMaxLength(64);
+            entity.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            entity.HasMany(x => x.Items).WithOne(x => x.Province).HasForeignKey(x => x.ProvinceId).OnDelete(DeleteBehavior.SetNull);
+        });
+
         modelBuilder.Entity<Item>(entity =>
         {
             entity.ToTable("Items");
@@ -83,9 +186,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.Property(x => x.Title).IsRequired().HasMaxLength(300);
             entity.Property(x => x.Description).IsRequired();
             entity.Property(x => x.Images).IsRequired();
-            entity.Property(x => x.Category).IsRequired().HasMaxLength(100);
             entity.Property(x => x.Condition).IsRequired().HasMaxLength(100);
-            entity.Property(x => x.Location).IsRequired().HasMaxLength(200);
             entity.Property(x => x.Status).HasConversion<string>().HasDefaultValue(ItemStatus.Available);
             entity.Property(x => x.LtpValue).HasDefaultValue(0);
             entity.HasMany(x => x.Trades).WithOne(x => x.MainItem).HasForeignKey(x => x.ItemId).OnDelete(DeleteBehavior.Restrict);

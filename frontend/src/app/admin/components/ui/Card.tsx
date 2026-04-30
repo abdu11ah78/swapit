@@ -31,10 +31,10 @@ export function Card({ children, className, delay = 0 }: CardProps) {
       // Hover Effect: Lifts the card and applies a significant shadow
       whileHover={{ y: -4, boxShadow: '0 15px 30px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.05)' }}
       
-      // Updated Styling: Uses explicit dark mode colors for consistency with StatCard
+      // Updated Styling: Uses theme variables for consistency
       className={cn(
-        "bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6",
-        "border border-gray-200 dark:border-slate-700",
+        "bg-[var(--admin-bg)] rounded-xl shadow-lg p-6",
+        "border border-[var(--admin-border)]",
         "transition-all duration-300 cursor-pointer",
         className
       )}
@@ -48,26 +48,26 @@ export function Card({ children, className, delay = 0 }: CardProps) {
  * CardHeader with border separation.
  */
 export function CardHeader({ children, className }: CardProps) {
-  return <div className={cn("mb-4 pb-4 border-b border-gray-200 dark:border-slate-700", className)}>{children}</div>
+  return <div className={cn("mb-4 pb-4 border-b border-[var(--admin-border)]", className)}>{children}</div>
 }
 
 /**
  * CardTitle with bold, dark/light mode text styling.
  */
 export function CardTitle({ children, className }: CardProps) {
-  return <h2 className={cn("text-xl font-bold text-gray-900 dark:text-white", className)}>{children}</h2>
+  return <h2 className={cn("text-xl font-bold text-[var(--admin-text)]", className)}>{children}</h2>
 }
 
 /**
  * CardContent for the main body text/elements.
  */
 export function CardContent({ children, className }: CardProps) {
-  return <div className={cn("text-gray-700 dark:text-gray-300", className)}>{children}</div>
+  return <div className={cn("text-[var(--admin-text-secondary)]", className)}>{children}</div>
 }
 
 /**
  * CardFooter with border separation and flex layout for buttons/actions.
  */
 export function CardFooter({ children, className }: CardProps) {
-  return <div className={cn("mt-4 pt-4 border-t border-gray-200 dark:border-slate-700 flex gap-3 items-center", className)}>{children}</div>
-} 
+  return <div className={cn("mt-4 pt-4 border-t border-[var(--admin-border)] flex gap-3 items-center", className)}>{children}</div>
+}

@@ -2,7 +2,7 @@ import axios from "axios";
 import { clearAccessToken, getAccessToken } from "@/lib/auth-storage";
 
 const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://localhost:7000/api";
+  process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://localhost:7052/api";
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,

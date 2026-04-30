@@ -156,8 +156,8 @@ export function Sidebar({
   const SidebarHeader = () => (
     <div className="h-20 bg-transparent shrink-0 flex items-center px-4">
       <Link href="/admin" className="flex items-center gap-3">
-        <LogoComponent size={24} className="text-fuchsia-400" />
-        <span className="text-xl font-bold text-white">
+        <LogoComponent size={24} className="text-[var(--admin-primary)]" />
+        <span className="text-xl font-bold text-[var(--admin-text)]">
           {brandName}
         </span>
       </Link>
@@ -187,10 +187,10 @@ export function Sidebar({
         animate={isDesktop ? 'open' : isOpen ? 'open' : 'closed'}
         className={cn(
           "fixed left-0 top-0 z-40 h-screen w-64", 
-          "border-r border-slate-800",
+          "border-r border-[var(--admin-border)]",
           "transition-colors duration-200", 
           "lg:sticky lg:top-0 lg:translate-x-0 lg:h-screen",
-          "flex flex-col bg-slate-950 overflow-hidden" 
+          "flex flex-col bg-[var(--admin-sidebar)] overflow-hidden" 
         )}
       >
         {/* Brand Header Area */}
@@ -200,7 +200,7 @@ export function Sidebar({
         <div className="lg:hidden px-4 py-2 flex justify-end absolute top-2 right-0">
           <button
             onClick={onClose}
-            className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white p-2 rounded-full"
+            className="text-[var(--admin-text-muted)] hover:text-[var(--admin-text)] p-2 rounded-full"
           >
             <X size={20} />
           </button>
@@ -214,7 +214,7 @@ export function Sidebar({
           {adminRoutes.map((section) => (
             <div key={section.title}>
               {/* Section Title */}
-              <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider px-3 mb-3">
+              <h3 className="text-xs font-semibold text-[var(--admin-text-muted)] uppercase tracking-wider px-3 mb-3">
                 {section.title}
               </h3>
 
@@ -235,8 +235,8 @@ export function Sidebar({
                         className={cn(
                           'relative flex items-center justify-between px-3 py-2.5 rounded-md transition-colors duration-150',
                           isMenuActive
-                            ? "bg-violet-900/30 text-fuchsia-300"
-                            : "text-slate-300 hover:bg-slate-900",
+                            ? "bg-[var(--admin-primary)]/10 text-[var(--admin-primary)]"
+                            : "text-[var(--admin-text)] hover:bg-[var(--admin-surface)]",
                         )}
                       >
                         {hasSubmenu ? (
@@ -281,7 +281,7 @@ export function Sidebar({
                         {isMenuActive && (
                           <motion.div
                             layoutId="activeIndicator"
-                            className="absolute left-0 top-0 bottom-0 w-1 bg-fuchsia-500 rounded-r-full"
+                            className="absolute left-0 top-0 bottom-0 w-1 bg-[var(--admin-primary)] rounded-r-full"
                             initial={false}
                             transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                           />
@@ -296,7 +296,7 @@ export function Sidebar({
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
                             transition={{ duration: 0.2 }}
-                            className="mt-1 ml-6 space-y-1 border-l-2 border-slate-800"
+                            className="mt-1 ml-6 space-y-1 border-l-2 border-[var(--admin-border)]"
                           >
                             {item.submenu?.map((subitem) => {
                               const isSubitemActive = isActive(subitem.href, pathname)
@@ -316,8 +316,8 @@ export function Sidebar({
                                     className={cn(
                                       'flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors duration-150',
                                       isSubitemActive
-                                        ? "bg-violet-900/40 text-fuchsia-300 font-medium"
-                                        : "text-slate-400 hover:bg-slate-900"
+                                        ? "bg-[var(--admin-primary)]/10 text-[var(--admin-primary)] font-medium"
+                                        : "text-[var(--admin-text-muted)] hover:bg-[var(--admin-surface)]"
                                     )}
                                   >
                                     <subitem.icon size={16} className="shrink-0" />

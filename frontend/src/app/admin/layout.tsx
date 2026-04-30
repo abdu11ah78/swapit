@@ -30,17 +30,16 @@ export default function AdminLayout({
     <AdminGuard>
       <ThemeProvider>
         <AdminProvider>
-          <div className="flex flex-col h-screen bg-slate-950">
+          <div className="flex flex-col h-screen bg-[var(--admin-bg)] text-[var(--admin-text)]">
             <Navbar
               onMenuClick={() => setSidebarOpen(!sidebarOpen)}
-              user={adminData}
             />
             <div className="flex flex-1 overflow-hidden">
               <Sidebar
                 isOpen={sidebarOpen}
                 onClose={() => setSidebarOpen(false)}
               />
-              <main className="flex-1 overflow-auto">
+              <main className="flex-1 overflow-auto bg-[var(--admin-bg)] pt-20">
                 <motion.div
                   className="p-4 sm:p-6"
                   initial={{ opacity: 0, y: 20 }}
