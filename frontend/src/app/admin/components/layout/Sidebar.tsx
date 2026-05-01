@@ -66,10 +66,10 @@ const adminRoutes: RouteSection[] = [
       {
         label: "Categories & Attributes",
         icon: Tags,
-        href: "/admin/category/list",
+        href: "/admin/categories",
         submenu: [
-          { label: "Categories", icon: Tags, href: "/admin/category/list" },
-          { label: "Attributes", icon: Tags, href: "/admin/attributes/colors" },
+          { label: "Taxonomy Engine", icon: Tags, href: "/admin/categories" },
+          { label: "User Suggestions", icon: Bell, href: "/admin/suggestions" },
         ],
       },
       { label: "Settings", icon: Settings, href: "/admin/settings" },

@@ -17,7 +17,7 @@ export default function UserSignupPage() {
         name: "",
         email: "",
         password: "",
-        location: "",
+        phoneNumber: "",
         agreeToTerms: false
     })
     const [showPassword, setShowPassword] = useState(false)
@@ -35,6 +35,7 @@ export default function UserSignupPage() {
             const result = await registerMutation.mutateAsync({
                 name: formData.name,
                 email: formData.email,
+                phoneNumber: formData.phoneNumber,
                 password: formData.password,
             })
 
@@ -42,7 +43,6 @@ export default function UserSignupPage() {
                 id: result.userId,
                 name: formData.name,
                 email: formData.email,
-                location: formData.location,
                 role: result.role,
             })
 
@@ -111,14 +111,14 @@ export default function UserSignupPage() {
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black text-[#115e59] uppercase tracking-widest pl-1">Deployment Location</label>
+                        <label className="text-[10px] font-black text-[#115e59] uppercase tracking-widest pl-1">Contact Protocol (Phone)</label>
                         <div className="relative group">
-                            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-[#115e59] transition-colors" />
+                            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-[#115e59] transition-colors" />
                             <input
-                                type="text"
-                                value={formData.location}
-                                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                                placeholder="City, Country"
+                                type="tel"
+                                value={formData.phoneNumber}
+                                onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+                                placeholder="+92 XXX XXXXXXX"
                                 className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 pl-12 pr-4 text-[#115e59] placeholder:text-slate-300 focus:outline-none focus:border-[#115e59]/20 focus:ring-4 focus:ring-[#115e59]/5 transition-all text-sm font-bold"
                                 required
                             />

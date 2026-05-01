@@ -8,7 +8,7 @@ using SwapIt.Core.Enums;
 
 namespace SwapIt.Application.Features.Auth.Commands.Register;
 
-public sealed record RegisterCommand(string? Name, string Email, string Password) : IRequest<RegisterResponseDto>;
+public sealed record RegisterCommand(string? Name, string Email, string? PhoneNumber, string Password) : IRequest<RegisterResponseDto>;
 
 public sealed class RegisterCommandHandler(
     IApplicationDbContext dbContext,
@@ -26,6 +26,7 @@ public sealed class RegisterCommandHandler(
         var user = new User(Guid.NewGuid().ToString("N"), request.Email)
         {
             Name = request.Name,
+            PhoneNumber = request.PhoneNumber,
             PasswordHash = passwordService.HashPassword(request.Password),
             Role = UserRole.User
         };

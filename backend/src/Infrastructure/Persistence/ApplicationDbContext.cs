@@ -21,6 +21,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<Dispute> Disputes => Set<Dispute>();
     public DbSet<TradeEvent> TradeEvents => Set<TradeEvent>();
     public DbSet<EmailVerificationToken> EmailVerificationTokens => Set<EmailVerificationToken>();
+    public DbSet<Suggestion> Suggestions => Set<Suggestion>();
 
     public async Task SeedAsync()
     {
@@ -48,15 +49,22 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             var electronics = new Category(Guid.NewGuid().ToString("N"), "Electronics", "Cpu");
             var vehicles = new Category(Guid.NewGuid().ToString("N"), "Vehicles", "Car");
             var realEstate = new Category(Guid.NewGuid().ToString("N"), "Real Estate", "Home");
-            var fashion = new Category(Guid.NewGuid().ToString("N"), "Fashion", "Shirt");
-            var hobby = new Category(Guid.NewGuid().ToString("N"), "Hobby & Sport", "Trophy");
+            var mobiles = new Category(Guid.NewGuid().ToString("N"), "Mobiles", "Smartphone");
+            var laptops = new Category(Guid.NewGuid().ToString("N"), "Laptops", "Laptop");
+            var homeAppliances = new Category(Guid.NewGuid().ToString("N"), "Home Appliances", "Microwave");
+            var furniture = new Category(Guid.NewGuid().ToString("N"), "Furniture", "Sofa");
+            var fashion = new Category(Guid.NewGuid().ToString("N"), "Fashion", "Sparkles");
+            var pets = new Category(Guid.NewGuid().ToString("N"), "Pets", "Dog");
+            var services = new Category(Guid.NewGuid().ToString("N"), "Services", "Briefcase");
+            var books = new Category(Guid.NewGuid().ToString("N"), "Books", "HelpCircle");
 
-            Categories.AddRange(electronics, vehicles, realEstate, fashion, hobby);
+            Categories.AddRange(electronics, vehicles, realEstate, mobiles, laptops, homeAppliances, furniture, fashion, pets, services, books);
             await SaveChangesAsync();
 
-            // Seed Attributes for Electronics
+            // Seed Attributes for Electronics (Refined with Types)
             CategoryAttributes.AddRange(new List<CategoryAttribute>
             {
+                new(Guid.NewGuid().ToString("N"), "Type", "selection", electronics.Id) { IsRequired = true, Options = "[\"Mobile\", \"Laptop\", \"Tablet\", \"Camera\", \"Television\", \"Audio\", \"Gaming Console\", \"Fan\", \"AC\", \"Other\"]" },
                 new(Guid.NewGuid().ToString("N"), "Brand", "text", electronics.Id) { IsRequired = true },
                 new(Guid.NewGuid().ToString("N"), "Model", "text", electronics.Id) { IsRequired = true },
                 new(Guid.NewGuid().ToString("N"), "Warranty", "selection", electronics.Id) { Options = "[\"No Warranty\", \"1-6 Months\", \"6-12 Months\", \"More than 1 Year\"]" }
@@ -65,10 +73,34 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             // Seed Attributes for Vehicles
             CategoryAttributes.AddRange(new List<CategoryAttribute>
             {
+                new(Guid.NewGuid().ToString("N"), "Type", "selection", vehicles.Id) { IsRequired = true, Options = "[\"Car\", \"Motorcycle\", \"Truck\", \"Cycle\", \"Spare Parts\"]" },
                 new(Guid.NewGuid().ToString("N"), "Make", "text", vehicles.Id) { IsRequired = true },
                 new(Guid.NewGuid().ToString("N"), "Model Year", "number", vehicles.Id) { IsRequired = true },
-                new(Guid.NewGuid().ToString("N"), "Mileage (KM)", "number", vehicles.Id),
                 new(Guid.NewGuid().ToString("N"), "Fuel Type", "selection", vehicles.Id) { Options = "[\"Petrol\", \"Diesel\", \"Electric\", \"Hybrid\", \"CNG\"]" }
+            });
+
+            // Seed Attributes for Mobiles
+            CategoryAttributes.AddRange(new List<CategoryAttribute>
+            {
+                new(Guid.NewGuid().ToString("N"), "Type", "selection", mobiles.Id) { IsRequired = true, Options = "[\"Smartphones\", \"Basic Phones\", \"Tablets\", \"Wearables\", \"Accessories\"]" },
+                new(Guid.NewGuid().ToString("N"), "Brand", "text", mobiles.Id) { IsRequired = true },
+                new(Guid.NewGuid().ToString("N"), "Storage", "selection", mobiles.Id) { Options = "[\"16GB\", \"32GB\", \"64GB\", \"128GB\", \"256GB\", \"512GB\", \"1TB\"]" },
+                new(Guid.NewGuid().ToString("N"), "RAM", "selection", mobiles.Id) { Options = "[\"2GB\", \"4GB\", \"6GB\", \"8GB\", \"12GB\", \"16GB\"]" }
+            });
+
+            // Seed Attributes for Real Estate
+            CategoryAttributes.AddRange(new List<CategoryAttribute>
+            {
+                new(Guid.NewGuid().ToString("N"), "Type", "selection", realEstate.Id) { IsRequired = true, Options = "[\"House\", \"Apartment\", \"Plot\", \"Commercial\", \"Room\"]" },
+                new(Guid.NewGuid().ToString("N"), "Area (Sq Ft)", "number", realEstate.Id),
+                new(Guid.NewGuid().ToString("N"), "Bedrooms", "number", realEstate.Id)
+            });
+
+            // Seed Attributes for Books
+            CategoryAttributes.AddRange(new List<CategoryAttribute>
+            {
+                new(Guid.NewGuid().ToString("N"), "Genre", "selection", books.Id) { IsRequired = true, Options = "[\"Fiction\", \"Non-Fiction\", \"Educational\", \"Biography\", \"Comic/Manga\", \"Other\"]" },
+                new(Guid.NewGuid().ToString("N"), "Condition", "selection", mobiles.Id) { Options = "[\"New\", \"Like New\", \"Used\", \"Old\"]" }
             });
 
             await SaveChangesAsync();
@@ -276,6 +308,16 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.Property(x => x.Token).IsRequired();
             entity.HasIndex(x => x.Token).IsUnique();
             entity.HasIndex(x => new { x.UserId, x.ExpiresAt });
+        });
+
+        modelBuilder.Entity<Suggestion>(entity =>
+        {
+            entity.ToTable("Suggestions");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasMaxLength(64);
+            entity.Property(x => x.Type).IsRequired().HasMaxLength(50);
+            entity.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            entity.HasOne(x => x.User).WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
         });
     }
 }

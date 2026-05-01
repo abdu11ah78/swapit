@@ -22,6 +22,65 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("SwapIt.Core.Entities.Category", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories", (string)null);
+                });
+
+            modelBuilder.Entity("SwapIt.Core.Entities.CategoryAttribute", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("CategoryId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<bool>("IsRequired")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Options")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("CategoryAttributes", (string)null);
+                });
+
             modelBuilder.Entity("SwapIt.Core.Entities.Dispute", b =>
                 {
                     b.Property<string>("Id")
@@ -108,10 +167,9 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
-                    b.Property<string>("Category")
+                    b.Property<string>("CategoryId")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("Condition")
                         .IsRequired()
@@ -130,9 +188,7 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("LtpValue")
                         .ValueGeneratedOnAdd()
@@ -141,6 +197,9 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("OwnerId")
                         .IsRequired()
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("ProvinceId")
                         .HasColumnType("nvarchar(64)");
 
                     b.Property<string>("Status")
@@ -159,9 +218,40 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("OwnerId");
 
+                    b.HasIndex("ProvinceId");
+
                     b.ToTable("Items", (string)null);
+                });
+
+            modelBuilder.Entity("SwapIt.Core.Entities.ItemAttributeValue", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("AttributeId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("ItemId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AttributeId");
+
+                    b.HasIndex("ItemId");
+
+                    b.ToTable("ItemAttributeValues", (string)null);
                 });
 
             modelBuilder.Entity("SwapIt.Core.Entities.Notification", b =>
@@ -282,6 +372,25 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
                     b.ToTable("OfferItems", (string)null);
                 });
 
+            modelBuilder.Entity("SwapIt.Core.Entities.Province", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Provinces", (string)null);
+                });
+
             modelBuilder.Entity("SwapIt.Core.Entities.Review", b =>
                 {
                     b.Property<string>("Id")
@@ -319,6 +428,39 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
                         .HasFilter("[TradeId] IS NOT NULL");
 
                     b.ToTable("Reviews", (string)null);
+                });
+
+            modelBuilder.Entity("SwapIt.Core.Entities.Suggestion", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Suggestions", (string)null);
                 });
 
             modelBuilder.Entity("SwapIt.Core.Entities.Trade", b =>
@@ -429,6 +571,9 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Role")
                         .IsRequired()
                         .ValueGeneratedOnAdd()
@@ -449,6 +594,17 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("SwapIt.Core.Entities.CategoryAttribute", b =>
+                {
+                    b.HasOne("SwapIt.Core.Entities.Category", "Category")
+                        .WithMany("Attributes")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 
             modelBuilder.Entity("SwapIt.Core.Entities.Dispute", b =>
@@ -490,13 +646,47 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("SwapIt.Core.Entities.Item", b =>
                 {
+                    b.HasOne("SwapIt.Core.Entities.Category", "Category")
+                        .WithMany("Items")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("SwapIt.Core.Entities.User", "Owner")
                         .WithMany("Items")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("SwapIt.Core.Entities.Province", "Province")
+                        .WithMany("Items")
+                        .HasForeignKey("ProvinceId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Category");
+
                     b.Navigation("Owner");
+
+                    b.Navigation("Province");
+                });
+
+            modelBuilder.Entity("SwapIt.Core.Entities.ItemAttributeValue", b =>
+                {
+                    b.HasOne("SwapIt.Core.Entities.CategoryAttribute", "Attribute")
+                        .WithMany("Values")
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SwapIt.Core.Entities.Item", "Item")
+                        .WithMany("AttributeValues")
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Attribute");
+
+                    b.Navigation("Item");
                 });
 
             modelBuilder.Entity("SwapIt.Core.Entities.Notification", b =>
@@ -588,6 +778,17 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
                     b.Navigation("Trade");
                 });
 
+            modelBuilder.Entity("SwapIt.Core.Entities.Suggestion", b =>
+                {
+                    b.HasOne("SwapIt.Core.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("SwapIt.Core.Entities.Trade", b =>
                 {
                     b.HasOne("SwapIt.Core.Entities.User", "Buyer")
@@ -626,8 +827,22 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
                     b.Navigation("Trade");
                 });
 
+            modelBuilder.Entity("SwapIt.Core.Entities.Category", b =>
+                {
+                    b.Navigation("Attributes");
+
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("SwapIt.Core.Entities.CategoryAttribute", b =>
+                {
+                    b.Navigation("Values");
+                });
+
             modelBuilder.Entity("SwapIt.Core.Entities.Item", b =>
                 {
+                    b.Navigation("AttributeValues");
+
                     b.Navigation("OfferLinks");
 
                     b.Navigation("Offers");
@@ -639,6 +854,11 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
                 {
                     b.Navigation("CounterOffers");
 
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("SwapIt.Core.Entities.Province", b =>
+                {
                     b.Navigation("Items");
                 });
 

@@ -7,6 +7,7 @@ public class User(string id, string email)
     public string Id { get; set; } = id;
     public string? Name { get; set; }
     public string Email { get; set; } = email;
+    public string? PhoneNumber { get; set; }
     public DateTime? EmailVerified { get; set; }
     public string? Image { get; set; }
     public string? PasswordHash { get; set; }
@@ -223,5 +224,17 @@ public class EmailVerificationToken(string id, string token, string userId, Date
     public DateTime ExpiresAt { get; set; } = expiresAt;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
+    public User User { get; set; } = null!;
+}
+
+public class Suggestion(string id, string type, string name, string userId)
+{
+    public string Id { get; set; } = id;
+    public string Type { get; set; } = type; // "Category", "Attribute", etc.
+    public string Name { get; set; } = name;
+    public bool IsApproved { get; set; } = false;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public string UserId { get; set; } = userId;
     public User User { get; set; } = null!;
 }

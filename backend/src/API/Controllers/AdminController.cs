@@ -107,9 +107,39 @@ public class AdminController(ISender sender) : ControllerBase
         return await sender.Send(command);
     }
 
+    [HttpPut("categories/{id}")]
+    public async Task<ActionResult> UpdateCategory(string id, [FromBody] UpdateCategoryCommand command)
+    {
+        if (id != command.Id) return BadRequest();
+        await sender.Send(command);
+        return NoContent();
+    }
+
     [HttpGet("provinces")]
     public async Task<ActionResult<List<ProvinceDto>>> GetProvinces()
     {
         return await sender.Send(new GetProvincesQuery());
+    }
+
+    // --- Suggestion Management ---
+
+    [HttpGet("suggestions")]
+    public async Task<ActionResult<List<SuggestionDto>>> GetSuggestions()
+    {
+        return await sender.Send(new GetSuggestionsQuery());
+    }
+
+    [HttpPost("suggestions/{id}/approve")]
+    public async Task<ActionResult> ApproveSuggestion(string id)
+    {
+        await sender.Send(new ApproveSuggestionCommand(id));
+        return NoContent();
+    }
+
+    [HttpPatch("categories/{id}/toggle")]
+    public async Task<ActionResult> ToggleCategory(string id)
+    {
+        await sender.Send(new ToggleCategoryCommand(id));
+        return NoContent();
     }
 }

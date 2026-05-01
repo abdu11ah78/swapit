@@ -8,8 +8,11 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 import { 
   getAdminCategories, 
   getAdminProvinces, 
-  createAdminCategory 
+  createAdminCategory,
+  updateAdminCategory,
+  toggleCategoryStatus
 } from "@/features/admin/admin.api"
+import { useAdminSuggestions, useApproveSuggestion, useToggleCategory } from "@/features/admin/admin.hooks"
 import { 
   Plus, 
   Layers, 
@@ -45,10 +48,12 @@ const IconMap: any = {
 export default function CategoriesPage() {
   const queryClient = useQueryClient()
   const [showAddModal, setShowAddModal] = useState(false)
+  const [editingId, setEditingId] = useState<string | null>(null)
   const [successMsg, setSuccessMsg] = useState<string | null>(null)
 
   // Form State
   const [newCat, setNewCat] = useState({
+    id: "",
     name: "",
     icon: "Smartphone",
     attributes: [] as any[]
@@ -71,11 +76,25 @@ export default function CategoriesPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin", "categories"] })
       setShowAddModal(false)
-      setNewCat({ name: "", icon: "Smartphone", attributes: [] })
+      setNewCat({ id: "", name: "", icon: "Smartphone", attributes: [] })
       setSuccessMsg("Category created successfully")
       setTimeout(() => setSuccessMsg(null), 3000)
     }
   })
+
+  const updateMutation = useMutation({
+    mutationFn: (data: any) => updateAdminCategory(data.id, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["admin", "categories"] })
+      setShowAddModal(false)
+      setEditingId(null)
+      setNewCat({ id: "", name: "", icon: "Smartphone", attributes: [] })
+      setSuccessMsg("Category updated successfully")
+      setTimeout(() => setSuccessMsg(null), 3000)
+    }
+  })
+
+  const toggleMutation = useToggleCategory()
 
   const addAttribute = () => {
     setNewCat(prev => ({
@@ -147,11 +166,29 @@ export default function CategoriesPage() {
                         <Icon size={28} />
                       </div>
                       <div className="flex gap-2">
-                        <Badge variant={cat.isActive ? "success" : "secondary"}>
-                          {cat.isActive ? "ACTIVE" : "HIDDEN"}
-                        </Badge>
-                        <button className="p-2 hover:bg-[var(--admin-bg)] rounded-xl transition-colors">
-                          <MoreVertical size={18} className="text-[var(--admin-text-muted)]" />
+                        <button 
+                            onClick={() => toggleMutation.mutate(cat.id)}
+                            disabled={toggleMutation.isPending}
+                            className="cursor-pointer hover:scale-105 transition-transform"
+                        >
+                            <Badge variant={cat.isActive ? "success" : "secondary"}>
+                            {cat.isActive ? "ACTIVE" : "HIDDEN"}
+                            </Badge>
+                        </button>
+                        <button 
+                          onClick={() => {
+                            setEditingId(cat.id)
+                            setNewCat({
+                              id: cat.id,
+                              name: cat.name,
+                              icon: cat.icon,
+                              attributes: cat.attributes.map((a: any) => ({ ...a }))
+                            })
+                            setShowAddModal(true)
+                          }}
+                          className="p-2 hover:bg-[var(--admin-bg)] rounded-xl transition-colors"
+                        >
+                          <Settings2 size={18} className="text-[var(--admin-text-muted)]" />
                         </button>
                       </div>
                     </div>
@@ -353,14 +390,23 @@ export default function CategoriesPage() {
                 </div>
 
                 <div className="p-8 border-t border-[var(--admin-border)] bg-[var(--admin-bg)]/50 flex justify-end gap-4">
-                  <button onClick={() => setShowAddModal(false)} className="px-6 py-3 text-xs font-black uppercase tracking-widest text-[var(--admin-text-muted)]">Cancel</button>
                   <button 
-                    onClick={() => createMutation.mutate(newCat)}
-                    disabled={createMutation.isPending || !newCat.name}
+                    onClick={() => {
+                      setShowAddModal(false)
+                      setEditingId(null)
+                      setNewCat({ id: "", name: "", icon: "Smartphone", attributes: [] })
+                    }} 
+                    className="px-6 py-3 text-xs font-black uppercase tracking-widest text-[var(--admin-text-muted)]"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    onClick={() => editingId ? updateMutation.mutate(newCat) : createMutation.mutate(newCat)}
+                    disabled={createMutation.isPending || updateMutation.isPending || !newCat.name}
                     className="admin-button-primary px-10 h-12 flex items-center gap-2"
                   >
-                    {createMutation.isPending ? <Loader2 className="animate-spin" size={18} /> : <CheckCircle2 size={18} />}
-                    <span>Deploy Category</span>
+                    {(createMutation.isPending || updateMutation.isPending) ? <Loader2 className="animate-spin" size={18} /> : <CheckCircle2 size={18} />}
+                    <span>{editingId ? 'Update' : 'Deploy'} Category</span>
                   </button>
                 </div>
               </div>

@@ -136,7 +136,24 @@ export const getAdminProvinces = async () => {
   return response.data
 }
 
+export const getAdminSuggestions = async () => {
+  const response = await axiosInstance.get("/admin/suggestions")
+  return response.data
+}
+
+export const approveSuggestion = async (id: string) => {
+  await axiosInstance.post(`/admin/suggestions/${id}/approve`)
+}
+
+export const toggleCategoryStatus = async (id: string) => {
+  await axiosInstance.patch(`/admin/categories/${id}/toggle`)
+}
+
 export const createAdminCategory = async (data: any) => {
   const response = await axiosInstance.post("/admin/categories", data)
   return response.data
+}
+
+export const updateAdminCategory = async (id: string, data: any) => {
+  await axiosInstance.put(`/admin/categories/${id}`, data)
 }

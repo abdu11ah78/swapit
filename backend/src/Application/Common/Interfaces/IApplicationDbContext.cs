@@ -19,6 +19,7 @@ public interface IApplicationDbContext
     DbSet<Dispute> Disputes { get; }
     DbSet<Review> Reviews { get; }
     DbSet<EmailVerificationToken> EmailVerificationTokens { get; }
+    DbSet<Suggestion> Suggestions { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     Task SeedAsync();
 }
