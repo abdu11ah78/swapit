@@ -26,8 +26,27 @@ export default function RootLayout({
           <AppProvider>
             <MaintenanceOverlay />
             {children}
-            <Toaster position="bottom-right" />
-            <SonnerToaster richColors position="top-right" />
+            <Toaster 
+              position="bottom-right" 
+              toastOptions={{
+                className: 'rounded-[1.5rem] bg-white border border-slate-100 text-[#115e59] font-bold text-sm shadow-2xl',
+                duration: 4000,
+                style: {
+                  padding: '16px 24px',
+                  boxShadow: '0 25px 50px -12px rgba(17, 94, 89, 0.1)',
+                }
+              }}
+            />
+            <SonnerToaster 
+              richColors 
+              position="top-right"
+              toastOptions={{
+                className: 'rounded-[2rem] border-slate-100 shadow-2xl font-sans',
+                style: {
+                  borderRadius: '1.5rem',
+                }
+              }}
+            />
           </AppProvider>
         </Providers>
       </body>

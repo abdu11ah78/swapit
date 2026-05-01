@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react"
 import { clearAccessToken, getAccessToken } from "@/lib/auth-storage"
+import { CustomAlert, ModalType } from "@/components/common/CustomAlert"
 
 export type WalletItem = {
   id: string
@@ -33,6 +34,16 @@ export type AppContextType = {
   logout: () => void
   isAiMode: boolean
   toggleAiMode: () => void
+  showAlert: (config: AlertConfig) => void
+}
+
+export type AlertConfig = {
+  title: string
+  message: string
+  type?: ModalType
+  confirmText?: string
+  cancelText?: string
+  onConfirm?: () => void
 }
 
 export type CurrentUser = {
@@ -56,6 +67,18 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
   // AI/View Mode state
   const [isAiMode, setIsAiMode] = useState(false)
+
+  // Alert state
+  const [alertConfig, setAlertConfig] = useState<AlertConfig & { isOpen: boolean }>({
+    isOpen: false,
+    title: "",
+    message: "",
+    type: "info"
+  })
+
+  const showAlert = (config: AlertConfig) => {
+    setAlertConfig({ ...config, isOpen: true })
+  }
 
 
   useEffect(() => {
@@ -154,10 +177,24 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         login,
         logout,
         isAiMode,
-        toggleAiMode
+        toggleAiMode,
+        showAlert
       }}
     >
       {children}
+      <CustomAlert
+        isOpen={alertConfig.isOpen}
+        onClose={() => setAlertConfig(prev => ({ ...prev, isOpen: false }))}
+        onConfirm={() => {
+          alertConfig.onConfirm?.()
+          setAlertConfig(prev => ({ ...prev, isOpen: false }))
+        }}
+        title={alertConfig.title}
+        message={alertConfig.message}
+        type={alertConfig.type}
+        confirmText={alertConfig.confirmText}
+        cancelText={alertConfig.cancelText}
+      />
     </AppContext.Provider>
   )
 }

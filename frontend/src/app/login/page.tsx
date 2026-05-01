@@ -11,7 +11,7 @@ import { useLoginMutation } from "@/features/auth/auth.hooks"
 
 export default function UserLoginPage() {
     const router = useRouter()
-    const { login } = useAppContext()
+    const { login, showAlert } = useAppContext()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [showPassword, setShowPassword] = useState(false)
@@ -30,8 +30,13 @@ export default function UserLoginPage() {
             })
             toast.success("Welcome back!")
             router.push('/')
-        } catch {
-            toast.error("Invalid credentials")
+        } catch (err: any) {
+            showAlert({
+                title: "Login Failed",
+                message: err?.response?.data?.message || "Invalid credentials. Please verify your email and password and try again.",
+                type: "error",
+                confirmText: "Try Again"
+            })
         }
     }
 
@@ -56,21 +61,21 @@ export default function UserLoginPage() {
                         <span className="text-xl font-black tracking-tighter text-[#115e59] italic uppercase">Swap<span className="text-[#4d7c0f]">It</span></span>
                     </Link>
                     <h1 className="text-3xl font-black text-[#115e59] tracking-tighter mb-2 italic uppercase">
-                        Protocol <span className="text-[#4d7c0f] not-italic">Login</span>
+                        Member <span className="text-[#4d7c0f] not-italic">Login</span>
                     </h1>
-                    <p className="text-slate-400 text-[10px] font-black tracking-[0.3em] uppercase">Identity Verification Required</p>
+                    <p className="text-slate-400 text-[10px] font-black tracking-[0.3em] uppercase">Welcome back to SwapIt</p>
                 </div>
 
                 <form onSubmit={handleLogin} className="space-y-6">
                     <div className="space-y-2">
-                        <label className="text-[10px] font-black text-[#115e59] uppercase tracking-widest pl-1">Network Identity (Email)</label>
+                        <label className="text-[10px] font-black text-[#115e59] uppercase tracking-widest pl-1">Email Address</label>
                         <div className="relative group">
                             <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-[#115e59] transition-colors" />
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                placeholder="node@protocol.com"
+                                placeholder="name@example.com"
                                 className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 pl-12 pr-4 text-[#115e59] placeholder:text-slate-300 focus:outline-none focus:border-[#115e59]/20 focus:ring-4 focus:ring-[#115e59]/5 transition-all text-sm font-bold"
                                 required
                             />
@@ -79,7 +84,7 @@ export default function UserLoginPage() {
 
                     <div className="space-y-2">
                         <div className="flex justify-between px-1">
-                            <label className="text-[10px] font-black text-[#115e59] uppercase tracking-widest">Access Key</label>
+                            <label className="text-[10px] font-black text-[#115e59] uppercase tracking-widest">Password</label>
                             <button type="button" className="text-[10px] font-black text-slate-300 hover:text-[#4d7c0f] transition-colors uppercase tracking-widest">Forgot?</button>
                         </div>
                         <div className="relative group">
@@ -107,9 +112,9 @@ export default function UserLoginPage() {
                         disabled={isLoading}
                         className="w-full py-4 bg-[#115e59] text-white font-black tracking-widest rounded-2xl shadow-xl shadow-[#115e59]/20 flex items-center justify-center gap-3 group disabled:opacity-50 transition-all active:scale-95 hover:bg-[#4d7c0f] text-xs"
                     >
-                        {isLoading ? "AUTHORIZING..." : (
+                        {isLoading ? "LOGGING IN..." : (
                             <>
-                                ACCESS SWAPIT
+                                LOGIN TO ACCOUNT
                                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                             </>
                         )}
@@ -118,14 +123,14 @@ export default function UserLoginPage() {
 
                 <div className="mt-8 pt-8 border-t border-slate-50 text-center">
                     <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">
-                        New Node?{' '}
-                        <Link href="/signup" className="text-[#115e59] hover:text-[#4d7c0f] transition-colors">Initialize Account</Link>
+                        New here?{' '}
+                        <Link href="/signup" className="text-[#115e59] hover:text-[#4d7c0f] transition-colors">Create Account</Link>
                     </p>
                 </div>
 
                 <div className="mt-6 flex items-center justify-center gap-2 text-[9px] text-slate-300 font-black uppercase tracking-[0.2em]">
                     <Shield className="w-3 h-3 text-[#4d7c0f]/40" />
-                    Quantum Secure Handshake
+                    Secure encrypted login
                 </div>
             </motion.div>
         </div>
