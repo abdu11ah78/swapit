@@ -254,6 +254,43 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
                     b.ToTable("ItemAttributeValues", (string)null);
                 });
 
+            modelBuilder.Entity("SwapIt.Core.Entities.Message", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRead")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("ReceiverId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("SenderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(64)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedAt");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("SenderId", "ReceiverId");
+
+                    b.ToTable("Messages", (string)null);
+                });
+
             modelBuilder.Entity("SwapIt.Core.Entities.Notification", b =>
                 {
                     b.Property<string>("Id")
@@ -551,6 +588,9 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("nvarchar(64)");
 
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -564,6 +604,20 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
 
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsLocationPublic")
+                        .HasColumnType("bit");
+
+                    b.Property<double?>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Longitude")
+                        .HasColumnType("float");
+
+                    b.Property<int>("LtpBalance")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -687,6 +741,25 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
                     b.Navigation("Attribute");
 
                     b.Navigation("Item");
+                });
+
+            modelBuilder.Entity("SwapIt.Core.Entities.Message", b =>
+                {
+                    b.HasOne("SwapIt.Core.Entities.User", "Receiver")
+                        .WithMany("ReceivedMessages")
+                        .HasForeignKey("ReceiverId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SwapIt.Core.Entities.User", "Sender")
+                        .WithMany("SentMessages")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("SwapIt.Core.Entities.Notification", b =>
@@ -885,9 +958,13 @@ namespace SwapIt.Infrastructure.Persistence.Migrations
 
                     b.Navigation("Notifications");
 
+                    b.Navigation("ReceivedMessages");
+
                     b.Navigation("ReceivedReviews");
 
                     b.Navigation("ReviewedDisputes");
+
+                    b.Navigation("SentMessages");
 
                     b.Navigation("SentOffers");
 

@@ -20,6 +20,7 @@ public interface IApplicationDbContext
     DbSet<Review> Reviews { get; }
     DbSet<EmailVerificationToken> EmailVerificationTokens { get; }
     DbSet<Suggestion> Suggestions { get; }
+    DbSet<Message> Messages { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     Task SeedAsync();
 }

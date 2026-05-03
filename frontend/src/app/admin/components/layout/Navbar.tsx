@@ -135,7 +135,7 @@ export function Navbar({ onMenuClick }: NavbarProps) {
               </div>
               <div className="w-10 h-10 rounded-xl bg-[var(--admin-primary)] flex items-center justify-center overflow-hidden border-2 border-[var(--admin-primary)]/20 shadow-sm">
                 <img
-                  src={currentUser?.avatarUrl || `https://ui-avatars.com/api/?name=${currentUser?.name || 'Admin'}&background=98A31D&color=fff`}
+                  src={currentUser?.image || `https://ui-avatars.com/api/?name=${currentUser?.name || 'Admin'}&background=98A31D&color=fff`}
                   alt="Admin Avatar"
                   className="w-full h-full object-cover"
                 />

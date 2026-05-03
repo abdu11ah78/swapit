@@ -16,6 +16,8 @@ export type LoginResponse = {
   token: string;
   role: string;
   userId: string;
+  name?: string;
+  image?: string;
 };
 
 type RegisterResponse = {

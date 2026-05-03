@@ -24,7 +24,9 @@ export type CreateNotificationPayload = {
     | "OFFER_REJECTED"
     | "TRADE_UPDATE"
     | "SMART_MATCH"
-    | "DISPUTE_UPDATE";
+    | "DISPUTE_UPDATE"
+    | "ITEM_VIEW"
+    | "ITEM_LIKED";
   message: string;
 };
 

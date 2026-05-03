@@ -31,7 +31,9 @@ public sealed class LoginCommandHandler(
         {
             Token = tokenService.GenerateAccessToken(user),
             Role = user.Role.ToString().ToUpperInvariant(),
-            UserId = user.Id
+            UserId = user.Id,
+            Name = user.Name,
+            Image = user.Image
         };
     }
 }

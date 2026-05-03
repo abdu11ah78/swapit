@@ -42,7 +42,9 @@ public enum NotificationType
     OfferRejected = 5,
     TradeUpdate = 6,
     SmartMatch = 7,
-    DisputeUpdate = 8
+    DisputeUpdate = 8,
+    ItemView = 9,
+    ItemLiked = 10
 }
 
 public enum DisputeStatus

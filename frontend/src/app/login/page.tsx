@@ -26,7 +26,8 @@ export default function UserLoginPage() {
                 id: result.userId,
                 email,
                 role: result.role,
-                name: email.split("@")[0],
+                name: result.name || email.split("@")[0],
+                image: result.image
             })
             toast.success("Welcome back!")
             router.push('/')

@@ -38,7 +38,9 @@ export default function AdminLoginPage() {
       login({
         id: data.userId,
         email: email,
-        role: data.role
+        role: data.role,
+        name: data.name || "Admin",
+        image: data.image
       });
 
       toast.success("Identity verified. Accessing Command Center.");

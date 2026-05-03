@@ -22,6 +22,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<TradeEvent> TradeEvents => Set<TradeEvent>();
     public DbSet<EmailVerificationToken> EmailVerificationTokens => Set<EmailVerificationToken>();
     public DbSet<Suggestion> Suggestions => Set<Suggestion>();
+    public DbSet<Message> Messages => Set<Message>();
 
     public async Task SeedAsync()
     {
@@ -113,6 +114,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             {
                 Name = "Admin User",
                 Role = UserRole.Admin,
+                LtpBalance = 5000
             };
             var hasher = new Microsoft.AspNetCore.Identity.PasswordHasher<User>();
             adminUser.PasswordHash = hasher.HashPassword(adminUser, "admin123");
@@ -160,6 +162,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.HasIndex(x => x.Email).IsUnique();
             entity.Property(x => x.Role).HasConversion<string>().HasDefaultValue(UserRole.User);
             entity.Property(x => x.TrustScore).HasDefaultValue(100d);
+            entity.Property(x => x.LtpBalance).HasDefaultValue(0);
 
             entity.HasMany(x => x.Items).WithOne(x => x.Owner).HasForeignKey(x => x.OwnerId).OnDelete(DeleteBehavior.Restrict);
             entity.HasMany(x => x.AuthoredReviews).WithOne(x => x.Author).HasForeignKey(x => x.AuthorId).OnDelete(DeleteBehavior.Restrict);
@@ -171,6 +174,8 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.HasMany(x => x.EmailTokens).WithOne(x => x.User).HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
             entity.HasMany(x => x.TradesAsBuyer).WithOne(x => x.Buyer).HasForeignKey(x => x.BuyerId).OnDelete(DeleteBehavior.Restrict);
             entity.HasMany(x => x.TradesAsSeller).WithOne(x => x.Seller).HasForeignKey(x => x.SellerId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasMany(x => x.SentMessages).WithOne(x => x.Sender).HasForeignKey(x => x.SenderId).OnDelete(DeleteBehavior.Restrict);
+            entity.HasMany(x => x.ReceivedMessages).WithOne(x => x.Receiver).HasForeignKey(x => x.ReceiverId).OnDelete(DeleteBehavior.Restrict);
         });
 
         modelBuilder.Entity<Category>(entity =>
@@ -318,6 +323,17 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.Property(x => x.Type).IsRequired().HasMaxLength(50);
             entity.Property(x => x.Name).IsRequired().HasMaxLength(100);
             entity.HasOne(x => x.User).WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<Message>(entity =>
+        {
+            entity.ToTable("Messages");
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Id).HasMaxLength(64);
+            entity.Property(x => x.Content).IsRequired();
+            entity.Property(x => x.IsRead).HasDefaultValue(false);
+            entity.HasIndex(x => new { x.SenderId, x.ReceiverId });
+            entity.HasIndex(x => x.CreatedAt);
         });
     }
 }

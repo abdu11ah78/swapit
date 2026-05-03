@@ -12,6 +12,11 @@ public class User(string id, string email)
     public string? Image { get; set; }
     public string? PasswordHash { get; set; }
     public UserRole Role { get; set; } = UserRole.User;
+    public int LtpBalance { get; set; } = 0;
+    public bool IsLocationPublic { get; set; } = false;
+    public double? Latitude { get; set; }
+    public double? Longitude { get; set; }
+    public string? City { get; set; }
     public double TrustScore { get; set; } = 100d;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
@@ -26,6 +31,8 @@ public class User(string id, string email)
     public ICollection<EmailVerificationToken> EmailTokens { get; set; } = new List<EmailVerificationToken>();
     public ICollection<Trade> TradesAsBuyer { get; set; } = new List<Trade>();
     public ICollection<Trade> TradesAsSeller { get; set; } = new List<Trade>();
+    public ICollection<Message> SentMessages { get; set; } = new List<Message>();
+    public ICollection<Message> ReceivedMessages { get; set; } = new List<Message>();
 }
 
 public class Item(string id, string title, string description, string images, string categoryId, string condition, string ownerId)
@@ -237,4 +244,16 @@ public class Suggestion(string id, string type, string name, string userId)
 
     public string UserId { get; set; } = userId;
     public User User { get; set; } = null!;
+}
+
+public class Message(string id, string senderId, string receiverId, string content)
+{
+    public string Id { get; set; } = id;
+    public string SenderId { get; set; } = senderId;
+    public User Sender { get; set; } = null!;
+    public string ReceiverId { get; set; } = receiverId;
+    public User Receiver { get; set; } = null!;
+    public string Content { get; set; } = content;
+    public bool IsRead { get; set; } = false;
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

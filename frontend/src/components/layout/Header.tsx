@@ -4,12 +4,13 @@ import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { createPortal } from "react-dom"
-import { Search, MapPin, Plus, User, LogOut, ChevronDown, Mail, ShoppingCart, Bell, Settings, Heart, Package, CreditCard, UserCircle, Sparkles, ShoppingBag } from "lucide-react"
+import { Search, MapPin, Plus, User, LogOut, ChevronDown, Mail, ShoppingCart, Bell, Settings, Heart, Package, CreditCard, UserCircle, Sparkles, ShoppingBag, ArrowLeftRight } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useAppContext } from "@/context/AppContext"
 import { AnimatePresence, motion } from "framer-motion"
 import { useNotificationsQuery } from "@/features/notifications/notifications.hooks"
+import { useConversationsQuery } from "@/features/messages/messages.hooks"
 
 interface Props {
     onSearch?: (query: string) => void
@@ -23,6 +24,8 @@ export function MarketplaceHeader({ onSearch }: Props) {
     const [mounted, setMounted] = useState(false)
     const { data: notificationsData } = useNotificationsQuery(isLoggedIn)
     const unreadCount = (notificationsData?.notifications ?? []).filter((n) => !n.read).length
+    const { data: convoData } = useConversationsQuery(isLoggedIn)
+    const messageCount = convoData?.conversations?.length ?? 0
 
     useEffect(() => {
         setMounted(true)
@@ -32,6 +35,12 @@ export function MarketplaceHeader({ onSearch }: Props) {
         const value = e.target.value
         setSearchValue(value)
         if (onSearch) onSearch(value)
+    }
+
+    const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter" && !onSearch && searchValue.trim()) {
+            router.push(`/?q=${encodeURIComponent(searchValue.trim())}`)
+        }
     }
 
     const handleSellClick = () => {
@@ -71,23 +80,10 @@ export function MarketplaceHeader({ onSearch }: Props) {
                                 type="text"
                                 value={searchValue}
                                 onChange={handleSearchChange}
+                                onKeyDown={handleSearchKeyDown}
                                 placeholder="What are you looking for today?"
                                 className="flex-1 bg-transparent outline-none text-sm font-bold text-[#115e59] placeholder:text-slate-300"
                             />
-                            <div className="h-6 w-px bg-slate-100 mx-4" />
-                            <div
-                                onClick={() => {
-                                    const locs = ['PAK', 'LHR', 'KHI', 'ISL']
-                                    const current = document.getElementById('loc-text')?.innerText || 'PAK'
-                                    const next = locs[(locs.indexOf(current) + 1) % locs.length]
-                                    const el = document.getElementById('loc-text')
-                                    if (el) el.innerText = next
-                                }}
-                                className="flex items-center gap-2 text-slate-400 hover:text-[#115e59] cursor-pointer transition-colors group/loc select-none"
-                            >
-                                <MapPin className="w-4 h-4 group-hover/loc:animate-bounce" />
-                                <span id="loc-text" className="text-[10px] font-black uppercase tracking-widest">PAK</span>
-                            </div>
                         </div>
                     </div>
 
@@ -103,19 +99,18 @@ export function MarketplaceHeader({ onSearch }: Props) {
                                         title="Messages"
                                     >
                                         <Mail className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                                        <span className="absolute top-2 right-2 w-2 h-2 bg-[#4d7c0f] rounded-full border-2 border-white" />
-                                    </button>
-                                    <button
-                                        onClick={() => router.push("/cart")}
-                                        className="p-3 text-[#115e59] hover:bg-[#115e59]/5 rounded-2xl transition-all relative group"
-                                        title="Cart"
-                                    >
-                                        <ShoppingCart className="w-5 h-5 group-hover:scale-110 transition-transform" />
-                                        {wallet.length > 0 && (
+                                        {messageCount > 0 && (
                                             <span className="absolute -top-1 -right-1 bg-[#4d7c0f] text-white text-[8px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">
-                                                {wallet.length}
+                                                {messageCount}
                                             </span>
                                         )}
+                                    </button>
+                                    <button
+                                        onClick={() => router.push("/my-offers")}
+                                        className="p-3 text-[#115e59] hover:bg-[#115e59]/5 rounded-2xl transition-all relative group"
+                                        title="My Offers"
+                                    >
+                                        <ArrowLeftRight className="w-5 h-5 group-hover:scale-110 transition-transform" />
                                     </button>
                                     <button
                                         onClick={() => router.push("/notifications")}
@@ -137,8 +132,12 @@ export function MarketplaceHeader({ onSearch }: Props) {
                                         onClick={() => setShowProfileMenu(!showProfileMenu)}
                                         className="flex items-center gap-3 p-1.5 pr-4 bg-slate-50 border border-slate-100 hover:bg-white hover:border-[#115e59]/20 rounded-full transition-all duration-300"
                                     >
-                                        <div className="w-10 h-10 bg-gradient-to-br from-[#115e59] to-[#4d7c0f] rounded-full flex items-center justify-center shadow-lg shadow-[#115e59]/10">
-                                            <User className="w-5 h-5 text-white" />
+                                        <div className="w-10 h-10 bg-gradient-to-br from-[#115e59] to-[#4d7c0f] rounded-full flex items-center justify-center shadow-lg shadow-[#115e59]/10 overflow-hidden">
+                                            {currentUser?.image ? (
+                                                <img src={currentUser.image} alt={currentUser.name || 'User'} className="w-full h-full object-cover" />
+                                            ) : (
+                                                <User className="w-5 h-5 text-white" />
+                                            )}
                                         </div>
                                         <div className="text-left hidden lg:block">
                                             <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Authenticated</p>
@@ -211,14 +210,18 @@ export function MarketplaceHeader({ onSearch }: Props) {
                                             {/* Header Portion (Left Side on Desktop) */}
                                             <div className="p-8 bg-slate-50/80 backdrop-blur-md border-b md:border-b-0 md:border-r border-slate-100 md:w-1/3 lg:w-1/4 flex flex-col justify-center">
                                                 <div className="flex items-center gap-4 mb-6">
-                                                    <div className="w-16 h-16 bg-[#115e59] rounded-2xl flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-[#115e59]/20 italic flex-shrink-0">
-                                                        {currentUser?.name?.[0] || 'U'}
+                                                    <div className="w-16 h-16 bg-[#115e59] rounded-2xl flex items-center justify-center text-white text-2xl font-black shadow-lg shadow-[#115e59]/20 italic flex-shrink-0 overflow-hidden">
+                                                        {currentUser?.image ? (
+                                                            <img src={currentUser.image} alt={currentUser.name || 'User'} className="w-full h-full object-cover" />
+                                                        ) : (
+                                                            currentUser?.name?.[0] || 'U'
+                                                        )}
                                                     </div>
                                                     <div className="flex-1 min-w-0">
                                                         <p className="text-lg font-black text-[#115e59] truncate uppercase tracking-tighter italic">{currentUser?.name || 'Premium User'}</p>
                                                         <p className="text-[10px] font-bold text-slate-400 tracking-widest uppercase flex items-center gap-1">
                                                             <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                                                            Verified Node
+                                                            Verified Member
                                                         </p>
                                                     </div>
                                                 </div>
@@ -227,7 +230,7 @@ export function MarketplaceHeader({ onSearch }: Props) {
                                                     className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-white text-red-500 border border-red-50 rounded-2xl transition-all font-black text-[10px] uppercase tracking-widest hover:bg-red-50 hover:border-red-100 shadow-sm"
                                                 >
                                                     <LogOut size={16} />
-                                                    Disconnect Node
+                                                    Sign Out
                                                 </button>
                                             </div>
 
@@ -237,9 +240,7 @@ export function MarketplaceHeader({ onSearch }: Props) {
                                                     <MenuLink icon={<UserCircle size={20} />} label="My Profile" onClick={() => { router.push("/profile"); setShowProfileMenu(false) }} />
                                                     <MenuLink icon={<Heart size={20} />} label="Vault" onClick={() => { router.push("/wishlist"); setShowProfileMenu(false) }} count={wishlist.length} />
                                                     <MenuLink icon={<Package size={20} />} label="Active Ads" onClick={() => { router.push("/my-posts"); setShowProfileMenu(false) }} />
-                                                    <MenuLink icon={<ShoppingBag size={20} />} label="Barter Ledger" onClick={() => { router.push("/orders"); setShowProfileMenu(false) }} />
                                                     <MenuLink icon={<Sparkles size={20} />} label="My Offers" onClick={() => { router.push("/my-offers"); setShowProfileMenu(false) }} />
-                                                    <MenuLink icon={<CreditCard size={20} />} label="Wallet" onClick={() => { router.push("/wallet"); setShowProfileMenu(false) }} />
                                                     <MenuLink icon={<Settings size={20} />} label="Settings" onClick={() => { router.push("/settings"); setShowProfileMenu(false) }} />
                                                 </div>
                                             </div>
