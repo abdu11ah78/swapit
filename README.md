@@ -4,7 +4,7 @@ SwapIt is a next-generation lifestyle upgrade platform designed to facilitate se
 
 ---
 
-## 🚀 System Architecture & Key Features
+##  System Architecture & Key Features
 
 ### 1. AI-Driven Asset Intelligence
 *   **Automated Valuation (LTP)**: Integrated "Evaluate" engine that utilizes vision and language models to assign **Lifestyle Trade Points (LTP)** to assets based on condition, market demand, and technical specs.
