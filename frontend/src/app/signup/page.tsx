@@ -5,10 +5,11 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-import { User, Mail, MapPin, Lock, Eye, EyeOff, Shield, ArrowRight } from "lucide-react"
+import { User, Mail, MapPin, Lock, Eye, EyeOff, Shield, ArrowRight, Smartphone } from "lucide-react"
 import toast from "react-hot-toast"
 import { useAppContext } from "@/context/AppContext"
 import { useRegisterMutation } from "@/features/auth/auth.hooks"
+import { useProvinces } from "@/features/taxonomy/taxonomy.hooks"
 
 export default function UserSignupPage() {
     const router = useRouter()
@@ -18,11 +19,13 @@ export default function UserSignupPage() {
         email: "",
         password: "",
         phoneNumber: "",
+        location: "",
         agreeToTerms: false
     })
     const [showPassword, setShowPassword] = useState(false)
     const [modal, setModal] = useState<null | 'terms' | 'privacy'>(null)
     const registerMutation = useRegisterMutation()
+    const { data: provinces } = useProvinces()
     const isLoading = registerMutation.isPending
 
     const handleSignup = async (e: React.FormEvent) => {
@@ -124,7 +127,7 @@ export default function UserSignupPage() {
                     <div className="space-y-2">
                         <label className="text-[10px] font-black text-[#115e59] uppercase tracking-widest pl-1">Phone Number</label>
                         <div className="relative group">
-                            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-[#115e59] transition-colors" />
+                            <Smartphone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-[#115e59] transition-colors" />
                             <input
                                 type="tel"
                                 value={formData.phoneNumber}
@@ -133,6 +136,26 @@ export default function UserSignupPage() {
                                 className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 pl-12 pr-4 text-[#115e59] placeholder:text-slate-300 focus:outline-none focus:border-[#115e59]/20 focus:ring-4 focus:ring-[#115e59]/5 transition-all text-sm font-bold"
                                 required
                             />
+                        </div>
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-black text-[#115e59] uppercase tracking-widest pl-1">Deployment Location</label>
+                        <div className="relative group">
+                            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-300 group-focus-within:text-[#115e59] transition-colors" />
+                            <select
+                                value={formData.location}
+                                onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                                className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 pl-12 pr-4 text-[#115e59] focus:outline-none focus:border-[#115e59]/20 focus:ring-4 focus:ring-[#115e59]/5 transition-all text-sm font-bold appearance-none cursor-pointer"
+                                required
+                            >
+                                <option value="" disabled>Select Province / City</option>
+                                {provinces?.map((province) => (
+                                    <option key={province.id} value={province.name}>
+                                        {province.name}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                     </div>
 
