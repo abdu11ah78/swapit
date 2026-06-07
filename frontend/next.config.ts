@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
@@ -13,7 +12,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "plus.unsplash.com", 
+        hostname: "plus.unsplash.com",
         port: "",
         pathname: "/**",
       },
@@ -23,8 +22,22 @@ const nextConfig: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "localhost",
+        port: "7052",
+        pathname: "/**",
+      },
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "7052",
+        pathname: "/**",
+      },
     ],
+    // Bypass Next.js image optimization (avoids SSL cert issues with local dev server)
+    unoptimized: true,
   },
 };
 
-module.exports = nextConfig;
+module.exports = nextConfig;

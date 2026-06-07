@@ -66,6 +66,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseApiExceptionHandling();
+app.UseStaticFiles();
 app.UseHttpsRedirection();
 
 app.UseCors();

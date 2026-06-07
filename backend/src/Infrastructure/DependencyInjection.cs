@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SwapIt.Application.Common.Interfaces;
 using SwapIt.Infrastructure.Auth;
 using SwapIt.Infrastructure.Persistence;
+using SwapIt.Infrastructure.Services;
 
 namespace SwapIt.Infrastructure;
 
@@ -19,6 +20,7 @@ public static class DependencyInjection
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
         services.AddScoped<IPasswordService, PasswordService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IFileService, LocalFileService>();
 
         return services;
     }

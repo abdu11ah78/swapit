@@ -1,7 +1,7 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
-import { getCategories, getProvinces } from "./taxonomy.api";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getCategories, getProvinces, submitSuggestion } from "./taxonomy.api";
 
 export function useCategories() {
   return useQuery({
@@ -16,5 +16,16 @@ export function useProvinces() {
     queryKey: ["provinces"],
     queryFn: getProvinces,
     staleTime: 1000 * 60 * 60, // 1 hour
+  });
+}
+
+export function useSubmitSuggestion() {
+  const qc = useQueryClient();
+  
+  return useMutation({
+    mutationFn: submitSuggestion,
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["suggestions"] });
+    }
   });
 }

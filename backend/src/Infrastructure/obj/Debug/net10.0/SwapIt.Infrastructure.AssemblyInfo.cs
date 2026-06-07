@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SwapIt.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+390291ae4e3e5948598e7ca8d08ed064b99da552")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5adb9406f52b5304855c8f57e1ec0bb047a2e669")]
 [assembly: System.Reflection.AssemblyProductAttribute("SwapIt.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SwapIt.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

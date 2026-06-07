@@ -28,7 +28,7 @@ interface Props {
 
 export function MarketplaceCard({ item }: Props) {
     const router = useRouter()
-    const { addToWishlist, wishlist, isAiMode, isLoggedIn: contextLoggedIn } = useAppContext()
+    const { addToWishlist, removeFromWishlist, wishlist, isAiMode, isLoggedIn: contextLoggedIn } = useAppContext()
     const [isHovered, setIsHovered] = useState(false)
 
     const isLiked = wishlist.some(w => w.id === item.id)
@@ -45,13 +45,17 @@ export function MarketplaceCard({ item }: Props) {
 
     const handleLike = (e: React.MouseEvent) => {
         handleProtectedAction(e, () => {
-            addToWishlist({
-                id: item.id,
-                name: item.name,
-                price: parseInt(item.price.replace(/[^0-9]/g, "")) || 0,
-                imageUrl: item.image,
-                quantity: 1
-            })
+            if (isLiked) {
+                removeFromWishlist(item.id)
+            } else {
+                addToWishlist({
+                    id: item.id,
+                    name: item.name,
+                    price: parseInt(item.price.replace(/[^0-9]/g, "")) || 0,
+                    imageUrl: item.image,
+                    quantity: 1
+                })
+            }
         })
     }
 

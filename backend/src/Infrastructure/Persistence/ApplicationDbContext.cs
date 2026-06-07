@@ -160,7 +160,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.Property(x => x.Id).HasMaxLength(64);
             entity.Property(x => x.Email).IsRequired().HasMaxLength(256);
             entity.HasIndex(x => x.Email).IsUnique();
-            entity.Property(x => x.Role).HasConversion<string>().HasDefaultValue(UserRole.User);
+            entity.Property(x => x.Role).HasConversion<string>();
             entity.Property(x => x.TrustScore).HasDefaultValue(100d);
             entity.Property(x => x.LtpBalance).HasDefaultValue(0);
 

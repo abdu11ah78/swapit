@@ -5,9 +5,20 @@ import { motion } from "framer-motion"
 import { Package, SearchX, Plus, Edit3, Trash2, Loader2 } from "lucide-react"
 import Link from "next/link"
 import { useMyPostsQuery } from "@/features/profile/profile.hooks"
+import { useDeleteItemMutation } from "@/features/items/items.hooks"
+import { toast } from "sonner"
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace('/api', '') ?? "https://localhost:7052";
 
 export default function MyPostsPage() {
     const { data: myPosts, isLoading } = useMyPostsQuery()
+    const deleteItemMutation = useDeleteItemMutation()
+
+    const handleDelete = async (id: string) => {
+        if (confirm("Are you sure you want to remove this item from the exchange?")) {
+            await deleteItemMutation.mutateAsync(id)
+        }
+    }
 
     if (isLoading) {
         return (
@@ -77,7 +88,12 @@ export default function MyPostsPage() {
                                                     <button className="p-3 text-[#115e59] hover:bg-[#115e59]/5 rounded-xl transition-all" title="Edit">
                                                         <Edit3 size={16} />
                                                     </button>
-                                                    <button className="p-3 text-red-500 hover:bg-red-50 rounded-xl transition-all" title="Delete">
+                                                    <button 
+                                                        onClick={() => handleDelete(post.id)}
+                                                        disabled={deleteItemMutation.isPending}
+                                                        className="p-3 text-red-500 hover:bg-red-50 rounded-xl transition-all disabled:opacity-50" 
+                                                        title="Delete"
+                                                    >
                                                         <Trash2 size={16} />
                                                     </button>
                                                 </div>

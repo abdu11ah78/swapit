@@ -41,7 +41,11 @@ export default function LandingPage() {
             tradeFor: "Negotiable Swap", // Default since backend doesn't have tradeFor field yet
             location: item.location,
             date: formatDistanceToNow(new Date(item.createdAt), { addSuffix: true }),
-            image: item.images[0] || "/placeholder.png",
+            image: item.images[0] 
+                ? (item.images[0].startsWith("http") 
+                    ? item.images[0].replace(/\\/g, '/') 
+                    : `${(process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://localhost:7052/api").replace(/\/api$/, '')}/${item.images[0].replace(/\\/g, '/').startsWith('/') ? item.images[0].replace(/\\/g, '/').slice(1) : item.images[0].replace(/\\/g, '/')}`)
+                : "/placeholder.png",
             condition: item.condition,
             description: item.description,
             category: item.category

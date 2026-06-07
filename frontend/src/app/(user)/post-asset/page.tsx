@@ -6,7 +6,12 @@ import { Plus, Camera, Zap, Shield, HelpCircle, ArrowRight, Tag, MapPin, Scale, 
 import { useRouter } from "next/navigation"
 
 import { useCategories, useProvinces, useSubmitSuggestion } from "@/features/taxonomy/taxonomy.hooks"
+import { useCreateItemMutation } from "@/features/items/items.hooks"
+import { useUploadImageMutation } from "@/features/upload/upload.hooks"
 import { toast } from "sonner"
+import { useRef } from "react"
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace('/api', '') ?? "https://localhost:7052";
 
 const IconMap: Record<string, any> = {
     Smartphone, Car, Laptop, Watch, Gamepad2, Home, Sofa, Utensils, Sparkles, Cpu, Microwave, Dog, Briefcase, HelpCircle
@@ -18,6 +23,9 @@ export default function AssetPostingPage() {
     const { data: categories = [], isLoading: isLoadingCats } = useCategories()
     const { data: provinces = [] } = useProvinces()
     const submitSuggestion = useSubmitSuggestion()
+    const createItemMutation = useCreateItemMutation()
+    const uploadImageMutation = useUploadImageMutation()
+    const fileInputRef = useRef<HTMLInputElement>(null)
 
     const [selection, setSelection] = useState({
         category: '',
@@ -44,10 +52,19 @@ export default function AssetPostingPage() {
     const handleNext = () => setStep(prev => prev + 1)
     const handleBack = () => setStep(prev => prev - 1)
 
-    const handleImageUpload = () => {
-        // Simulating image upload
-        const newImage = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=500&q=60"
-        setImages([...images, newImage])
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+
+        const loadingToast = toast.loading("Uploading evidence to secure vault...")
+        try {
+            const { url } = await uploadImageMutation.mutateAsync({ file, folder: "items" })
+            const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`
+            setImages([...images, fullUrl])
+            toast.success("Evidence secured", { id: loadingToast })
+        } catch (error) {
+            toast.error("Upload failed. Node connection unstable.", { id: loadingToast })
+        }
     }
 
     const handleRemoveImage = (index: number) => {
@@ -64,6 +81,38 @@ export default function AssetPostingPage() {
         }, 2500)
     }
 
+    const handleFinalSubmit = async () => {
+        if (!selection.name || !selection.category || !evaluationResult) {
+            toast.error("Please complete all required fields and run AI evaluation.")
+            return
+        }
+
+        const category = categories.find(c => c.id === selection.category);
+        const productTypeAttribute = category?.attributes.find(a => a.name.toLowerCase().includes('type'));
+        
+        const finalAttributes = { ...selection.dynamicAttributes };
+        if (productTypeAttribute && selection.productType && selection.productType !== 'General') {
+            finalAttributes[productTypeAttribute.id] = selection.productType;
+        }
+
+        try {
+            await createItemMutation.mutateAsync({
+                title: selection.name,
+                description: `${selection.details}\n\nUsage: ${selection.usage}\nDefects: ${selection.defects}\nTrading For: ${selection.tradeFor}`,
+                images: images.join(','),
+                categoryId: selection.category,
+                provinceId: selection.provinceId || undefined,
+                condition: selection.condition,
+                location: selection.location || undefined,
+                ltpValue: evaluationResult,
+                dynamicAttributes: finalAttributes
+            })
+
+        } catch (error) {
+            // Error handled by mutation onError
+        }
+    }
+
     return (
         <div className="min-h-screen bg-[#fcfcfc] text-[#115e59] selection:bg-[#4d7c0f]/20 font-sans pt-32 pb-20 px-4">
             <div className="max-w-4xl mx-auto">
@@ -71,10 +120,10 @@ export default function AssetPostingPage() {
                 <div className="mb-12 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#4d7c0f]/10 border border-[#4d7c0f]/20 rounded-full mb-6">
                         <Plus size={14} className="text-[#4d7c0f]" />
-                        <span className="text-[10px] font-black text-[#4d7c0f] uppercase tracking-[0.2em]">Marketplace Lister</span>
+                        <span className="text-[10px] font-black text-[#4d7c0f] uppercase tracking-[0.2em]">Post Ad</span>
                     </div>
-                    <h1 className="text-5xl font-black text-[#115e59] tracking-tighter uppercase mb-4">List Your <span className="text-[#4d7c0f]">Item</span></h1>
-                    <p className="text-slate-500 font-medium max-w-xl mx-auto">Complete the details below to verify your item and begin trading.</p>
+                    <h1 className="text-5xl font-black text-[#115e59] tracking-tighter uppercase mb-4">Post Your <span className="text-[#4d7c0f]">Item</span></h1>
+                    <p className="text-slate-500 font-medium max-w-xl mx-auto">Complete the details below to list your item and begin trading.</p>
                 </div>
 
                 {/* Progress Indicators */}
@@ -105,7 +154,7 @@ export default function AssetPostingPage() {
                             <div className="space-y-10">
                                 <div className="text-center">
                                     <h2 className="text-2xl font-black text-[#115e59] uppercase tracking-tighter mb-2">Select Category</h2>
-                                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Identify the classification for your item</p>
+                                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Select the category for your item</p>
                                 </div>
 
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -166,8 +215,8 @@ export default function AssetPostingPage() {
                         {step === 2 && (
                             <div className="space-y-10">
                                 <div className="text-center">
-                                    <h2 className="text-2xl font-black text-[#115e59] uppercase tracking-tighter mb-2">Refine Product Type</h2>
-                                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Specific classification for optimized matching</p>
+                                    <h2 className="text-2xl font-black text-[#115e59] uppercase tracking-tighter mb-2">Select Product Type</h2>
+                                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Pick a specific type for better results</p>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -205,14 +254,14 @@ export default function AssetPostingPage() {
                         {step === 3 && (
                             <div className="space-y-10">
                                 <div className="text-center">
-                                    <h2 className="text-2xl font-black text-[#115e59] uppercase tracking-tighter mb-2">Item Intelligence</h2>
-                                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Final details to establish value</p>
+                                    <h2 className="text-2xl font-black text-[#115e59] uppercase tracking-tighter mb-2">Item Details</h2>
+                                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Enter details to establish value</p>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-6">
                                         <div className="space-y-2">
-                                            <label className="text-[10px] font-black text-[#4d7c0f] uppercase tracking-widest">Item Name</label>
+                                            <label className="text-[10px] font-black text-[#4d7c0f] uppercase tracking-widest">Item Title</label>
                                             <input
                                                 type="text"
                                                 className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-bold text-[#115e59] focus:outline-none focus:border-[#115e59] transition-all"
@@ -236,13 +285,20 @@ export default function AssetPostingPage() {
                                                     </div>
                                                 ))}
                                                 <div
-                                                    onClick={handleImageUpload}
+                                                    onClick={() => fileInputRef.current?.click()}
                                                     className="aspect-square bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-[#115e59] transition-all group"
                                                 >
+                                                    <input 
+                                                        type="file" 
+                                                        ref={fileInputRef} 
+                                                        className="hidden" 
+                                                        accept="image/*"
+                                                        onChange={handleImageUpload}
+                                                    />
                                                     <div className="p-2 bg-white rounded-xl shadow-sm text-slate-300 group-hover:text-[#115e59] transition-all">
                                                         <Plus size={20} />
                                                     </div>
-                                                    <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Add</span>
+                                                    <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Add Images</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -406,10 +462,13 @@ export default function AssetPostingPage() {
                                         </button>
                                     ) : (
                                         <button
-                                            onClick={() => router.push('/')}
-                                            className="flex-[2] py-5 bg-[#4d7c0f] text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-[#4d7c0f]/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 animate-in fade-in slide-in-from-bottom-4"
+                                            onClick={handleFinalSubmit}
+                                            disabled={createItemMutation.isPending}
+                                            className="flex-[2] py-5 bg-[#4d7c0f] text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-[#4d7c0f]/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 animate-in fade-in slide-in-from-bottom-4 disabled:opacity-50"
                                         >
-                                            ASCEND OFFERING <ArrowRight className="w-4 h-4" />
+                                            {createItemMutation.isPending ? "PROCESSING..." : (
+                                                <>POST AD <ArrowRight className="w-4 h-4" /></>
+                                            )}
                                         </button>
                                     )}
                                 </div>

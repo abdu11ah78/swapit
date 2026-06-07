@@ -15,4 +15,13 @@ public sealed class CurrentUserService(IHttpContextAccessor httpContextAccessor)
             return value ?? throw new UnauthorizedAccessException("User context is missing.");
         }
     }
+
+    public bool IsAdmin
+    {
+        get
+        {
+            var role = httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.Role);
+            return string.Equals(role, "ADMIN", StringComparison.OrdinalIgnoreCase);
+        }
+    }
 }

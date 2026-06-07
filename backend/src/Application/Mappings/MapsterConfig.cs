@@ -50,18 +50,31 @@ public static class MapsterConfig
             .Map(dest => dest.OwnerName, src => src.Owner.Name)
             .Map(dest => dest.OwnerTrustScore, src => src.Owner.TrustScore)
             .Map(dest => dest.Status, src => src.Status.ToString().ToUpperInvariant())
+            .Map(dest => dest.Category, src => src.Category != null ? src.Category.Name : string.Empty)
+            .Map(dest => dest.Location, src => src.Location ?? string.Empty)
             .Map(dest => dest.Images, src => MapsterConfig.ParseImages(src.Images));
+
     }
 
     private static string[] ParseImages(string json)
     {
-        try
-        {
-            return System.Text.Json.JsonSerializer.Deserialize<string[]>(json) ?? [];
-        }
-        catch
-        {
+        if (string.IsNullOrWhiteSpace(json))
             return [];
+
+        if (json.TrimStart().StartsWith("["))
+        {
+            try
+            {
+                return System.Text.Json.JsonSerializer.Deserialize<string[]>(json) ?? [];
+            }
+            catch
+            {
+                // Fallback
+            }
         }
+
+        return json.Split(new[] { ',', ';', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(x => x.Trim())
+            .ToArray();
     }
 }

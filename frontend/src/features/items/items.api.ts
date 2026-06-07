@@ -36,3 +36,28 @@ export async function getItemByIdRequest(id: string): Promise<ItemResponse> {
   const response = await apiClient.get<ItemResponse>(`/items/${id}`);
   return response.data;
 }
+
+export interface CreateItemPayload {
+  title: string;
+  description: string;
+  images: string; // Comma separated string
+  categoryId: string;
+  provinceId?: string;
+  condition: string;
+  location?: string;
+  ltpValue: number;
+  dynamicAttributes: Record<string, string>;
+}
+
+export async function createItemRequest(payload: CreateItemPayload): Promise<string> {
+  const response = await apiClient.post<string>("/items", payload);
+  return response.data;
+}
+
+export async function deleteItemRequest(id: string): Promise<void> {
+  await apiClient.delete(`/items/${id}`);
+}
+
+export async function updateItemRequest(id: string, payload: CreateItemPayload): Promise<void> {
+  await apiClient.put(`/items/${id}`, { ...payload, id });
+}

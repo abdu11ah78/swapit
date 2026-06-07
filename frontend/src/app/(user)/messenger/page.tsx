@@ -6,9 +6,12 @@ import { useConversationsQuery, useChatMessagesQuery, useSendMessageMutation } f
 import { useAppContext } from "@/context/AppContext"
 import { formatDistanceToNow } from "date-fns"
 import type { ConversationDto } from "@/features/messages/messages.api"
+import { useSearchParams } from "next/navigation"
 
 export default function MessengerPage() {
     const { isLoggedIn } = useAppContext()
+    const searchParams = useSearchParams()
+    const targetUserId = searchParams.get("userId")
     const [selectedChat, setSelectedChat] = useState<ConversationDto | null>(null)
     const [message, setMessage] = useState("")
     const [searchTerm, setSearchTerm] = useState("")
@@ -31,12 +34,17 @@ export default function MessengerPage() {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
     }, [chatMessages])
 
-    // Auto-select first conversation
+    // Auto-select conversation by userId query param, else first conversation
     useEffect(() => {
-        if (!selectedChat && conversations.length > 0) {
+        if (conversations.length === 0) return
+        if (targetUserId) {
+            const match = conversations.find(c => c.userId === targetUserId)
+            if (match) { setSelectedChat(match); return }
+        }
+        if (!selectedChat) {
             setSelectedChat(conversations[0])
         }
-    }, [conversations, selectedChat])
+    }, [conversations, targetUserId])
 
     const handleSend = () => {
         if (!message.trim() || !selectedChat) return

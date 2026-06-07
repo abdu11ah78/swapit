@@ -1323,7 +1323,10 @@
         },
         "runtime": {
           "bin/placeholder/SwapIt.Infrastructure.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
       }
     }
   },
