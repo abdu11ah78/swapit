@@ -33,7 +33,7 @@ public sealed class GetUsersQueryHandler(IApplicationDbContext dbContext)
                 TrustScore = u.TrustScore,
                 TradesCount = u.TradesAsBuyer.Count + u.TradesAsSeller.Count,
                 Suspicious = u.TrustScore < 50,
-                Status = "active" // Default for now
+                Status = u.IsBanned ? "banned" : "active"
             })
             .ToListAsync(cancellationToken);
     }

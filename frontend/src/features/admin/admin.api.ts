@@ -48,8 +48,11 @@ export interface TradeAdmin {
 
 export interface DisputeAdmin {
   id: string
-  tradeId: string
+  tradeId?: string
   reporterName: string
+  reporterId: string
+  reportedUserId?: string
+  reportedUserName?: string
   reason: string
   status: string
   createdAt: string
@@ -156,4 +159,16 @@ export const createAdminCategory = async (data: any) => {
 
 export const updateAdminCategory = async (id: string, data: any) => {
   await axiosInstance.put(`/admin/categories/${id}`, data)
+}
+
+export const banUser = async (userId: string) => {
+  await axiosInstance.post(`/admin/users/${userId}/ban`)
+}
+
+export const unbanUser = async (userId: string) => {
+  await axiosInstance.post(`/admin/users/${userId}/unban`)
+}
+
+export const updateDisputeStatus = async (data: { disputeId: string, status: string, resolution: string }) => {
+  await axiosInstance.patch(`/disputes`, data)
 }

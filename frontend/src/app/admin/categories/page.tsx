@@ -31,7 +31,18 @@ import {
   X,
   Type,
   Hash,
-  List as ListIcon
+  List as ListIcon,
+  HelpCircle,
+  Sparkles,
+  Smile,
+  Microwave,
+  Cpu,
+  BookOpen,
+  Palette,
+  Wrench,
+  Zap,
+  Bike,
+  Settings
 } from "lucide-react"
 
 // Dynamic icon mapping
@@ -42,7 +53,17 @@ const IconMap: any = {
   Shirt: Shirt,
   Trophy: Trophy,
   Layers: Layers,
-  Cpu: Smartphone // Fallback
+  Bike: Bike,
+  Settings: Settings,
+  Smile: Smile,
+  BookOpen: BookOpen,
+  Palette: Palette,
+  Wrench: Wrench,
+  Microwave: Microwave,
+  Cpu: Cpu,
+  Zap: Zap,
+  Sparkles: Sparkles,
+  HelpCircle: HelpCircle
 }
 
 export default function CategoriesPage() {
@@ -56,6 +77,7 @@ export default function CategoriesPage() {
     id: "",
     name: "",
     icon: "Smartphone",
+    parentId: null as string | null,
     attributes: [] as any[]
   })
 
@@ -76,7 +98,7 @@ export default function CategoriesPage() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["admin", "categories"] })
       setShowAddModal(false)
-      setNewCat({ id: "", name: "", icon: "Smartphone", attributes: [] })
+      setNewCat({ id: "", name: "", icon: "Smartphone", parentId: null, attributes: [] })
       setSuccessMsg("Category created successfully")
       setTimeout(() => setSuccessMsg(null), 3000)
     }
@@ -88,7 +110,7 @@ export default function CategoriesPage() {
       queryClient.invalidateQueries({ queryKey: ["admin", "categories"] })
       setShowAddModal(false)
       setEditingId(null)
-      setNewCat({ id: "", name: "", icon: "Smartphone", attributes: [] })
+      setNewCat({ id: "", name: "", icon: "Smartphone", parentId: null, attributes: [] })
       setSuccessMsg("Category updated successfully")
       setTimeout(() => setSuccessMsg(null), 3000)
     }
@@ -145,80 +167,115 @@ export default function CategoriesPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
         
-        {/* Main Categories List */}
+        {/* Main Categories Tree */}
         <div className="lg:col-span-3 space-y-6">
           {catsLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-               {[1,2,3,4].map(i => <div key={i} className="h-48 rounded-3xl bg-[var(--admin-surface)] animate-pulse" />)}
+            <div className="space-y-4">
+               {[1,2,3].map(i => <div key={i} className="h-48 rounded-3xl bg-[var(--admin-surface)] animate-pulse" />)}
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {categories?.map((cat: any) => {
-                const Icon = IconMap[cat.icon] || Layers
-                return (
-                  <motion.div 
-                    key={cat.id}
-                    layoutId={cat.id}
-                    className="group bg-[var(--admin-surface)] border border-[var(--admin-border)] rounded-[2rem] p-6 hover:shadow-xl hover:shadow-[var(--admin-primary)]/5 transition-all duration-300"
-                  >
-                    <div className="flex justify-between items-start mb-6">
-                      <div className={`p-4 rounded-2xl bg-[var(--admin-primary)]/10 text-[var(--admin-primary)] shadow-inner`}>
-                        <Icon size={28} />
-                      </div>
-                      <div className="flex gap-2">
-                        <button 
-                            onClick={() => toggleMutation.mutate(cat.id)}
-                            disabled={toggleMutation.isPending}
-                            className="cursor-pointer hover:scale-105 transition-transform"
-                        >
-                            <Badge variant={cat.isActive ? "success" : "secondary"}>
-                            {cat.isActive ? "ACTIVE" : "HIDDEN"}
-                            </Badge>
-                        </button>
-                        <button 
-                          onClick={() => {
-                            setEditingId(cat.id)
-                            setNewCat({
-                              id: cat.id,
-                              name: cat.name,
-                              icon: cat.icon,
-                              attributes: cat.attributes.map((a: any) => ({ ...a }))
-                            })
-                            setShowAddModal(true)
-                          }}
-                          className="p-2 hover:bg-[var(--admin-bg)] rounded-xl transition-colors"
-                        >
-                          <Settings2 size={18} className="text-[var(--admin-text-muted)]" />
-                        </button>
-                      </div>
-                    </div>
+          ) : (() => {
+            // Build tree structure
+            const roots = categories?.filter((c: any) => !c.parentId) ?? []
+            const getChildren = (parentId: string) => categories?.filter((c: any) => c.parentId === parentId) ?? []
 
-                    <div className="space-y-4">
-                      <div>
-                        <h3 className="text-xl font-black text-[var(--admin-text)] group-hover:text-[var(--admin-primary)] transition-colors">{cat.name}</h3>
-                        <p className="text-xs text-[var(--admin-text-muted)] font-medium mt-1">
-                          {cat.attributes?.length || 0} Dynamic Attributes Linked
-                        </p>
+            return (
+              <div className="space-y-6">
+                {roots.map((root: any) => {
+                  const RootIcon = IconMap[root.icon] || Layers
+                  const level2 = getChildren(root.id)
+                  return (
+                    <motion.div
+                      key={root.id}
+                      layoutId={root.id}
+                      className="bg-[var(--admin-surface)] border border-[var(--admin-border)] rounded-[2rem] overflow-hidden"
+                    >
+                      {/* Root Header */}
+                      <div className="flex justify-between items-center p-6 border-b border-[var(--admin-border)] bg-[var(--admin-primary)]/5">
+                        <div className="flex items-center gap-4">
+                          <div className="p-3 rounded-2xl bg-[var(--admin-primary)]/10 text-[var(--admin-primary)]">
+                            <RootIcon size={22} />
+                          </div>
+                          <div>
+                            <h3 className="font-black text-[var(--admin-text)] text-base tracking-tight">{root.name}</h3>
+                            <p className="text-[10px] font-bold text-[var(--admin-text-muted)] uppercase tracking-widest mt-0.5">
+                              Root Category · {level2.length} subcategories
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <button onClick={() => toggleMutation.mutate(root.id)} disabled={toggleMutation.isPending} className="cursor-pointer hover:scale-105 transition-transform">
+                            <Badge variant={root.isActive ? "success" : "secondary"}>{root.isActive ? "ACTIVE" : "HIDDEN"}</Badge>
+                          </button>
+                          <button
+                            onClick={() => { setEditingId(root.id); setNewCat({ id: root.id, name: root.name, icon: root.icon, parentId: null, attributes: [] }); setShowAddModal(true) }}
+                            className="p-2 hover:bg-[var(--admin-bg)] rounded-xl transition-colors"
+                          >
+                            <Settings2 size={16} className="text-[var(--admin-text-muted)]" />
+                          </button>
+                        </div>
                       </div>
 
-                      <div className="flex flex-wrap gap-2">
-                        {cat.attributes?.slice(0, 3).map((attr: any) => (
-                          <span key={attr.id} className="px-3 py-1 bg-[var(--admin-bg)] border border-[var(--admin-border)] rounded-full text-[10px] font-bold text-[var(--admin-text-muted)] uppercase tracking-wider">
-                            {attr.name}
-                          </span>
-                        ))}
-                        {cat.attributes?.length > 3 && (
-                          <span className="px-3 py-1 bg-[var(--admin-bg)] border border-[var(--admin-border)] rounded-full text-[10px] font-bold text-[var(--admin-primary)] uppercase tracking-wider">
-                            +{cat.attributes.length - 3} More
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </motion.div>
-                )
-              })}
-            </div>
-          )}
+                      {/* Level 2 Subcategories */}
+                      {level2.length > 0 && (
+                        <div className="divide-y divide-[var(--admin-border)]">
+                          {level2.map((sub: any) => {
+                            const SubIcon = IconMap[sub.icon] || Layers
+                            const leaves = getChildren(sub.id)
+                            return (
+                              <div key={sub.id} className="p-5 hover:bg-[var(--admin-bg)]/50 transition-colors">
+                                <div className="flex justify-between items-start mb-3">
+                                  <div className="flex items-center gap-3">
+                                    <ChevronRight size={14} className="text-[var(--admin-primary)]/50" />
+                                    <SubIcon size={16} className="text-[var(--admin-primary)]" />
+                                    <span className="font-bold text-sm text-[var(--admin-text)]">{sub.name}</span>
+                                    <span className="text-[9px] font-black uppercase tracking-widest text-[var(--admin-text-muted)] bg-[var(--admin-bg)] px-2 py-0.5 rounded-full border border-[var(--admin-border)]">
+                                      {leaves.length} leaves
+                                    </span>
+                                  </div>
+                                  <div className="flex items-center gap-2">
+                                    <button onClick={() => toggleMutation.mutate(sub.id)} disabled={toggleMutation.isPending} className="cursor-pointer hover:scale-105 transition-transform">
+                                      <Badge variant={sub.isActive ? "success" : "secondary"}>{sub.isActive ? "ACTIVE" : "HIDDEN"}</Badge>
+                                    </button>
+                                    <button
+                                      onClick={() => { setEditingId(sub.id); setNewCat({ id: sub.id, name: sub.name, icon: sub.icon, parentId: root.id, attributes: sub.attributes?.map((a: any) => ({ ...a })) || [] }); setShowAddModal(true) }}
+                                      className="p-1.5 hover:bg-[var(--admin-bg)] rounded-lg transition-colors"
+                                    >
+                                      <Settings2 size={14} className="text-[var(--admin-text-muted)]" />
+                                    </button>
+                                  </div>
+                                </div>
+
+                                {/* Level 3 Leaves */}
+                                {leaves.length > 0 && (
+                                  <div className="ml-7 flex flex-wrap gap-2 mt-2">
+                                    {leaves.map((leaf: any) => (
+                                      <div key={leaf.id} className="group flex items-center gap-1.5 px-3 py-1.5 bg-[var(--admin-bg)] border border-[var(--admin-border)] rounded-xl text-[10px] font-bold text-[var(--admin-text-muted)] uppercase tracking-wider hover:border-[var(--admin-primary)]/40 transition-colors cursor-default">
+                                        <span>{leaf.name}</span>
+                                        {leaf.attributes?.length > 0 && (
+                                          <span className="text-[var(--admin-primary)] font-black">·{leaf.attributes.length}</span>
+                                        )}
+                                        <button
+                                          onClick={() => { setEditingId(leaf.id); setNewCat({ id: leaf.id, name: leaf.name, icon: leaf.icon, parentId: sub.id, attributes: leaf.attributes?.map((a: any) => ({ ...a })) || [] }); setShowAddModal(true) }}
+                                          className="opacity-0 group-hover:opacity-100 ml-1 text-[var(--admin-primary)] transition-opacity"
+                                          title="Edit"
+                                        >
+                                          <Settings2 size={11} />
+                                        </button>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            )
+                          })}
+                        </div>
+                      )}
+                    </motion.div>
+                  )
+                })}
+              </div>
+            )
+          })()}
         </div>
 
         {/* Sidebar: States (Provinces) */}
@@ -286,7 +343,7 @@ export default function CategoriesPage() {
 
                 <div className="flex-1 overflow-y-auto p-8 space-y-8">
                   {/* Basic Info */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase text-[var(--admin-text-muted)] tracking-[0.2em]">Category Name</label>
                       <input 
@@ -309,7 +366,30 @@ export default function CategoriesPage() {
                         <option value="Home">Home</option>
                         <option value="Shirt">Shirt</option>
                         <option value="Trophy">Trophy</option>
+                        <option value="Bike">Bike</option>
+                        <option value="Settings">Settings</option>
+                        <option value="Smile">Smile</option>
+                        <option value="BookOpen">BookOpen</option>
+                        <option value="Palette">Palette</option>
+                        <option value="Wrench">Wrench</option>
+                        <option value="Microwave">Microwave</option>
+                        <option value="Laptop">Laptop</option>
+                        <option value="Zap">Zap</option>
+                        <option value="Sparkles">Sparkles</option>
                         <option value="Layers">Miscellaneous</option>
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase text-[var(--admin-text-muted)] tracking-[0.2em]">Parent Category</label>
+                      <select 
+                        value={newCat.parentId || ""}
+                        onChange={(e) => setNewCat({...newCat, parentId: e.target.value || null})}
+                        className="admin-input h-12"
+                      >
+                        <option value="">None (Root Category)</option>
+                        {categories?.filter((c: any) => c.id !== editingId).map((c: any) => (
+                          <option key={c.id} value={c.id}>{c.name}</option>
+                        ))}
                       </select>
                     </div>
                   </div>
@@ -394,7 +474,7 @@ export default function CategoriesPage() {
                     onClick={() => {
                       setShowAddModal(false)
                       setEditingId(null)
-                      setNewCat({ id: "", name: "", icon: "Smartphone", attributes: [] })
+                      setNewCat({ id: "", name: "", icon: "Smartphone", parentId: null, attributes: [] })
                     }} 
                     className="px-6 py-3 text-xs font-black uppercase tracking-widest text-[var(--admin-text-muted)]"
                   >

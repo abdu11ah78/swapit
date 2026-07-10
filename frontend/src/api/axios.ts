@@ -19,15 +19,24 @@ apiClient.interceptors.request.use((config) => {
   return config;
 });
 
+// Auth pages where we should NOT auto-redirect on 401 (let the page handle the error)
+const AUTH_PATHS = ["/login", "/signup", "/admin/login"];
+
 apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error?.response?.status === 401) {
-      clearAccessToken();
-      if (typeof window !== "undefined") {
-        localStorage.removeItem("isLoggedIn");
-        localStorage.removeItem("currentUser");
-        window.location.href = "/login";
+      const isAuthPage =
+        typeof window !== "undefined" &&
+        AUTH_PATHS.some((p) => window.location.pathname.startsWith(p));
+
+      if (!isAuthPage) {
+        clearAccessToken();
+        if (typeof window !== "undefined") {
+          localStorage.removeItem("isLoggedIn");
+          localStorage.removeItem("currentUser");
+          window.location.href = "/login";
+        }
       }
     }
 

@@ -1,21 +1,12 @@
 "use client"
 
 import React from "react"
-import Link from "next/link"
-import { Smartphone, Car, Home, Camera, Bike, Briefcase, Dog, Heart, Book, Palette } from "lucide-react"
+import { Smartphone, Car, Home, Camera, Bike, Briefcase, Dog, Heart, Book, Palette, HelpCircle, Sparkles, Smile, Microwave, Cpu, BookOpen, Trophy } from "lucide-react"
+import { useCategories } from "@/features/taxonomy/taxonomy.hooks"
 
-const categories = [
-    { id: "mobiles", name: "Mobiles", icon: Smartphone, color: "bg-blue-50" },
-    { id: "vehicles", name: "Vehicles", icon: Car, color: "bg-red-50" },
-    { id: "property-for-sale", name: "Property For Sale", icon: Home, color: "bg-green-50" },
-    { id: "property-for-rent", name: "Property For Rent", icon: Home, color: "bg-yellow-50" },
-    { id: "electronics", name: "Electronics", icon: Camera, color: "bg-purple-50" },
-    { id: "bikes", name: "Bikes", icon: Bike, color: "bg-orange-50" },
-    { id: "business", name: "Business", icon: Briefcase, color: "bg-indigo-50" },
-    { id: "services", name: "Services", icon: Palette, color: "bg-pink-50" },
-    { id: "jobs", name: "Jobs", icon: Briefcase, color: "bg-slate-50" },
-    { id: "animals", name: "Animals", icon: Dog, color: "bg-cyan-50" },
-]
+const IconMap: Record<string, any> = {
+    Smartphone, Car, Home, Camera, Bike, Briefcase, Dog, Heart, Book, Palette, HelpCircle, Sparkles, Smile, Microwave, Cpu, BookOpen, Trophy
+}
 
 interface Props {
     selectedCategory: string | null
@@ -23,6 +14,11 @@ interface Props {
 }
 
 export function CategoryNav({ selectedCategory, onSelectCategory }: Props) {
+    const { data: categories = [] } = useCategories()
+    
+    // Filter only Level 1 active root categories
+    const rootCategories = categories.filter(c => !c.parentId && c.isActive)
+
     return (
         <div className="border-b border-slate-100 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -40,17 +36,20 @@ export function CategoryNav({ selectedCategory, onSelectCategory }: Props) {
 
                         <div className="h-4 w-px bg-slate-200 mx-2" />
 
-                        {categories.map((cat) => (
-                            <button
-                                key={cat.id}
-                                onClick={() => onSelectCategory(cat.id)}
-                                className="flex items-center gap-2 group min-w-fit px-1"
-                            >
-                                <span className={`text-[10px] font-black uppercase tracking-widest transition-all ${selectedCategory === cat.id ? 'text-[#4d7c0f] border-b-2 border-[#4d7c0f]' : 'text-slate-400 hover:text-[#4d7c0f]'}`}>
-                                    {cat.name}
-                                </span>
-                            </button>
-                        ))}
+                        {rootCategories.map((cat) => {
+                            const Icon = IconMap[cat.icon] || HelpCircle
+                            return (
+                                <button
+                                    key={cat.id}
+                                    onClick={() => onSelectCategory(cat.name)} // Filter by category name
+                                    className="flex items-center gap-2 group min-w-fit px-1"
+                                >
+                                    <span className={`text-[10px] font-black uppercase tracking-widest transition-all ${selectedCategory === cat.name ? 'text-[#4d7c0f] border-b-2 border-[#4d7c0f]' : 'text-slate-400 hover:text-[#4d7c0f]'}`}>
+                                        {cat.name}
+                                    </span>
+                                </button>
+                            )
+                        })}
                     </div>
 
                     {/* Right Side spacer */}

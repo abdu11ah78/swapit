@@ -6,10 +6,12 @@ export type ConversationDto = {
   userId: string;
   userName: string;
   userImage: string | null;
+  userPhoneNumber?: string;
   userTrustScore: number;
   lastMessage: string;
   lastMessageAt: string;
   isOnline: boolean;
+  isRequest: boolean;
 };
 
 export type MessageDto = {
@@ -39,6 +41,11 @@ export type SendMessagePayload = {
 
 export async function getConversations(): Promise<ConversationsResponse> {
   const { data } = await apiClient.get<ConversationsResponse>("/messages/conversations");
+  return data;
+}
+
+export async function getUserConversation(userId: string): Promise<ConversationDto> {
+  const { data } = await apiClient.get<ConversationDto>(`/messages/user/${userId}`);
   return data;
 }
 

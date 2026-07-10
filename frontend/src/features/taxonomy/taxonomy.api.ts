@@ -13,6 +13,7 @@ export type Category = {
   name: string;
   icon: string;
   isActive: boolean;
+  parentId?: string;
   attributes: CategoryAttribute[];
 };
 

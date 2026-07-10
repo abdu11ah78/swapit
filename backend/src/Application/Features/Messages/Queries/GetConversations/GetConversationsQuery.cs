@@ -2,7 +2,6 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using SwapIt.Application.Common.Interfaces;
 using SwapIt.Application.Features.Messages.Dtos;
-using SwapIt.Core.Entities;
 
 namespace SwapIt.Application.Features.Messages.Queries.GetConversations;
 
@@ -30,15 +29,23 @@ public sealed class GetConversationsQueryHandler(
                 var lastMessage = g.OrderByDescending(m => m.CreatedAt).First();
                 var otherUser = lastMessage.SenderId == uid ? lastMessage.Receiver : lastMessage.Sender;
 
+                // Determine if this is a "message request": other user has sent at least one message,
+                // but the current user has never replied.
+                var otherUserSentFirst = g.Any(m => m.SenderId == otherUser.Id);
+                var currentUserReplied = g.Any(m => m.SenderId == uid);
+                var isRequest = otherUserSentFirst && !currentUserReplied;
+
                 return new ConversationDto
                 {
                     UserId = otherUser.Id,
                     UserName = otherUser.Name ?? "Unknown",
                     UserImage = otherUser.Image,
+                    UserPhoneNumber = otherUser.PhoneNumber,
                     UserTrustScore = otherUser.TrustScore,
                     LastMessage = lastMessage.Content,
                     LastMessageAt = lastMessage.CreatedAt,
-                    IsOnline = true
+                    IsOnline = true,
+                    IsRequest = isRequest
                 };
             })
             .OrderByDescending(c => c.LastMessageAt)

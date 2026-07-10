@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Plus, Camera, Zap, Shield, HelpCircle, ArrowRight, Tag, MapPin, Scale, ChevronRight, Smartphone, Car, Watch, Laptop, Camera as CameraIcon, Gamepad2, Home, Sofa, Utensils, Sparkles, Cpu, Microwave, Dog, Briefcase } from "lucide-react"
+import { Plus, Camera, Zap, Shield, HelpCircle, ArrowRight, Tag, MapPin, Scale, ChevronRight, Smartphone, Car, Watch, Laptop, Camera as CameraIcon, Gamepad2, Home, Sofa, Utensils, Sparkles, Cpu, Microwave, Dog, Briefcase, Bike, Settings, Shirt, Smile, BookOpen, Palette, Wrench } from "lucide-react"
 import { useRouter } from "next/navigation"
 
 import { useCategories, useProvinces, useSubmitSuggestion } from "@/features/taxonomy/taxonomy.hooks"
@@ -14,7 +14,7 @@ import { useRef } from "react"
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace('/api', '') ?? "https://localhost:7052";
 
 const IconMap: Record<string, any> = {
-    Smartphone, Car, Laptop, Watch, Gamepad2, Home, Sofa, Utensils, Sparkles, Cpu, Microwave, Dog, Briefcase, HelpCircle
+    Smartphone, Car, Laptop, Watch, Gamepad2, Home, Sofa, Utensils, Sparkles, Cpu, Microwave, Dog, Briefcase, HelpCircle, Bike, Settings, Shirt, Smile, BookOpen, Palette, Wrench, Zap
 }
 
 export default function AssetPostingPage() {
@@ -26,6 +26,9 @@ export default function AssetPostingPage() {
     const createItemMutation = useCreateItemMutation()
     const uploadImageMutation = useUploadImageMutation()
     const fileInputRef = useRef<HTMLInputElement>(null)
+
+    const [selectedLevel1, setSelectedLevel1] = useState<any | null>(null)
+    const [selectedLevel2, setSelectedLevel2] = useState<any | null>(null)
 
     const [selection, setSelection] = useState({
         category: '',
@@ -49,8 +52,63 @@ export default function AssetPostingPage() {
     const [evaluationResult, setEvaluationResult] = useState<number | null>(null)
     const [images, setImages] = useState<string[]>([])
 
+    const currentCategories = useMemo(() => {
+        if (!selectedLevel1) {
+            return categories.filter(c => !c.parentId && c.isActive);
+        }
+        if (!selectedLevel2) {
+            return categories.filter(c => c.parentId === selectedLevel1.id && c.isActive);
+        }
+        return categories.filter(c => c.parentId === selectedLevel2.id && c.isActive);
+    }, [categories, selectedLevel1, selectedLevel2]);
+
+    const handleCategoryClick = (cat: any) => {
+        const hasChildren = categories.some(c => c.parentId === cat.id);
+        if (hasChildren) {
+            if (!selectedLevel1) {
+                setSelectedLevel1(cat);
+            } else if (!selectedLevel2) {
+                setSelectedLevel2(cat);
+            }
+        } else {
+            // Leaf category selected
+            setSelection(prev => ({ ...prev, category: cat.id, dynamicAttributes: {} }));
+            
+            // Check for Type selection attribute
+            const hasTypeAttr = cat.attributes?.some((a: any) => a.name.toLowerCase().includes('type'));
+            if (hasTypeAttr) {
+                setStep(2);
+            } else {
+                setSelection(prev => ({ ...prev, productType: 'General' }));
+                setStep(3);
+            }
+        }
+    }
+
     const handleNext = () => setStep(prev => prev + 1)
-    const handleBack = () => setStep(prev => prev - 1)
+    const handleBack = () => {
+        if (step === 2) {
+            setSelectedLevel1(null);
+            setSelectedLevel2(null);
+            setSelection(prev => ({ ...prev, category: '', productType: '' }));
+            setStep(1);
+        } else {
+            setStep(prev => prev - 1);
+        }
+    }
+
+    const handleBackFromStep3 = () => {
+        const cat = categories.find(c => c.id === selection.category);
+        const hasTypeAttr = cat?.attributes?.some((a: any) => a.name.toLowerCase().includes('type'));
+        if (hasTypeAttr) {
+            setStep(2);
+        } else {
+            setSelectedLevel1(null);
+            setSelectedLevel2(null);
+            setSelection(prev => ({ ...prev, category: '', productType: '' }));
+            setStep(1);
+        }
+    }
 
     const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]
@@ -157,17 +215,47 @@ export default function AssetPostingPage() {
                                     <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Select the category for your item</p>
                                 </div>
 
+                                {/* Breadcrumbs path */}
+                                <div className="flex flex-wrap items-center justify-center gap-2 mb-8 text-[10px] font-black text-[#115e59]/50 uppercase tracking-widest bg-slate-50 py-2.5 px-6 rounded-full w-fit mx-auto border border-slate-100">
+                                    <button 
+                                        onClick={() => { setSelectedLevel1(null); setSelectedLevel2(null); }}
+                                        className={`hover:text-[#4d7c0f] transition-colors ${!selectedLevel1 ? 'text-[#4d7c0f]' : ''}`}
+                                    >
+                                        All
+                                    </button>
+                                    {selectedLevel1 && (
+                                        <>
+                                            <ChevronRight size={12} className="text-slate-300" />
+                                            <button 
+                                                onClick={() => { setSelectedLevel2(null); }}
+                                                className={`hover:text-[#4d7c0f] transition-colors ${!selectedLevel2 ? 'text-[#4d7c0f]' : ''}`}
+                                            >
+                                                {selectedLevel1.name}
+                                            </button>
+                                        </>
+                                    )}
+                                    {selectedLevel2 && (
+                                        <>
+                                            <ChevronRight size={12} className="text-slate-300" />
+                                            <span className="text-[#4d7c0f]">
+                                                {selectedLevel2.name}
+                                            </span>
+                                        </>
+                                    )}
+                                </div>
+
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    {categories.filter(c => c.isActive).map((cat) => {
+                                    {currentCategories.map((cat) => {
                                         const Icon = IconMap[cat.icon] || HelpCircle
+                                        const isSelected = selection.category === cat.id
                                         return (
                                             <button
                                                 key={cat.id}
-                                                onClick={() => { setSelection({ ...selection, category: cat.id }); handleNext() }}
-                                                className={`group p-6 rounded-[2.5rem] border transition-all flex flex-col items-center gap-4 hover:scale-105 active:scale-95 ${selection.category === cat.id ? 'bg-[#115e59] border-[#115e59] text-white shadow-xl shadow-[#115e59]/20' : 'bg-white border-slate-100 text-[#115e59] hover:border-[#4d7c0f]'}`}
+                                                onClick={() => handleCategoryClick(cat)}
+                                                className={`group p-6 rounded-[2.5rem] border transition-all flex flex-col items-center gap-4 hover:scale-105 active:scale-95 ${isSelected ? 'bg-[#115e59] border-[#115e59] text-white shadow-xl shadow-[#115e59]/20' : 'bg-white border-slate-100 text-[#115e59] hover:border-[#4d7c0f]'}`}
                                             >
-                                                <div className={`p-4 rounded-2xl transition-all ${selection.category === cat.id ? 'bg-white/20' : 'bg-slate-50 group-hover:bg-[#4d7c0f]/10'}`}>
-                                                    <Icon className={selection.category === cat.id ? "text-white" : "text-[#4d7c0f]"} size={24} />
+                                                <div className={`p-4 rounded-2xl transition-all ${isSelected ? 'bg-white/20' : 'bg-slate-50 group-hover:bg-[#4d7c0f]/10'}`}>
+                                                    <Icon className={isSelected ? "text-white" : "text-[#4d7c0f]"} size={24} />
                                                 </div>
                                                 <span className="text-[10px] font-black uppercase tracking-widest text-center">{cat.name}</span>
                                             </button>
@@ -440,7 +528,7 @@ export default function AssetPostingPage() {
                                 )}
 
                                 <div className="flex gap-4 pt-4 border-t border-slate-100">
-                                    <button onClick={handleBack} className="flex-1 py-5 bg-slate-50 text-slate-400 font-black text-[10px] uppercase tracking-widest rounded-2xl hover:bg-slate-100 transition-all border border-slate-100">Back Selection</button>
+                                    <button onClick={handleBackFromStep3} className="flex-1 py-5 bg-slate-50 text-slate-400 font-black text-[10px] uppercase tracking-widest rounded-2xl hover:bg-slate-100 transition-all border border-slate-100">Back Selection</button>
 
                                     {!evaluationResult ? (
                                         <button

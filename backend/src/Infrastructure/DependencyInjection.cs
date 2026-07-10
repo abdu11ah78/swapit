@@ -13,7 +13,7 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection")
-            ?? "Server=DESKTOP-O2OTSGA\\SQLEXPRESS;Database=SwapItDb;Trusted_Connection=True;TrustServerCertificate=True;";
+            ?? "Server=DESKTOP-O2OTSGA\\SQLEXPRESS;Database=SwapItDb_v3;Trusted_Connection=True;TrustServerCertificate=True;";
 
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionString));

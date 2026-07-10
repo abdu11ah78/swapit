@@ -5,7 +5,7 @@ using SwapIt.Core.Entities;
 
 namespace SwapIt.Application.Features.Admin.Categories;
 
-public record UpdateCategoryCommand(string Id, string Name, string Icon, List<UpdateAttributeDto> Attributes) : IRequest;
+public record UpdateCategoryCommand(string Id, string Name, string Icon, string? ParentId, List<UpdateAttributeDto> Attributes) : IRequest;
 public record UpdateAttributeDto(string? Id, string Name, string Type, bool IsRequired, string? Options);
 
 public class UpdateCategoryCommandHandler(IApplicationDbContext dbContext) : IRequestHandler<UpdateCategoryCommand>
@@ -20,6 +20,7 @@ public class UpdateCategoryCommandHandler(IApplicationDbContext dbContext) : IRe
 
         category.Name = request.Name;
         category.Icon = request.Icon;
+        category.ParentId = request.ParentId;
 
         // Simple strategy: Remove old attributes and add new ones
         // In a production app, you'd match by ID to preserve existing data links,

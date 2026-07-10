@@ -16,7 +16,7 @@ public sealed class DisputesController(IMediator mediator, ICurrentUserService c
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] CreateDisputeRequestDto request, CancellationToken cancellationToken)
     {
-        var command = new CreateDisputeCommand(currentUserService.UserId, request.TradeId, request.Reason, request.Evidence);
+        var command = new CreateDisputeCommand(currentUserService.UserId, request.TradeId, request.Reason, request.Evidence, request.ReportedUserId);
         var result = await mediator.Send(command, cancellationToken);
         return StatusCode(StatusCodes.Status201Created, result);
     }

@@ -11,11 +11,13 @@ import {
   TableHeader, 
   TableRow 
 } from "../components/ui/Table"
-import { useAdminUsers } from "@/features/admin/admin.hooks"
+import { useAdminUsers, useBanUser, useUnbanUser } from "@/features/admin/admin.hooks"
 import { Loader2, ShieldAlert, UserCheck, UserX } from "lucide-react"
 
 export default function UsersPage() {
   const { data: users, isLoading, isError } = useAdminUsers()
+  const banMutation = useBanUser()
+  const unbanMutation = useUnbanUser()
 
   if (isLoading) {
     return (
@@ -104,12 +106,25 @@ export default function UsersPage() {
                     </Badge>
                   </TableCell>
                   <TableCell className="text-right">
-                    <button className="p-2 hover:bg-red-500/10 text-red-500 rounded-lg transition-colors group" title="Suspend User">
-                      <UserX size={18} className="group-hover:scale-110 transition-transform" />
-                    </button>
-                    <button className="p-2 hover:bg-green-500/10 text-green-500 rounded-lg transition-colors group ml-2" title="Verify User">
-                      <UserCheck size={18} className="group-hover:scale-110 transition-transform" />
-                    </button>
+                    {u.status === 'banned' ? (
+                      <button
+                        onClick={() => unbanMutation.mutate(u.id)}
+                        disabled={unbanMutation.isPending}
+                        className="p-2 hover:bg-green-500/10 text-green-500 rounded-lg transition-colors group"
+                        title="Unban User"
+                      >
+                        <UserCheck size={18} className="group-hover:scale-110 transition-transform" />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => banMutation.mutate(u.id)}
+                        disabled={banMutation.isPending || u.role === 'Admin'}
+                        className="p-2 hover:bg-red-500/10 text-red-500 rounded-lg transition-colors group disabled:opacity-40 disabled:cursor-not-allowed"
+                        title="Ban User"
+                      >
+                        <UserX size={18} className="group-hover:scale-110 transition-transform" />
+                      </button>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
@@ -120,3 +135,4 @@ export default function UsersPage() {
     </div>
   )
 }
+

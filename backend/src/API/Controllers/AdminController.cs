@@ -142,4 +142,18 @@ public class AdminController(ISender sender) : ControllerBase
         await sender.Send(new ToggleCategoryCommand(id));
         return NoContent();
     }
+
+    [HttpPost("users/{userId}/ban")]
+    public async Task<ActionResult> BanUser(string userId)
+    {
+        await sender.Send(new BanUserCommand(userId));
+        return NoContent();
+    }
+
+    [HttpPost("users/{userId}/unban")]
+    public async Task<ActionResult> UnbanUser(string userId)
+    {
+        await sender.Send(new UnbanUserCommand(userId));
+        return NoContent();
+    }
 }

@@ -18,6 +18,7 @@ public class User(string id, string email)
     public double? Longitude { get; set; }
     public string? City { get; set; }
     public double TrustScore { get; set; } = 100d;
+    public bool IsBanned { get; set; } = false;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
@@ -71,6 +72,10 @@ public class Category(string id, string name, string icon)
     public string Icon { get; set; } = icon;
     public bool IsActive { get; set; } = true;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+    public string? ParentId { get; set; }
+    public Category? Parent { get; set; }
+    public ICollection<Category> Children { get; set; } = new List<Category>();
 
     public ICollection<CategoryAttribute> Attributes { get; set; } = new List<CategoryAttribute>();
     public ICollection<Item> Items { get; set; } = new List<Item>();
@@ -192,7 +197,7 @@ public class OfferItem(string id, string offerId, string itemId)
     public Item Item { get; set; } = null!;
 }
 
-public class Dispute(string id, string reason, string tradeId, string reporterId)
+public class Dispute(string id, string reason, string reporterId)
 {
     public string Id { get; set; } = id;
     public string Reason { get; set; } = reason;
@@ -202,12 +207,15 @@ public class Dispute(string id, string reason, string tradeId, string reporterId
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-    public string TradeId { get; set; } = tradeId;
-    public Trade Trade { get; set; } = null!;
+    public string? TradeId { get; set; }
+    public Trade? Trade { get; set; }
     public string ReporterId { get; set; } = reporterId;
     public User Reporter { get; set; } = null!;
     public string? ReviewerId { get; set; }
     public User? Reviewer { get; set; }
+
+    public string? ReportedUserId { get; set; }
+    public User? ReportedUser { get; set; }
 }
 
 public class TradeEvent(string id, string tradeId, TradeStatus toStatus)

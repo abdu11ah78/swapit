@@ -34,8 +34,29 @@ public sealed class GetItemsQueryHandler(IApplicationDbContext dbContext)
 
         if (!string.IsNullOrWhiteSpace(request.Category))
         {
-            // Compare against Category Name since Item.Category is now an object
-            query = query.Where(x => x.Category.Name == request.Category);
+            var targetCategory = await dbContext.Categories
+                .AsNoTracking()
+                .Include(c => c.Children)
+                .ThenInclude(c => c.Children)
+                .FirstOrDefaultAsync(c => c.Name == request.Category || c.Id == request.Category, cancellationToken);
+
+            if (targetCategory != null)
+            {
+                var categoryIds = new List<string> { targetCategory.Id };
+                foreach (var sub in targetCategory.Children)
+                {
+                    categoryIds.Add(sub.Id);
+                    foreach (var leaf in sub.Children)
+                    {
+                        categoryIds.Add(leaf.Id);
+                    }
+                }
+                query = query.Where(x => categoryIds.Contains(x.CategoryId));
+            }
+            else
+            {
+                query = query.Where(x => x.Category.Name == request.Category || x.CategoryId == request.Category);
+            }
         }
 
         if (!string.IsNullOrWhiteSpace(request.Location))

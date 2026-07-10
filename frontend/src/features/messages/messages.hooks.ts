@@ -5,11 +5,13 @@ import {
   getConversations,
   getChatMessages,
   sendMessage,
+  getUserConversation,
   type SendMessagePayload,
 } from "@/features/messages/messages.api";
 
 export const conversationsQueryKey = ["conversations"] as const;
 export const chatMessagesQueryKey = (userId: string) => ["chatMessages", userId] as const;
+export const userConversationQueryKey = (userId: string) => ["userConversation", userId] as const;
 
 export function useConversationsQuery(enabled = true) {
   return useQuery({
@@ -17,6 +19,14 @@ export function useConversationsQuery(enabled = true) {
     queryFn: getConversations,
     enabled,
     refetchInterval: 10000, // Poll every 10 seconds
+  });
+}
+
+export function useUserConversationQuery(userId: string | null, enabled = true) {
+  return useQuery({
+    queryKey: userConversationQueryKey(userId ?? ""),
+    queryFn: () => getUserConversation(userId!),
+    enabled: enabled && !!userId,
   });
 }
 
@@ -36,6 +46,7 @@ export function useSendMessageMutation() {
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: chatMessagesQueryKey(variables.receiverId) });
       queryClient.invalidateQueries({ queryKey: conversationsQueryKey });
+      queryClient.invalidateQueries({ queryKey: userConversationQueryKey(variables.receiverId) });
     },
   });
 }

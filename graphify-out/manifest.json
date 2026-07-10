@@ -1,1412 +1,1432 @@
 {
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\SwapIt.sln": {
+  "SwapIt.sln": {
     "mtime": 1774873025.8657868,
     "ast_hash": "d46a7cbff4f1ad41e12cf8c9fa8c62dc",
     "semantic_hash": "d46a7cbff4f1ad41e12cf8c9fa8c62dc"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\migration.sql": {
+  "backend/migration.sql": {
     "mtime": 1777648739.242296,
     "ast_hash": "27c5a44716f71110a99938befd71afee",
     "semantic_hash": "27c5a44716f71110a99938befd71afee"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Common\\Middleware\\ExceptionHandlingMiddleware.cs": {
+  "backend/src/API/Common/Middleware/ExceptionHandlingMiddleware.cs": {
     "mtime": 1774873025.8672957,
     "ast_hash": "7f3969c658875441e3d557f5ba3e0cb7",
     "semantic_hash": "7f3969c658875441e3d557f5ba3e0cb7"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Common\\Middleware\\MiddlewareExtensions.cs": {
+  "backend/src/API/Common/Middleware/MiddlewareExtensions.cs": {
     "mtime": 1774873025.8682933,
     "ast_hash": "b5c8204a9ac835ade009f1102a5d0215",
     "semantic_hash": "b5c8204a9ac835ade009f1102a5d0215"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Common\\Services\\CurrentUserService.cs": {
+  "backend/src/API/Common/Services/CurrentUserService.cs": {
     "mtime": 1780824110.2278056,
     "ast_hash": "222b2e99bffe7e69956e3be91f94c4e8",
     "semantic_hash": "222b2e99bffe7e69956e3be91f94c4e8"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Controllers\\AdminController.cs": {
+  "backend/src/API/Controllers/AdminController.cs": {
     "mtime": 1777649485.338838,
     "ast_hash": "d007688ecafc63309b7a980e2d08342d",
     "semantic_hash": "d007688ecafc63309b7a980e2d08342d"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Controllers\\AuthController.cs": {
+  "backend/src/API/Controllers/AuthController.cs": {
     "mtime": 1774873025.8716388,
     "ast_hash": "f958501964b4609c68d287edd3189d41",
     "semantic_hash": "f958501964b4609c68d287edd3189d41"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Controllers\\DisputesController.cs": {
+  "backend/src/API/Controllers/DisputesController.cs": {
     "mtime": 1774873025.8721545,
     "ast_hash": "09afe0946513ef5fb5974dc2ef6eb657",
     "semantic_hash": "09afe0946513ef5fb5974dc2ef6eb657"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Controllers\\ItemsController.cs": {
-    "mtime": 1780824139.4138124,
-    "ast_hash": "c134de420a270375960b16ecd80e9715",
-    "semantic_hash": "c134de420a270375960b16ecd80e9715"
+  "backend/src/API/Controllers/ItemsController.cs": {
+    "mtime": 1780825716.8771303,
+    "ast_hash": "ce881f305d3fd4acac054dff4a9c8f75",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Controllers\\MessagesController.cs": {
+  "backend/src/API/Controllers/MessagesController.cs": {
     "mtime": 1777653723.5128157,
     "ast_hash": "1942246a6a6de2b39437ce10a56891c7",
     "semantic_hash": "1942246a6a6de2b39437ce10a56891c7"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Controllers\\NotificationsController.cs": {
+  "backend/src/API/Controllers/NotificationsController.cs": {
     "mtime": 1774873025.8811688,
     "ast_hash": "1ab5a0487b33846abf0bb0934f72af35",
     "semantic_hash": "1ab5a0487b33846abf0bb0934f72af35"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Controllers\\OffersController.cs": {
+  "backend/src/API/Controllers/OffersController.cs": {
     "mtime": 1779361875.5729141,
     "ast_hash": "36ce811558c7dd4c4510996670954815",
     "semantic_hash": "36ce811558c7dd4c4510996670954815"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Controllers\\ProfileController.cs": {
+  "backend/src/API/Controllers/ProfileController.cs": {
     "mtime": 1777813741.8796668,
     "ast_hash": "66f16d7842d24d226453030d09b1d64f",
     "semantic_hash": "66f16d7842d24d226453030d09b1d64f"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Controllers\\ReviewsController.cs": {
+  "backend/src/API/Controllers/ReviewsController.cs": {
     "mtime": 1774873025.8835185,
     "ast_hash": "aa99743be7b341c49d5944e6f5763fc2",
     "semantic_hash": "aa99743be7b341c49d5944e6f5763fc2"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Controllers\\TaxonomyController.cs": {
+  "backend/src/API/Controllers/TaxonomyController.cs": {
     "mtime": 1777647633.3198013,
     "ast_hash": "740a57da3e324bba1aa8af2f7327c397",
     "semantic_hash": "740a57da3e324bba1aa8af2f7327c397"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Controllers\\TradesController.cs": {
+  "backend/src/API/Controllers/TradesController.cs": {
     "mtime": 1774873025.8843417,
     "ast_hash": "4114324c57229e67157a6b091e35f381",
     "semantic_hash": "4114324c57229e67157a6b091e35f381"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Controllers\\UploadController.cs": {
+  "backend/src/API/Controllers/UploadController.cs": {
     "mtime": 1778155831.9219275,
     "ast_hash": "33123e7708d0d22c8c836ad67468f37d",
     "semantic_hash": "33123e7708d0d22c8c836ad67468f37d"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Program.cs": {
+  "backend/src/API/Program.cs": {
     "mtime": 1778155637.8240137,
     "ast_hash": "062fcb0dba1664ab5af6b622089e1498",
     "semantic_hash": "062fcb0dba1664ab5af6b622089e1498"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\Properties\\launchSettings.json": {
+  "backend/src/API/Properties/launchSettings.json": {
     "mtime": 1774873025.8868997,
     "ast_hash": "7f39786c22ea4b6a82ed141b32ce8329",
     "semantic_hash": "7f39786c22ea4b6a82ed141b32ce8329"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\SwapIt.API.csproj": {
+  "backend/src/API/SwapIt.API.csproj": {
     "mtime": 1774878891.3730216,
     "ast_hash": "499c1924ba4cd291e3985b8baf2ed663",
     "semantic_hash": "499c1924ba4cd291e3985b8baf2ed663"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\appsettings.json": {
-    "mtime": 1774879165.6097975,
-    "ast_hash": "d73f57b8956fac0e3ac7864143c9cbb0",
-    "semantic_hash": "d73f57b8956fac0e3ac7864143c9cbb0"
+  "backend/src/API/appsettings.json": {
+    "mtime": 1783491782.3304255,
+    "ast_hash": "94c972e09901d160839718f240d51190",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Common\\Behaviors\\ValidationBehavior.cs": {
+  "backend/src/Application/Common/Behaviors/ValidationBehavior.cs": {
     "mtime": 1774873026.4008088,
     "ast_hash": "ee9748346a162b60d30ee2570d6ce784",
     "semantic_hash": "ee9748346a162b60d30ee2570d6ce784"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Common\\Exceptions\\AppException.cs": {
+  "backend/src/Application/Common/Exceptions/AppException.cs": {
     "mtime": 1774873026.401806,
     "ast_hash": "f7689b20bd0f7aebf75bece1b7ad61be",
     "semantic_hash": "f7689b20bd0f7aebf75bece1b7ad61be"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Common\\Interfaces\\IApplicationDbContext.cs": {
+  "backend/src/Application/Common/Interfaces/IApplicationDbContext.cs": {
     "mtime": 1777653787.6135762,
     "ast_hash": "1999c824b293328ec1fcc4806dd13102",
     "semantic_hash": "1999c824b293328ec1fcc4806dd13102"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Common\\Interfaces\\ICurrentUserService.cs": {
+  "backend/src/Application/Common/Interfaces/ICurrentUserService.cs": {
     "mtime": 1780824099.3152647,
     "ast_hash": "a25b93240d8e55c9f45f43d84a94764a",
     "semantic_hash": "a25b93240d8e55c9f45f43d84a94764a"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Common\\Interfaces\\IFileService.cs": {
+  "backend/src/Application/Common/Interfaces/IFileService.cs": {
     "mtime": 1778155797.667737,
     "ast_hash": "7052ea84848adfd4db2317ac2fef8174",
     "semantic_hash": "7052ea84848adfd4db2317ac2fef8174"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Common\\Interfaces\\IPasswordService.cs": {
+  "backend/src/Application/Common/Interfaces/IPasswordService.cs": {
     "mtime": 1774873026.4054196,
     "ast_hash": "76fc93f80a236ffc0ff4d86f3b0f26a2",
     "semantic_hash": "76fc93f80a236ffc0ff4d86f3b0f26a2"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Common\\Interfaces\\ITokenService.cs": {
+  "backend/src/Application/Common/Interfaces/ITokenService.cs": {
     "mtime": 1774873026.4064186,
     "ast_hash": "30d75df6237eb799c84ec53e9425af91",
     "semantic_hash": "30d75df6237eb799c84ec53e9425af91"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Common\\Rules\\TradeStatusRules.cs": {
+  "backend/src/Application/Common/Rules/TradeStatusRules.cs": {
     "mtime": 1774873026.4084978,
     "ast_hash": "7befb77959834d1aa98069fb6c4ef789",
     "semantic_hash": "7befb77959834d1aa98069fb6c4ef789"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Common\\Services\\ISystemSettings.cs": {
+  "backend/src/Application/Common/Services/ISystemSettings.cs": {
     "mtime": 1777552565.4283175,
     "ast_hash": "9f527a6941ced255362205af11c7dfa2",
     "semantic_hash": "9f527a6941ced255362205af11c7dfa2"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\DependencyInjection.cs": {
+  "backend/src/Application/DependencyInjection.cs": {
     "mtime": 1774873026.409495,
     "ast_hash": "12a6cac8f68ecf98760084755c7dc520",
     "semantic_hash": "12a6cac8f68ecf98760084755c7dc520"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\ApproveSuggestionCommand.cs": {
+  "backend/src/Application/Features/Admin/ApproveSuggestionCommand.cs": {
     "mtime": 1777647664.6067355,
     "ast_hash": "a97905d1d5b0efde2847ad4796fbef67",
     "semantic_hash": "a97905d1d5b0efde2847ad4796fbef67"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\Categories\\CreateCategoryCommand.cs": {
-    "mtime": 1777646236.8025582,
-    "ast_hash": "e8a567c3a9469ad3f42bbb2f1ff23750",
-    "semantic_hash": "e8a567c3a9469ad3f42bbb2f1ff23750"
+  "backend/src/Application/Features/Admin/Categories/CreateCategoryCommand.cs": {
+    "mtime": 1783491588.4597745,
+    "ast_hash": "2d5398be7559d86155d288b6cc9e7bef",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\Categories\\GetCategoriesQuery.cs": {
-    "mtime": 1777646236.8035555,
-    "ast_hash": "fc37132010ff2c4901af1101fcc8e490",
-    "semantic_hash": "fc37132010ff2c4901af1101fcc8e490"
+  "backend/src/Application/Features/Admin/Categories/GetCategoriesQuery.cs": {
+    "mtime": 1783491582.2946618,
+    "ast_hash": "4e92c2d05ec6cf7249a83bcb70715a8a",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\Categories\\ToggleCategoryCommand.cs": {
+  "backend/src/Application/Features/Admin/Categories/ToggleCategoryCommand.cs": {
     "mtime": 1777647671.8471043,
     "ast_hash": "3432e65065b3dcd55da8618c5936257f",
     "semantic_hash": "3432e65065b3dcd55da8618c5936257f"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\Categories\\UpdateCategoryCommand.cs": {
-    "mtime": 1777649476.1086655,
-    "ast_hash": "3075508373ffb7c2b7983234daa2805e",
-    "semantic_hash": "3075508373ffb7c2b7983234daa2805e"
+  "backend/src/Application/Features/Admin/Categories/UpdateCategoryCommand.cs": {
+    "mtime": 1783491594.324501,
+    "ast_hash": "666aaf66b0ed1e1869419f49788faf9e",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\ChangePasswordCommand.cs": {
+  "backend/src/Application/Features/Admin/ChangePasswordCommand.cs": {
     "mtime": 1777553230.5978496,
     "ast_hash": "4b900a969c8ba17f0622ebd185e4d19a",
     "semantic_hash": "4b900a969c8ba17f0622ebd185e4d19a"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\GetAdminItemsQuery.cs": {
+  "backend/src/Application/Features/Admin/GetAdminItemsQuery.cs": {
     "mtime": 1777554488.812511,
     "ast_hash": "192eec52a1689ce23b91e6f8a2db3de9",
     "semantic_hash": "192eec52a1689ce23b91e6f8a2db3de9"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\GetAdminProfileQuery.cs": {
+  "backend/src/Application/Features/Admin/GetAdminProfileQuery.cs": {
     "mtime": 1777551751.9427507,
     "ast_hash": "ec63aeeb999b33df2159f6b3259229ea",
     "semantic_hash": "ec63aeeb999b33df2159f6b3259229ea"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\GetDashboardStatsQuery.cs": {
+  "backend/src/Application/Features/Admin/GetDashboardStatsQuery.cs": {
     "mtime": 1777549776.141097,
     "ast_hash": "1ae628b0cc1e8baa2e4b178ad6a01537",
     "semantic_hash": "1ae628b0cc1e8baa2e4b178ad6a01537"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\GetDisputesQuery.cs": {
+  "backend/src/Application/Features/Admin/GetDisputesQuery.cs": {
     "mtime": 1777550239.2420752,
     "ast_hash": "1f3ca30fa221b3cf5828fb1c47b382d7",
     "semantic_hash": "1f3ca30fa221b3cf5828fb1c47b382d7"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\GetOffersQuery.cs": {
+  "backend/src/Application/Features/Admin/GetOffersQuery.cs": {
     "mtime": 1777550345.7008414,
     "ast_hash": "cb436d6bdaa19196cee4cd68cbd0d1f3",
     "semantic_hash": "cb436d6bdaa19196cee4cd68cbd0d1f3"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\GetSuggestionsQuery.cs": {
+  "backend/src/Application/Features/Admin/GetSuggestionsQuery.cs": {
     "mtime": 1777647656.6700811,
     "ast_hash": "0bd50099676e49fbcb34239809af3e03",
     "semantic_hash": "0bd50099676e49fbcb34239809af3e03"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\GetTradesQuery.cs": {
+  "backend/src/Application/Features/Admin/GetTradesQuery.cs": {
     "mtime": 1777550159.3658054,
     "ast_hash": "1e7e714c7d8840d3e99ef5a590f067c4",
     "semantic_hash": "1e7e714c7d8840d3e99ef5a590f067c4"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\GetUsersQuery.cs": {
+  "backend/src/Application/Features/Admin/GetUsersQuery.cs": {
     "mtime": 1777550020.859857,
     "ast_hash": "7a304684dd99677b280f3fdcef948091",
     "semantic_hash": "7a304684dd99677b280f3fdcef948091"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\Provinces\\GetProvincesQuery.cs": {
+  "backend/src/Application/Features/Admin/Provinces/GetProvincesQuery.cs": {
     "mtime": 1777646236.80555,
     "ast_hash": "29bac8b81c58d85742f8a782baa7c566",
     "semantic_hash": "29bac8b81c58d85742f8a782baa7c566"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\RunDiagnosticsQuery.cs": {
+  "backend/src/Application/Features/Admin/RunDiagnosticsQuery.cs": {
     "mtime": 1777552557.0740592,
     "ast_hash": "3f5957de646086f11d6e5e35e81c87aa",
     "semantic_hash": "3f5957de646086f11d6e5e35e81c87aa"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Admin\\UpdateAdminNameCommand.cs": {
+  "backend/src/Application/Features/Admin/UpdateAdminNameCommand.cs": {
     "mtime": 1777553240.2455544,
     "ast_hash": "97b102eaafe99eef3e9124d67a8b3725",
     "semantic_hash": "97b102eaafe99eef3e9124d67a8b3725"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Auth\\Commands\\Login\\LoginCommand.cs": {
+  "backend/src/Application/Features/Auth/Commands/Login/LoginCommand.cs": {
     "mtime": 1777809141.5388646,
     "ast_hash": "7fc3a77caaaba05da7f3494634d55aad",
     "semantic_hash": "7fc3a77caaaba05da7f3494634d55aad"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Auth\\Commands\\Login\\LoginCommandValidator.cs": {
+  "backend/src/Application/Features/Auth/Commands/Login/LoginCommandValidator.cs": {
     "mtime": 1774873026.4158432,
     "ast_hash": "fc8b307c84131bebc83cd0e93df40d74",
     "semantic_hash": "fc8b307c84131bebc83cd0e93df40d74"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Auth\\Commands\\Register\\RegisterCommand.cs": {
+  "backend/src/Application/Features/Auth/Commands/Register/RegisterCommand.cs": {
     "mtime": 1777647700.5202074,
     "ast_hash": "b46bda57da38933dc442824148a0ca6a",
     "semantic_hash": "b46bda57da38933dc442824148a0ca6a"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Auth\\Commands\\Register\\RegisterCommandValidator.cs": {
+  "backend/src/Application/Features/Auth/Commands/Register/RegisterCommandValidator.cs": {
     "mtime": 1774873026.4183528,
     "ast_hash": "34aa2c74f60de3ab76e0f7436ab03500",
     "semantic_hash": "34aa2c74f60de3ab76e0f7436ab03500"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Auth\\Dtos\\AuthUserDto.cs": {
+  "backend/src/Application/Features/Auth/Dtos/AuthUserDto.cs": {
     "mtime": 1774873026.4197311,
     "ast_hash": "6e3c01fbfa01c7e1c6c89ac6c12c6e21",
     "semantic_hash": "6e3c01fbfa01c7e1c6c89ac6c12c6e21"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Auth\\Dtos\\LoginRequestDto.cs": {
+  "backend/src/Application/Features/Auth/Dtos/LoginRequestDto.cs": {
     "mtime": 1774873026.4207351,
     "ast_hash": "de3f0f42f14a482096a2b9f6b98785a9",
     "semantic_hash": "de3f0f42f14a482096a2b9f6b98785a9"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Auth\\Dtos\\LoginResponseDto.cs": {
+  "backend/src/Application/Features/Auth/Dtos/LoginResponseDto.cs": {
     "mtime": 1777809135.5421183,
     "ast_hash": "962d343f986b091f374fbc64aa951ab7",
     "semantic_hash": "962d343f986b091f374fbc64aa951ab7"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Auth\\Dtos\\RegisterRequestDto.cs": {
+  "backend/src/Application/Features/Auth/Dtos/RegisterRequestDto.cs": {
     "mtime": 1777647698.4057841,
     "ast_hash": "4d426b434874e8548c78ad03fb0013ec",
     "semantic_hash": "4d426b434874e8548c78ad03fb0013ec"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Auth\\Dtos\\RegisterResponseDto.cs": {
+  "backend/src/Application/Features/Auth/Dtos/RegisterResponseDto.cs": {
     "mtime": 1774873026.423726,
     "ast_hash": "a2e1dfe29f329957a71224335af8e6ad",
     "semantic_hash": "a2e1dfe29f329957a71224335af8e6ad"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Disputes\\Commands\\CreateDispute\\CreateDisputeCommand.cs": {
+  "backend/src/Application/Features/Disputes/Commands/CreateDispute/CreateDisputeCommand.cs": {
     "mtime": 1774873026.4451346,
     "ast_hash": "ecf9946743734e6dfb3b73cddae7df12",
     "semantic_hash": "ecf9946743734e6dfb3b73cddae7df12"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Disputes\\Commands\\CreateDispute\\CreateDisputeCommandValidator.cs": {
+  "backend/src/Application/Features/Disputes/Commands/CreateDispute/CreateDisputeCommandValidator.cs": {
     "mtime": 1774873026.446133,
     "ast_hash": "06dfc795e0c330255b5ed8c9918cf197",
     "semantic_hash": "06dfc795e0c330255b5ed8c9918cf197"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Disputes\\Commands\\UpdateDispute\\UpdateDisputeCommand.cs": {
+  "backend/src/Application/Features/Disputes/Commands/UpdateDispute/UpdateDisputeCommand.cs": {
     "mtime": 1774873026.453113,
     "ast_hash": "280d5fa18593f5151e7dcb33e3c0b43d",
     "semantic_hash": "280d5fa18593f5151e7dcb33e3c0b43d"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Disputes\\Commands\\UpdateDispute\\UpdateDisputeCommandValidator.cs": {
+  "backend/src/Application/Features/Disputes/Commands/UpdateDispute/UpdateDisputeCommandValidator.cs": {
     "mtime": 1774873026.4555619,
     "ast_hash": "3c28f867ec36c0e05e7ec5212ea2ce9a",
     "semantic_hash": "3c28f867ec36c0e05e7ec5212ea2ce9a"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Disputes\\Dtos\\CreateDisputeRequestDto.cs": {
+  "backend/src/Application/Features/Disputes/Dtos/CreateDisputeRequestDto.cs": {
     "mtime": 1774873026.4571373,
     "ast_hash": "c30d411cc18656569aedbc067bcd40f8",
     "semantic_hash": "c30d411cc18656569aedbc067bcd40f8"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Disputes\\Dtos\\DisputeResponseDto.cs": {
+  "backend/src/Application/Features/Disputes/Dtos/DisputeResponseDto.cs": {
     "mtime": 1774873026.4576528,
     "ast_hash": "b22de1913cbe99e490f0682cf406468b",
     "semantic_hash": "b22de1913cbe99e490f0682cf406468b"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Disputes\\Dtos\\UpdateDisputeRequestDto.cs": {
+  "backend/src/Application/Features/Disputes/Dtos/UpdateDisputeRequestDto.cs": {
     "mtime": 1774873026.4596434,
     "ast_hash": "7bfdefa1354fc09cadfa771a87cefd51",
     "semantic_hash": "7bfdefa1354fc09cadfa771a87cefd51"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Items\\Commands\\CreateItem.cs": {
+  "backend/src/Application/Features/Items/Commands/CreateItem.cs": {
     "mtime": 1778152014.5967057,
     "ast_hash": "955c5cf75f0dff5673dd701d4e107dec",
     "semantic_hash": "955c5cf75f0dff5673dd701d4e107dec"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Items\\Commands\\DeleteItem.cs": {
+  "backend/src/Application/Features/Items/Commands/DeleteItem.cs": {
     "mtime": 1780824119.0260143,
     "ast_hash": "f6b6dc3ff9bef7d4418a695c9e6634ec",
     "semantic_hash": "f6b6dc3ff9bef7d4418a695c9e6634ec"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Items\\Commands\\UpdateItem.cs": {
+  "backend/src/Application/Features/Items/Commands/UpdateItem.cs": {
     "mtime": 1780824129.6842034,
     "ast_hash": "0bcfcbf2b087788005134179c6bc3ee0",
     "semantic_hash": "0bcfcbf2b087788005134179c6bc3ee0"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Items\\Dtos\\ItemResponseDto.cs": {
+  "backend/src/Application/Features/Items/Dtos/ItemResponseDto.cs": {
     "mtime": 1774873026.4626355,
     "ast_hash": "1b0bab15145bf838b87d1e466a674d52",
     "semantic_hash": "1b0bab15145bf838b87d1e466a674d52"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Items\\Queries\\GetItems\\GetItemsQuery.cs": {
-    "mtime": 1778067495.6260996,
-    "ast_hash": "36f4fababb8543db1cc0669c84c850bc",
-    "semantic_hash": "36f4fababb8543db1cc0669c84c850bc"
+  "backend/src/Application/Features/Items/Queries/GetItems/GetItemsQuery.cs": {
+    "mtime": 1783491600.676418,
+    "ast_hash": "a1414f8a749b339740122622601d64aa",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Items\\Queries\\GetItems\\GetItemsQueryValidator.cs": {
+  "backend/src/Application/Features/Items/Queries/GetItems/GetItemsQueryValidator.cs": {
     "mtime": 1774873026.4660945,
     "ast_hash": "30f05694892e4122316e001217e19117",
     "semantic_hash": "30f05694892e4122316e001217e19117"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Messages\\Commands\\SendMessage\\SendMessageCommand.cs": {
+  "backend/src/Application/Features/Messages/Commands/SendMessage/SendMessageCommand.cs": {
     "mtime": 1777653680.28115,
     "ast_hash": "5688dcd87792b2909b813bf3e35dce13",
     "semantic_hash": "5688dcd87792b2909b813bf3e35dce13"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Messages\\Dtos\\ConversationDto.cs": {
+  "backend/src/Application/Features/Messages/Dtos/ConversationDto.cs": {
     "mtime": 1777653661.5823429,
     "ast_hash": "a9f24de2650a9433494934e49f9bd66a",
     "semantic_hash": "a9f24de2650a9433494934e49f9bd66a"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Messages\\Dtos\\MessageDto.cs": {
+  "backend/src/Application/Features/Messages/Dtos/MessageDto.cs": {
     "mtime": 1777653644.3406358,
     "ast_hash": "a93307c053c196c7af298d09de832977",
     "semantic_hash": "a93307c053c196c7af298d09de832977"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Messages\\Queries\\GetChatMessages\\GetChatMessagesQuery.cs": {
+  "backend/src/Application/Features/Messages/Queries/GetChatMessages/GetChatMessagesQuery.cs": {
     "mtime": 1777653814.6217704,
     "ast_hash": "cfdf03c1cf1775270057cd877827a797",
     "semantic_hash": "cfdf03c1cf1775270057cd877827a797"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Messages\\Queries\\GetConversations\\GetConversationsQuery.cs": {
+  "backend/src/Application/Features/Messages/Queries/GetConversations/GetConversationsQuery.cs": {
     "mtime": 1777653800.9244614,
     "ast_hash": "901cb987a2704d44b09fee0eb5bb4a54",
     "semantic_hash": "901cb987a2704d44b09fee0eb5bb4a54"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Notifications\\Commands\\CreateNotification\\CreateNotificationCommand.cs": {
+  "backend/src/Application/Features/Notifications/Commands/CreateNotification/CreateNotificationCommand.cs": {
     "mtime": 1774873026.4679804,
     "ast_hash": "ced22ec9de025beeac1c1fa246805341",
     "semantic_hash": "ced22ec9de025beeac1c1fa246805341"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Notifications\\Commands\\CreateNotification\\CreateNotificationCommandValidator.cs": {
+  "backend/src/Application/Features/Notifications/Commands/CreateNotification/CreateNotificationCommandValidator.cs": {
     "mtime": 1774873026.4699757,
     "ast_hash": "44529aa49741ad8112bba7287608a6f8",
     "semantic_hash": "44529aa49741ad8112bba7287608a6f8"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Notifications\\Commands\\MarkNotificationRead\\MarkNotificationReadCommand.cs": {
+  "backend/src/Application/Features/Notifications/Commands/MarkNotificationRead/MarkNotificationReadCommand.cs": {
     "mtime": 1774873026.4719706,
     "ast_hash": "d91739eac6e311b2ac202c19f5f73c81",
     "semantic_hash": "d91739eac6e311b2ac202c19f5f73c81"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Notifications\\Commands\\MarkNotificationRead\\MarkNotificationReadCommandValidator.cs": {
+  "backend/src/Application/Features/Notifications/Commands/MarkNotificationRead/MarkNotificationReadCommandValidator.cs": {
     "mtime": 1774873026.4728906,
     "ast_hash": "2fbd32edad66126fc442e149fd123e83",
     "semantic_hash": "2fbd32edad66126fc442e149fd123e83"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Notifications\\Dtos\\CreateNotificationRequestDto.cs": {
+  "backend/src/Application/Features/Notifications/Dtos/CreateNotificationRequestDto.cs": {
     "mtime": 1774873026.4738858,
     "ast_hash": "acc38f28df0edc901573f61cc745a232",
     "semantic_hash": "acc38f28df0edc901573f61cc745a232"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Notifications\\Dtos\\MarkNotificationReadRequestDto.cs": {
+  "backend/src/Application/Features/Notifications/Dtos/MarkNotificationReadRequestDto.cs": {
     "mtime": 1774873026.474883,
     "ast_hash": "97e5ab6935e971162d7e3e48a49df44a",
     "semantic_hash": "97e5ab6935e971162d7e3e48a49df44a"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Notifications\\Dtos\\NotificationResponseDto.cs": {
+  "backend/src/Application/Features/Notifications/Dtos/NotificationResponseDto.cs": {
     "mtime": 1774873026.4758801,
     "ast_hash": "1360579b6516cd7c35cf188044affbdf",
     "semantic_hash": "1360579b6516cd7c35cf188044affbdf"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Notifications\\Queries\\GetMyNotifications\\GetMyNotificationsQuery.cs": {
+  "backend/src/Application/Features/Notifications/Queries/GetMyNotifications/GetMyNotificationsQuery.cs": {
     "mtime": 1774873026.479871,
     "ast_hash": "2661a54e6d1a8e18c54a797ae59cbe23",
     "semantic_hash": "2661a54e6d1a8e18c54a797ae59cbe23"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Notifications\\Queries\\GetMyNotifications\\GetMyNotificationsQueryValidator.cs": {
+  "backend/src/Application/Features/Notifications/Queries/GetMyNotifications/GetMyNotificationsQueryValidator.cs": {
     "mtime": 1774873026.4808679,
     "ast_hash": "46662d141d24c2a4ddaf04a58be766af",
     "semantic_hash": "46662d141d24c2a4ddaf04a58be766af"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Offers\\Commands\\CreateOffer\\CreateOfferCommand.cs": {
+  "backend/src/Application/Features/Offers/Commands/CreateOffer/CreateOfferCommand.cs": {
     "mtime": 1774873026.4828615,
     "ast_hash": "3a9751ea61c856e364a799d58ebd65fd",
     "semantic_hash": "3a9751ea61c856e364a799d58ebd65fd"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Offers\\Commands\\CreateOffer\\CreateOfferCommandValidator.cs": {
+  "backend/src/Application/Features/Offers/Commands/CreateOffer/CreateOfferCommandValidator.cs": {
     "mtime": 1774873026.4848564,
     "ast_hash": "edd9426bfe0050ff5ad1edd5a6e2317c",
     "semantic_hash": "edd9426bfe0050ff5ad1edd5a6e2317c"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Offers\\Commands\\DecideOffer\\DecideOfferCommand.cs": {
+  "backend/src/Application/Features/Offers/Commands/DecideOffer/DecideOfferCommand.cs": {
     "mtime": 1774873026.490527,
     "ast_hash": "e87cd02c20c2593999424106c525780c",
     "semantic_hash": "e87cd02c20c2593999424106c525780c"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Offers\\Commands\\DecideOffer\\DecideOfferCommandValidator.cs": {
+  "backend/src/Application/Features/Offers/Commands/DecideOffer/DecideOfferCommandValidator.cs": {
     "mtime": 1774873026.4925222,
     "ast_hash": "887129e99e86049ee3f267ccc6709675",
     "semantic_hash": "887129e99e86049ee3f267ccc6709675"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Offers\\Dtos\\CreateOfferRequestDto.cs": {
+  "backend/src/Application/Features/Offers/Dtos/CreateOfferRequestDto.cs": {
     "mtime": 1774873026.502661,
     "ast_hash": "1d418c49411310c4a76b222ab6f35da8",
     "semantic_hash": "1d418c49411310c4a76b222ab6f35da8"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Offers\\Dtos\\OfferDecisionRequestDto.cs": {
+  "backend/src/Application/Features/Offers/Dtos/OfferDecisionRequestDto.cs": {
     "mtime": 1774873026.503168,
     "ast_hash": "5dfeba60caadd02a008d3718c4677fe6",
     "semantic_hash": "5dfeba60caadd02a008d3718c4677fe6"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Offers\\Dtos\\OfferResponseDto.cs": {
+  "backend/src/Application/Features/Offers/Dtos/OfferResponseDto.cs": {
     "mtime": 1777813340.7093956,
     "ast_hash": "630318f0ff410492a7c408a830f3d6e9",
     "semantic_hash": "630318f0ff410492a7c408a830f3d6e9"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Offers\\Queries\\GetMyOffers\\GetMyOffersQuery.cs": {
+  "backend/src/Application/Features/Offers/Queries/GetMyOffers/GetMyOffersQuery.cs": {
     "mtime": 1779361875.5279071,
     "ast_hash": "51b4df2e72b29a448d6f24ba58e778b0",
     "semantic_hash": "51b4df2e72b29a448d6f24ba58e778b0"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Offers\\Queries\\GetMyOffers\\GetMyOffersQueryValidator.cs": {
+  "backend/src/Application/Features/Offers/Queries/GetMyOffers/GetMyOffersQueryValidator.cs": {
     "mtime": 1779361875.5269084,
     "ast_hash": "495b6c478812ddfcff5f346de7a65ce9",
     "semantic_hash": "495b6c478812ddfcff5f346de7a65ce9"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Profile\\GetMyPostsQuery.cs": {
+  "backend/src/Application/Features/Profile/GetMyPostsQuery.cs": {
     "mtime": 1778063018.7408564,
     "ast_hash": "021f5542abe2b401145f1a77f8802c39",
     "semantic_hash": "021f5542abe2b401145f1a77f8802c39"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Profile\\GetProfileQuery.cs": {
+  "backend/src/Application/Features/Profile/GetProfileQuery.cs": {
     "mtime": 1777814278.0063224,
     "ast_hash": "f09cff49c0b2891dc53029329688b455",
     "semantic_hash": "f09cff49c0b2891dc53029329688b455"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Profile\\UpdateProfileCommand.cs": {
+  "backend/src/Application/Features/Profile/UpdateProfileCommand.cs": {
     "mtime": 1777814294.7609956,
     "ast_hash": "0e67df3077c4af36a27081cb129acb22",
     "semantic_hash": "0e67df3077c4af36a27081cb129acb22"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Reviews\\Commands\\SubmitReview\\SubmitReviewCommand.cs": {
+  "backend/src/Application/Features/Reviews/Commands/SubmitReview/SubmitReviewCommand.cs": {
     "mtime": 1774873026.51215,
     "ast_hash": "c6d7f69bb2e241ed3ed9c7218d5da315",
     "semantic_hash": "c6d7f69bb2e241ed3ed9c7218d5da315"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Reviews\\Commands\\SubmitReview\\SubmitReviewCommandValidator.cs": {
+  "backend/src/Application/Features/Reviews/Commands/SubmitReview/SubmitReviewCommandValidator.cs": {
     "mtime": 1774873026.5156443,
     "ast_hash": "c7db7f4c51f9981b11190d95feae6979",
     "semantic_hash": "c7db7f4c51f9981b11190d95feae6979"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Reviews\\Dtos\\ReviewResponseDto.cs": {
+  "backend/src/Application/Features/Reviews/Dtos/ReviewResponseDto.cs": {
     "mtime": 1774873026.5179162,
     "ast_hash": "d35d258ae59fe708d02758458d1a2d4d",
     "semantic_hash": "d35d258ae59fe708d02758458d1a2d4d"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Reviews\\Dtos\\SubmitReviewRequestDto.cs": {
+  "backend/src/Application/Features/Reviews/Dtos/SubmitReviewRequestDto.cs": {
     "mtime": 1774873026.5179162,
     "ast_hash": "f54a629bd24b8a94eed403964abc5ab9",
     "semantic_hash": "f54a629bd24b8a94eed403964abc5ab9"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Taxonomy\\CreateSuggestionCommand.cs": {
+  "backend/src/Application/Features/Taxonomy/CreateSuggestionCommand.cs": {
     "mtime": 1777648093.894029,
     "ast_hash": "6e96e09c475ab70700e297faaf446a91",
     "semantic_hash": "6e96e09c475ab70700e297faaf446a91"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Trades\\Commands\\CreateTrade\\CreateTradeCommand.cs": {
+  "backend/src/Application/Features/Trades/Commands/CreateTrade/CreateTradeCommand.cs": {
     "mtime": 1774873026.5219057,
     "ast_hash": "e880ebd40650744699e733d87608c8c6",
     "semantic_hash": "e880ebd40650744699e733d87608c8c6"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Trades\\Commands\\CreateTrade\\CreateTradeCommandValidator.cs": {
+  "backend/src/Application/Features/Trades/Commands/CreateTrade/CreateTradeCommandValidator.cs": {
     "mtime": 1774873026.5229037,
     "ast_hash": "19e6f7a665a57cbde95cb02047baa717",
     "semantic_hash": "19e6f7a665a57cbde95cb02047baa717"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Trades\\Commands\\UpdateTradeStatus\\UpdateTradeStatusCommand.cs": {
+  "backend/src/Application/Features/Trades/Commands/UpdateTradeStatus/UpdateTradeStatusCommand.cs": {
     "mtime": 1774873026.5239007,
     "ast_hash": "ab08b3114f01a5cbca222fa680616484",
     "semantic_hash": "ab08b3114f01a5cbca222fa680616484"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Trades\\Commands\\UpdateTradeStatus\\UpdateTradeStatusCommandValidator.cs": {
+  "backend/src/Application/Features/Trades/Commands/UpdateTradeStatus/UpdateTradeStatusCommandValidator.cs": {
     "mtime": 1774873026.5248985,
     "ast_hash": "d60f9b4cba317d1024560fd746955c86",
     "semantic_hash": "d60f9b4cba317d1024560fd746955c86"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Trades\\Dtos\\CreateTradeRequestDto.cs": {
+  "backend/src/Application/Features/Trades/Dtos/CreateTradeRequestDto.cs": {
     "mtime": 1774873026.5268924,
     "ast_hash": "988913623fca6b97af0db67bf9f63d73",
     "semantic_hash": "988913623fca6b97af0db67bf9f63d73"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Trades\\Dtos\\TradeEventDto.cs": {
+  "backend/src/Application/Features/Trades/Dtos/TradeEventDto.cs": {
     "mtime": 1774873026.5278907,
     "ast_hash": "7c69bfdd824166545c7460143c45f4d5",
     "semantic_hash": "7c69bfdd824166545c7460143c45f4d5"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Trades\\Dtos\\TradeResponseDto.cs": {
+  "backend/src/Application/Features/Trades/Dtos/TradeResponseDto.cs": {
     "mtime": 1774873026.528888,
     "ast_hash": "4e77303e94f9f10cb15e36e4b0e7f70f",
     "semantic_hash": "4e77303e94f9f10cb15e36e4b0e7f70f"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Trades\\Dtos\\UpdateTradeStatusRequestDto.cs": {
+  "backend/src/Application/Features/Trades/Dtos/UpdateTradeStatusRequestDto.cs": {
     "mtime": 1774873026.5308833,
     "ast_hash": "2bfb9004730ee753ab68e5abf5116792",
     "semantic_hash": "2bfb9004730ee753ab68e5abf5116792"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Features\\Trades\\Queries\\GetMyTrades\\GetMyTradesQuery.cs": {
+  "backend/src/Application/Features/Trades/Queries/GetMyTrades/GetMyTradesQuery.cs": {
     "mtime": 1774873026.5324533,
     "ast_hash": "2bbff59c344d8d29fe1ba6c5a89372e1",
     "semantic_hash": "2bbff59c344d8d29fe1ba6c5a89372e1"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\Mappings\\MapsterConfig.cs": {
-    "mtime": 1777548451.603038,
-    "ast_hash": "c6a0db620eb61f31f0699112d327faa7",
-    "semantic_hash": "c6a0db620eb61f31f0699112d327faa7"
+  "backend/src/Application/Mappings/MapsterConfig.cs": {
+    "mtime": 1780828560.903716,
+    "ast_hash": "19a0f78f73e939e0da62f13e07185393",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Application\\SwapIt.Application.csproj": {
+  "backend/src/Application/SwapIt.Application.csproj": {
     "mtime": 1774873026.5354452,
     "ast_hash": "b74132b4842fad2422f69469afd3f6ce",
     "semantic_hash": "b74132b4842fad2422f69469afd3f6ce"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Core\\Entities\\DomainEntities.cs": {
-    "mtime": 1777814269.8006928,
-    "ast_hash": "f334dd1bdba9c8db1426db343f0aface",
-    "semantic_hash": "f334dd1bdba9c8db1426db343f0aface"
+  "backend/src/Core/Entities/DomainEntities.cs": {
+    "mtime": 1783491535.9971256,
+    "ast_hash": "e1048674dc458f8798df87eaf69b0ce1",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Core\\Enums\\DomainEnums.cs": {
+  "backend/src/Core/Enums/DomainEnums.cs": {
     "mtime": 1777653992.0426605,
     "ast_hash": "690a9d56f12861ce20fd464d45b88920",
     "semantic_hash": "690a9d56f12861ce20fd464d45b88920"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Core\\SwapIt.Core.csproj": {
+  "backend/src/Core/SwapIt.Core.csproj": {
     "mtime": 1777646236.8886018,
     "ast_hash": "46b0780bd56312ea2d1bab391f179e89",
     "semantic_hash": "46b0780bd56312ea2d1bab391f179e89"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Auth\\PasswordService.cs": {
+  "backend/src/Infrastructure/Auth/PasswordService.cs": {
     "mtime": 1777646236.9824102,
     "ast_hash": "1ae9352e6b33d06df539c7b801ffd04e",
     "semantic_hash": "1ae9352e6b33d06df539c7b801ffd04e"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Auth\\TokenService.cs": {
+  "backend/src/Infrastructure/Auth/TokenService.cs": {
     "mtime": 1774873026.6908462,
     "ast_hash": "ada56fbda387f3b76189eafca31f7a90",
     "semantic_hash": "ada56fbda387f3b76189eafca31f7a90"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\DependencyInjection.cs": {
-    "mtime": 1778155617.5815623,
-    "ast_hash": "2d6d15a75bc9dd5c659d7ef74df0de6a",
-    "semantic_hash": "2d6d15a75bc9dd5c659d7ef74df0de6a"
+  "backend/src/Infrastructure/DependencyInjection.cs": {
+    "mtime": 1783491767.0297444,
+    "ast_hash": "886f90569f7dee2ae84c4fc89cfc0c2b",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\ApplicationDbContext.cs": {
-    "mtime": 1778058487.277037,
-    "ast_hash": "083be864830c8788f5d4abc2cbecb515",
-    "semantic_hash": "083be864830c8788f5d4abc2cbecb515"
+  "backend/src/Infrastructure/Persistence/ApplicationDbContext.cs": {
+    "mtime": 1783491575.5933523,
+    "ast_hash": "db3831465f992a2ff80aafab3b61d2fa",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\20260330135520_InitialCreate.Designer.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/20260330135520_InitialCreate.Designer.cs": {
     "mtime": 1774878920.6717763,
     "ast_hash": "fee3247c0795061a6ed417f5d9594796",
     "semantic_hash": "fee3247c0795061a6ed417f5d9594796"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\20260330135520_InitialCreate.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/20260330135520_InitialCreate.cs": {
     "mtime": 1774878920.6677883,
     "ast_hash": "63754cb1c7a6fd4036e23222445a9b8d",
     "semantic_hash": "63754cb1c7a6fd4036e23222445a9b8d"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\20260501151834_TaxonomyScriptOnly.Designer.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/20260501151834_TaxonomyScriptOnly.Designer.cs": {
     "mtime": 1777648714.535594,
     "ast_hash": "02022695bb7819aa5af04c24435b1a92",
     "semantic_hash": "02022695bb7819aa5af04c24435b1a92"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\20260501151834_TaxonomyScriptOnly.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/20260501151834_TaxonomyScriptOnly.cs": {
     "mtime": 1777648714.5336008,
     "ast_hash": "d9d7c1a4c1a4f76bd851e33e08d5d3b9",
     "semantic_hash": "d9d7c1a4c1a4f76bd851e33e08d5d3b9"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\20260501154647_FixCategorySeeding.Designer.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/20260501154647_FixCategorySeeding.Designer.cs": {
     "mtime": 1777650407.3120139,
     "ast_hash": "ea89f98ac22b67f54d7963165dc21c82",
     "semantic_hash": "ea89f98ac22b67f54d7963165dc21c82"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\20260501154647_FixCategorySeeding.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/20260501154647_FixCategorySeeding.cs": {
     "mtime": 1777650555.927859,
     "ast_hash": "32ecc91fa6aa9e472cbfb17b7dbecf1c",
     "semantic_hash": "32ecc91fa6aa9e472cbfb17b7dbecf1c"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\20260501163925_AddMessagesTable.Designer.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/20260501163925_AddMessagesTable.Designer.cs": {
     "mtime": 1777653566.097561,
     "ast_hash": "27d1299df1221c975ee6551034988f2a",
     "semantic_hash": "27d1299df1221c975ee6551034988f2a"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\20260501163925_AddMessagesTable.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/20260501163925_AddMessagesTable.cs": {
     "mtime": 1777653566.0958066,
     "ast_hash": "95e3b1186d06f8c3fdd633bc9a5b2d67",
     "semantic_hash": "95e3b1186d06f8c3fdd633bc9a5b2d67"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\20260503130319_AddLtpBalance.Designer.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/20260503130319_AddLtpBalance.Designer.cs": {
     "mtime": 1777813399.9345863,
     "ast_hash": "740ab5e46888f45d9fb114bc8ba7a0b4",
     "semantic_hash": "740ab5e46888f45d9fb114bc8ba7a0b4"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\20260503130319_AddLtpBalance.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/20260503130319_AddLtpBalance.cs": {
     "mtime": 1777813399.9305942,
     "ast_hash": "a4fde840297dd7eca491e23db88e5a24",
     "semantic_hash": "a4fde840297dd7eca491e23db88e5a24"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\20260503131003_AddIsLocationPublic.Designer.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/20260503131003_AddIsLocationPublic.Designer.cs": {
     "mtime": 1777813803.69497,
     "ast_hash": "5e3228fa1aaa61ace7864bf298030cb6",
     "semantic_hash": "5e3228fa1aaa61ace7864bf298030cb6"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\20260503131003_AddIsLocationPublic.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/20260503131003_AddIsLocationPublic.cs": {
     "mtime": 1777813803.6919782,
     "ast_hash": "6fdf9f1c4bdbc89906f8b9ba2f0a40e4",
     "semantic_hash": "6fdf9f1c4bdbc89906f8b9ba2f0a40e4"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\20260503131948_AddUserLocationFields.Designer.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/20260503131948_AddUserLocationFields.Designer.cs": {
     "mtime": 1777814388.6633554,
     "ast_hash": "2b98ea02230080032bca94c2a25b2181",
     "semantic_hash": "2b98ea02230080032bca94c2a25b2181"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\20260503131948_AddUserLocationFields.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/20260503131948_AddUserLocationFields.cs": {
     "mtime": 1777814388.6603673,
     "ast_hash": "6d7ad2a961fd9a1d2063142e6e34ed68",
     "semantic_hash": "6d7ad2a961fd9a1d2063142e6e34ed68"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Persistence\\Migrations\\ApplicationDbContextModelSnapshot.cs": {
+  "backend/src/Infrastructure/Persistence/Migrations/ApplicationDbContextModelSnapshot.cs": {
     "mtime": 1777814388.6672926,
     "ast_hash": "436097bf00566b47d2403ae4e03036a7",
     "semantic_hash": "436097bf00566b47d2403ae4e03036a7"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\Services\\LocalFileService.cs": {
+  "backend/src/Infrastructure/Services/LocalFileService.cs": {
     "mtime": 1778155821.9959948,
     "ast_hash": "b902784b1eaf50cf5f74cfbdbc0e9499",
     "semantic_hash": "b902784b1eaf50cf5f74cfbdbc0e9499"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\Infrastructure\\SwapIt.Infrastructure.csproj": {
+  "backend/src/Infrastructure/SwapIt.Infrastructure.csproj": {
     "mtime": 1778155812.0558958,
     "ast_hash": "3f847171d14dda8e625de87b86fe9118",
     "semantic_hash": "3f847171d14dda8e625de87b86fe9118"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\components.json": {
+  "frontend/components.json": {
     "mtime": 1774873026.8210993,
     "ast_hash": "7d7621ab90f5ef710574d64e800805a5",
     "semantic_hash": "7d7621ab90f5ef710574d64e800805a5"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\eslint.config.mjs": {
+  "frontend/eslint.config.mjs": {
     "mtime": 1774873026.8230944,
     "ast_hash": "f75fd72656455fa6dc6055e3cbea5d68",
     "semantic_hash": "f75fd72656455fa6dc6055e3cbea5d68"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\next-env.d.ts": {
+  "frontend/next-env.d.ts": {
     "mtime": 1763910646.7759752,
     "ast_hash": "90426577ad8f38459f3e566411c85589",
     "semantic_hash": "90426577ad8f38459f3e566411c85589"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\next.config.ts": {
-    "mtime": 1774873026.8240917,
-    "ast_hash": "21e7139e405a7f5406285b8b51422d18",
-    "semantic_hash": "21e7139e405a7f5406285b8b51422d18"
+  "frontend/next.config.ts": {
+    "mtime": 1783495548.332117,
+    "ast_hash": "ec48d2d9cf108d85df217df9ef831066",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\package.json": {
+  "frontend/package.json": {
     "mtime": 1774958807.3873587,
     "ast_hash": "ac0d9fd4191064caf3b9e2b5b0ebcd00",
     "semantic_hash": "ac0d9fd4191064caf3b9e2b5b0ebcd00"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\postcss.config.mjs": {
+  "frontend/postcss.config.mjs": {
     "mtime": 1774873026.8325007,
     "ast_hash": "0a8c5fa8885965eb3d71ee945ff2e9be",
     "semantic_hash": "0a8c5fa8885965eb3d71ee945ff2e9be"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\api\\axios.ts": {
+  "frontend/src/api/axios.ts": {
     "mtime": 1777547756.3730876,
     "ast_hash": "90f760c877e1be30fe8249088d07d805",
     "semantic_hash": "90f760c877e1be30fe8249088d07d805"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\(user)\\confirm-trade\\page.tsx": {
+  "frontend/src/app/(user)/confirm-trade/page.tsx": {
     "mtime": 1774873026.8711975,
     "ast_hash": "c82f23f4e0d428578d2bb7368833faf6",
     "semantic_hash": "c82f23f4e0d428578d2bb7368833faf6"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\(user)\\items\\[id]\\page.tsx": {
+  "frontend/src/app/(user)/items/[id]/page.tsx": {
     "mtime": 1774873026.875182,
     "ast_hash": "3510d0f69b55ed0f76e9b1ba94772246",
     "semantic_hash": "3510d0f69b55ed0f76e9b1ba94772246"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\(user)\\layout.tsx": {
+  "frontend/src/app/(user)/layout.tsx": {
     "mtime": 1778155131.4151392,
     "ast_hash": "27b2f64fc12c9c4d5683251081929f08",
     "semantic_hash": "27b2f64fc12c9c4d5683251081929f08"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\(user)\\messenger\\page.tsx": {
-    "mtime": 1777654359.244799,
-    "ast_hash": "c9d816ff0e83be57bbc1f48acf1f370f",
-    "semantic_hash": "c9d816ff0e83be57bbc1f48acf1f370f"
+  "frontend/src/app/(user)/messenger/page.tsx": {
+    "mtime": 1780828440.9738193,
+    "ast_hash": "2a23e76510a571e7ba3d01f9cce757c7",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\(user)\\my-offers\\page.tsx": {
+  "frontend/src/app/(user)/my-offers/page.tsx": {
     "mtime": 1779361875.5669298,
     "ast_hash": "6e5e48c56e9f99e8b8dc8e744593b0d8",
     "semantic_hash": "6e5e48c56e9f99e8b8dc8e744593b0d8"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\(user)\\my-posts\\page.tsx": {
+  "frontend/src/app/(user)/my-posts/page.tsx": {
     "mtime": 1778157370.2950823,
     "ast_hash": "84d7b3237bc90c9f92a62c726bfca968",
     "semantic_hash": "84d7b3237bc90c9f92a62c726bfca968"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\(user)\\notifications\\page.tsx": {
+  "frontend/src/app/(user)/notifications/page.tsx": {
     "mtime": 1779361875.5336084,
     "ast_hash": "e8a43011536ba9284271c38d5ee44e53",
     "semantic_hash": "e8a43011536ba9284271c38d5ee44e53"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\(user)\\post-asset\\page.tsx": {
-    "mtime": 1778156321.4118307,
-    "ast_hash": "32d3351242f0d61e06d518d0ceed4fc8",
-    "semantic_hash": "32d3351242f0d61e06d518d0ceed4fc8"
+  "frontend/src/app/(user)/post-asset/page.tsx": {
+    "mtime": 1783491944.7123284,
+    "ast_hash": "f9ae0ab588ff1a0f3f2e3c314affa17d",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\(user)\\profile\\page.tsx": {
+  "frontend/src/app/(user)/profile/page.tsx": {
     "mtime": 1777814448.402718,
     "ast_hash": "d4f4244abe1bc5a2f21dcb0d7b3f3fbf",
     "semantic_hash": "d4f4244abe1bc5a2f21dcb0d7b3f3fbf"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\(user)\\settings\\page.tsx": {
+  "frontend/src/app/(user)/settings/page.tsx": {
     "mtime": 1777814876.9965932,
     "ast_hash": "eca9d9d25e673617b75eed315db22b90",
     "semantic_hash": "eca9d9d25e673617b75eed315db22b90"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\(user)\\wishlist\\page.tsx": {
+  "frontend/src/app/(user)/wishlist/page.tsx": {
     "mtime": 1777810262.9123702,
     "ast_hash": "d8d3a9f84db24b2c44f3a96497c4fa8c",
     "semantic_hash": "d8d3a9f84db24b2c44f3a96497c4fa8c"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\Providers.tsx": {
+  "frontend/src/app/Providers.tsx": {
     "mtime": 1774873026.9160664,
     "ast_hash": "a1d9c53807816656fbff988511173942",
     "semantic_hash": "a1d9c53807816656fbff988511173942"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\attributes\\colors\\page.tsx": {
+  "frontend/src/app/admin/attributes/colors/page.tsx": {
     "mtime": 1774873026.918061,
     "ast_hash": "8205175ce5ff8c92d0275a4f9a5f07db",
     "semantic_hash": "8205175ce5ff8c92d0275a4f9a5f07db"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\attributes\\sizes\\page.tsx": {
+  "frontend/src/app/admin/attributes/sizes/page.tsx": {
     "mtime": 1774873026.919058,
     "ast_hash": "adeea771d0813c670abf819af6e73b68",
     "semantic_hash": "adeea771d0813c670abf819af6e73b68"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\categories\\page.tsx": {
-    "mtime": 1777649523.1200225,
-    "ast_hash": "98749b6e11890f3fcb8464b6bd5fac1d",
-    "semantic_hash": "98749b6e11890f3fcb8464b6bd5fac1d"
+  "frontend/src/app/admin/categories/page.tsx": {
+    "mtime": 1783492169.3968954,
+    "ast_hash": "18aeda6d2dbe12356317554001144935",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\category\\create\\page.tsx": {
+  "frontend/src/app/admin/category/create/page.tsx": {
     "mtime": 1774873026.920055,
     "ast_hash": "edc84fde86a031d814e991224fcec8eb",
     "semantic_hash": "edc84fde86a031d814e991224fcec8eb"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\category\\list\\page.tsx": {
+  "frontend/src/app/admin/category/list/page.tsx": {
     "mtime": 1774873026.9220502,
     "ast_hash": "8a960a9add18a7d7799ead78e77928fa",
     "semantic_hash": "8a960a9add18a7d7799ead78e77928fa"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\components\\charts\\SalesChart.tsx": {
+  "frontend/src/app/admin/components/charts/SalesChart.tsx": {
     "mtime": 1774873026.923048,
     "ast_hash": "fc50bb5e46bf5f70c567883ceb74c510",
     "semantic_hash": "fc50bb5e46bf5f70c567883ceb74c510"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\components\\layout\\Navbar.tsx": {
+  "frontend/src/app/admin/components/layout/Navbar.tsx": {
     "mtime": 1777809179.676349,
     "ast_hash": "bb8844f83cfa45c182a420ca365046a6",
     "semantic_hash": "bb8844f83cfa45c182a420ca365046a6"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\components\\layout\\Sidebar.tsx": {
+  "frontend/src/app/admin/components/layout/Sidebar.tsx": {
     "mtime": 1777649164.4915876,
     "ast_hash": "1444c86155286d73ab7c8da75c003e29",
     "semantic_hash": "1444c86155286d73ab7c8da75c003e29"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\components\\layout\\ThemeToggle.tsx": {
+  "frontend/src/app/admin/components/layout/ThemeToggle.tsx": {
     "mtime": 1774873026.9328344,
     "ast_hash": "29fcabded2cd41aaffc8818daa2a8740",
     "semantic_hash": "29fcabded2cd41aaffc8818daa2a8740"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\components\\ui\\Badge.tsx": {
+  "frontend/src/app/admin/components/ui/Badge.tsx": {
     "mtime": 1777549192.3916976,
     "ast_hash": "08b38c77212358ddd2f398b4acee7e4d",
     "semantic_hash": "08b38c77212358ddd2f398b4acee7e4d"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\components\\ui\\Button.tsx": {
+  "frontend/src/app/admin/components/ui/Button.tsx": {
     "mtime": 1774873026.9348311,
     "ast_hash": "517b81bd15236bb4bd5872394d153119",
     "semantic_hash": "517b81bd15236bb4bd5872394d153119"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\components\\ui\\Card.tsx": {
+  "frontend/src/app/admin/components/ui/Card.tsx": {
     "mtime": 1777549160.6885593,
     "ast_hash": "64ae27fce26cbd9a20adad940f1fcfb3",
     "semantic_hash": "64ae27fce26cbd9a20adad940f1fcfb3"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\components\\ui\\Input.tsx": {
+  "frontend/src/app/admin/components/ui/Input.tsx": {
     "mtime": 1774873026.936824,
     "ast_hash": "ae8d315c66969f728fa4740c04bc32d8",
     "semantic_hash": "ae8d315c66969f728fa4740c04bc32d8"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\components\\ui\\Modal.tsx": {
+  "frontend/src/app/admin/components/ui/Modal.tsx": {
     "mtime": 1774873026.936824,
     "ast_hash": "b943f6b167e53551fe9fc596a06b6e30",
     "semantic_hash": "b943f6b167e53551fe9fc596a06b6e30"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\components\\ui\\Table.tsx": {
+  "frontend/src/app/admin/components/ui/Table.tsx": {
     "mtime": 1777549179.1819568,
     "ast_hash": "5099ea935ddd62ae84105d7afce30e80",
     "semantic_hash": "5099ea935ddd62ae84105d7afce30e80"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\components\\ui\\checkbox.tsx": {
+  "frontend/src/app/admin/components/ui/checkbox.tsx": {
     "mtime": 1774873026.9388177,
     "ast_hash": "55d22e6abfbe44bf61c42c50459c5f51",
     "semantic_hash": "55d22e6abfbe44bf61c42c50459c5f51"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\context\\AdminContext.tsx": {
+  "frontend/src/app/admin/context/AdminContext.tsx": {
     "mtime": 1774873026.9398155,
     "ast_hash": "f73aa19ee312053bc3db98e260677cb5",
     "semantic_hash": "f73aa19ee312053bc3db98e260677cb5"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\context\\ThemeContext.tsx": {
+  "frontend/src/app/admin/context/ThemeContext.tsx": {
     "mtime": 1774873026.940812,
     "ast_hash": "5300155563b3fea824abaa23f0c48f32",
     "semantic_hash": "5300155563b3fea824abaa23f0c48f32"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\dashboard\\page.tsx": {
+  "frontend/src/app/admin/dashboard/page.tsx": {
     "mtime": 1777549718.0984828,
     "ast_hash": "53d99939b170d9b3cd1c04a1702e75ec",
     "semantic_hash": "53d99939b170d9b3cd1c04a1702e75ec"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\disputes\\page.tsx": {
+  "frontend/src/app/admin/disputes/page.tsx": {
     "mtime": 1777550297.538649,
     "ast_hash": "c1a415156281c524c063942622133c21",
     "semantic_hash": "c1a415156281c524c063942622133c21"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\help-center\\loading.tsx": {
+  "frontend/src/app/admin/help-center/loading.tsx": {
     "mtime": 1774873026.944803,
     "ast_hash": "904aee4edb23354b555069348924a711",
     "semantic_hash": "904aee4edb23354b555069348924a711"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\items\\page.tsx": {
+  "frontend/src/app/admin/items/page.tsx": {
     "mtime": 1777550095.8179877,
     "ast_hash": "f206e1bddeb2d178b9cc27170b5697db",
     "semantic_hash": "f206e1bddeb2d178b9cc27170b5697db"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\layout.tsx": {
+  "frontend/src/app/admin/layout.tsx": {
     "mtime": 1777551826.197264,
     "ast_hash": "344a42ef6b2f537ab36b1767739ba3f5",
     "semantic_hash": "344a42ef6b2f537ab36b1767739ba3f5"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\lib\\mockData.ts": {
+  "frontend/src/app/admin/lib/mockData.ts": {
     "mtime": 1774873026.9487906,
     "ast_hash": "d3424b37a0582f8ec2a1395362b9af75",
     "semantic_hash": "d3424b37a0582f8ec2a1395362b9af75"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\lib\\utils.ts": {
+  "frontend/src/app/admin/lib/utils.ts": {
     "mtime": 1774873026.9497876,
     "ast_hash": "99c73986cd076181f530d3df817a9be6",
     "semantic_hash": "99c73986cd076181f530d3df817a9be6"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\login\\page.tsx": {
+  "frontend/src/app/admin/login/page.tsx": {
     "mtime": 1777809164.9063106,
     "ast_hash": "f4c58e1148abf1f3cf5e70985bc2c169",
     "semantic_hash": "f4c58e1148abf1f3cf5e70985bc2c169"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\notifications\\page.tsx": {
+  "frontend/src/app/admin/notifications/page.tsx": {
     "mtime": 1777551202.432316,
     "ast_hash": "40b67b32d24a2c9ca7cc864aea6fd8f4",
     "semantic_hash": "40b67b32d24a2c9ca7cc864aea6fd8f4"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\offers\\page.tsx": {
+  "frontend/src/app/admin/offers/page.tsx": {
     "mtime": 1777550396.933984,
     "ast_hash": "3da23abda81738336765a2be022dfeec",
     "semantic_hash": "3da23abda81738336765a2be022dfeec"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\orders\\all\\page.tsx": {
+  "frontend/src/app/admin/orders/all/page.tsx": {
     "mtime": 1774873026.9557803,
     "ast_hash": "d73897f6dd3078b3c54de98d747efeeb",
     "semantic_hash": "d73897f6dd3078b3c54de98d747efeeb"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\page.tsx": {
+  "frontend/src/app/admin/page.tsx": {
     "mtime": 1777549284.2918067,
     "ast_hash": "ecfbaef4757c2dd60067d8ca4d27ba3e",
     "semantic_hash": "ecfbaef4757c2dd60067d8ca4d27ba3e"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\products\\create\\page.tsx": {
+  "frontend/src/app/admin/products/create/page.tsx": {
     "mtime": 1774873026.9587636,
     "ast_hash": "a4ca1937ead6fe9904c195483195e70f",
     "semantic_hash": "a4ca1937ead6fe9904c195483195e70f"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\products\\edit\\page.tsx": {
+  "frontend/src/app/admin/products/edit/page.tsx": {
     "mtime": 1774873026.9617584,
     "ast_hash": "5f80597f808bfa72795077ab8d7c2ed3",
     "semantic_hash": "5f80597f808bfa72795077ab8d7c2ed3"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\products\\list\\loading.tsx": {
+  "frontend/src/app/admin/products/list/loading.tsx": {
     "mtime": 1774873026.9627552,
     "ast_hash": "904aee4edb23354b555069348924a711",
     "semantic_hash": "904aee4edb23354b555069348924a711"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\products\\list\\page.tsx": {
+  "frontend/src/app/admin/products/list/page.tsx": {
     "mtime": 1774873026.9637525,
     "ast_hash": "d5b0aa86eab70917e813035f8100822a",
     "semantic_hash": "d5b0aa86eab70917e813035f8100822a"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\reviews\\all\\page.tsx": {
+  "frontend/src/app/admin/reviews/all/page.tsx": {
     "mtime": 1774873026.9840326,
     "ast_hash": "0a12b1fb685d41b1fc85a4a30363719c",
     "semantic_hash": "0a12b1fb685d41b1fc85a4a30363719c"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\settings\\page.tsx": {
+  "frontend/src/app/admin/settings/page.tsx": {
     "mtime": 1777553686.4465725,
     "ast_hash": "3b60f6c751970598f6c3aa2cb546815b",
     "semantic_hash": "3b60f6c751970598f6c3aa2cb546815b"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\suggestions\\page.tsx": {
+  "frontend/src/app/admin/suggestions/page.tsx": {
     "mtime": 1777647884.1353016,
     "ast_hash": "611b9c0ec30177b36f6ff992e1467d51",
     "semantic_hash": "611b9c0ec30177b36f6ff992e1467d51"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\trades\\page.tsx": {
+  "frontend/src/app/admin/trades/page.tsx": {
     "mtime": 1777550223.523996,
     "ast_hash": "ac9859298d83eed4efdc1a07b9c54d59",
     "semantic_hash": "ac9859298d83eed4efdc1a07b9c54d59"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\types\\common.ts": {
+  "frontend/src/app/admin/types/common.ts": {
     "mtime": 1774873026.9900177,
     "ast_hash": "30eb26034c4116121b73d8e9c8c7c9af",
     "semantic_hash": "30eb26034c4116121b73d8e9c8c7c9af"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\types\\dashboard.ts": {
+  "frontend/src/app/admin/types/dashboard.ts": {
     "mtime": 1774873026.9900177,
     "ast_hash": "a1c0a36a224c4b3ddb979f18548cfc32",
     "semantic_hash": "a1c0a36a224c4b3ddb979f18548cfc32"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\types\\invoice.ts": {
+  "frontend/src/app/admin/types/invoice.ts": {
     "mtime": 1774873026.9910147,
     "ast_hash": "b0961af2f3bbe842843a352c0e0c1f9d",
     "semantic_hash": "b0961af2f3bbe842843a352c0e0c1f9d"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\types\\market.ts": {
+  "frontend/src/app/admin/types/market.ts": {
     "mtime": 1774873026.9920123,
     "ast_hash": "6795b1e1e1de788e3defd7e33fa0ca00",
     "semantic_hash": "6795b1e1e1de788e3defd7e33fa0ca00"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\types\\order.ts": {
+  "frontend/src/app/admin/types/order.ts": {
     "mtime": 1774873026.9950056,
     "ast_hash": "95c2b55a085298a0b978596946361fe3",
     "semantic_hash": "95c2b55a085298a0b978596946361fe3"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\types\\product.ts": {
+  "frontend/src/app/admin/types/product.ts": {
     "mtime": 1774873027.0026493,
     "ast_hash": "9748ee493bd64c79881da29009172a61",
     "semantic_hash": "9748ee493bd64c79881da29009172a61"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\types\\user.ts": {
+  "frontend/src/app/admin/types/user.ts": {
     "mtime": 1774873027.0036469,
     "ast_hash": "1b2c801bf48a716d0bf1c9304ed935c3",
     "semantic_hash": "1b2c801bf48a716d0bf1c9304ed935c3"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\admin\\users\\page.tsx": {
+  "frontend/src/app/admin/users/page.tsx": {
     "mtime": 1777550066.1674104,
     "ast_hash": "55140ef4d2a91e09052045d6bb408458",
     "semantic_hash": "55140ef4d2a91e09052045d6bb408458"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\layout.tsx": {
+  "frontend/src/app/layout.tsx": {
     "mtime": 1779361875.562122,
     "ast_hash": "9e3e8574ba3083fe7bcb754cee8b093a",
     "semantic_hash": "9e3e8574ba3083fe7bcb754cee8b093a"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\loading.tsx": {
+  "frontend/src/app/loading.tsx": {
     "mtime": 1774873027.0066388,
     "ast_hash": "13940514031827682402b7c5a246743c",
     "semantic_hash": "13940514031827682402b7c5a246743c"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\login\\page.tsx": {
+  "frontend/src/app/login/page.tsx": {
     "mtime": 1777809159.3321102,
     "ast_hash": "381fd59e6d40971618fb2805317947e1",
     "semantic_hash": "381fd59e6d40971618fb2805317947e1"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\page.tsx": {
-    "mtime": 1780823709.5728104,
-    "ast_hash": "c36683f6443aa2cac527c547304e2178",
-    "semantic_hash": "c36683f6443aa2cac527c547304e2178"
+  "frontend/src/app/page.tsx": {
+    "mtime": 1782727464.257578,
+    "ast_hash": "5c7cf4ce29ad879132564ebad8b8937e",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\app\\signup\\page.tsx": {
+  "frontend/src/app/signup/page.tsx": {
     "mtime": 1778055573.7157423,
     "ast_hash": "67b23501a4a69131e8421c03522ac1c2",
     "semantic_hash": "67b23501a4a69131e8421c03522ac1c2"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\auth\\AdminGuard.tsx": {
+  "frontend/src/components/auth/AdminGuard.tsx": {
     "mtime": 1777549234.648832,
     "ast_hash": "1aa3e288ba64993e32c0f1bcf7c5bf0b",
     "semantic_hash": "1aa3e288ba64993e32c0f1bcf7c5bf0b"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\common\\CustomAlert.tsx": {
+  "frontend/src/components/common/CustomAlert.tsx": {
     "mtime": 1777651598.989367,
     "ast_hash": "20c73fe980e4a0bd56007b3568cb3d86",
     "semantic_hash": "20c73fe980e4a0bd56007b3568cb3d86"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\common\\MaintenanceBanner.tsx": {
+  "frontend/src/components/common/MaintenanceBanner.tsx": {
     "mtime": 1777552640.157282,
     "ast_hash": "f1fe6c8438af61db613d0e45c3eda495",
     "semantic_hash": "f1fe6c8438af61db613d0e45c3eda495"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\common\\MaintenanceOverlay.tsx": {
+  "frontend/src/components/common/MaintenanceOverlay.tsx": {
     "mtime": 1777552689.8212144,
     "ast_hash": "ea86abd7d8c24c8f24c9874a95bd3473",
     "semantic_hash": "ea86abd7d8c24c8f24c9874a95bd3473"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\layout\\CategoryNav.tsx": {
-    "mtime": 1777564020.8557358,
-    "ast_hash": "015df498c6f7d611610bac26e076557d",
-    "semantic_hash": "015df498c6f7d611610bac26e076557d"
+  "frontend/src/components/layout/CategoryNav.tsx": {
+    "mtime": 1783491799.8437743,
+    "ast_hash": "7bc565c135a9dc18367acd2fc7f00bed",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\layout\\Header.tsx": {
+  "frontend/src/components/layout/Header.tsx": {
     "mtime": 1779361875.567927,
     "ast_hash": "36a00d9efce13349388e36abf3764d36",
     "semantic_hash": "36a00d9efce13349388e36abf3764d36"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\products\\MarketplaceCard.tsx": {
-    "mtime": 1774881289.482558,
-    "ast_hash": "8170171c55618aaf6370ed5196c689eb",
-    "semantic_hash": "8170171c55618aaf6370ed5196c689eb"
+  "frontend/src/components/products/MarketplaceCard.tsx": {
+    "mtime": 1780825695.192604,
+    "ast_hash": "7d4ce671b0bd7235a16a11a4f6eea02f",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\ui\\button.tsx": {
+  "frontend/src/components/ui/button.tsx": {
     "mtime": 1774873027.0388033,
     "ast_hash": "d29b2a913b019376a3b23632a5499d2a",
     "semantic_hash": "d29b2a913b019376a3b23632a5499d2a"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\ui\\card.tsx": {
+  "frontend/src/components/ui/card.tsx": {
     "mtime": 1774873027.039801,
     "ast_hash": "72db516a3400594b727a9d220046b73b",
     "semantic_hash": "72db516a3400594b727a9d220046b73b"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\ui\\carousel.tsx": {
+  "frontend/src/components/ui/carousel.tsx": {
     "mtime": 1774873027.0408003,
     "ast_hash": "48bdf28dea9cacdbc938c27c1786ee34",
     "semantic_hash": "48bdf28dea9cacdbc938c27c1786ee34"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\ui\\dialog.tsx": {
+  "frontend/src/components/ui/dialog.tsx": {
     "mtime": 1774873027.0417955,
     "ast_hash": "8735cc509ecf04f07f2e611bb03c3d6f",
     "semantic_hash": "8735cc509ecf04f07f2e611bb03c3d6f"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\ui\\input.tsx": {
+  "frontend/src/components/ui/input.tsx": {
     "mtime": 1774873027.0417955,
     "ast_hash": "229513f0e77fbd6da03231cdb66cc50d",
     "semantic_hash": "229513f0e77fbd6da03231cdb66cc50d"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\ui\\pagination.tsx": {
+  "frontend/src/components/ui/pagination.tsx": {
     "mtime": 1774873027.0477793,
     "ast_hash": "c4a1175870e223fe4af7cf5e89eb410d",
     "semantic_hash": "c4a1175870e223fe4af7cf5e89eb410d"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\ui\\select.tsx": {
+  "frontend/src/components/ui/select.tsx": {
     "mtime": 1774873027.0487766,
     "ast_hash": "e2968fe993602c0f40c7884a15682f25",
     "semantic_hash": "e2968fe993602c0f40c7884a15682f25"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\ui\\slider.tsx": {
+  "frontend/src/components/ui/slider.tsx": {
     "mtime": 1774873027.049775,
     "ast_hash": "5fdb371d39dedd5962bbfae6e7282ead",
     "semantic_hash": "5fdb371d39dedd5962bbfae6e7282ead"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\components\\ui\\textarea.tsx": {
+  "frontend/src/components/ui/textarea.tsx": {
     "mtime": 1774873027.049775,
     "ast_hash": "16e5d792f0aed75752e902fa141a1f18",
     "semantic_hash": "16e5d792f0aed75752e902fa141a1f18"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\context\\AppContext.tsx": {
+  "frontend/src/context/AppContext.tsx": {
     "mtime": 1777814867.189385,
     "ast_hash": "eb009ae9011256d284e690345662d3e6",
     "semantic_hash": "eb009ae9011256d284e690345662d3e6"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\data\\classic\\user\\cart\\cart.ts": {
+  "frontend/src/data/classic/user/cart/cart.ts": {
     "mtime": 1774873027.0537636,
     "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
     "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\data\\classic\\user\\home\\footer.json": {
+  "frontend/src/data/classic/user/home/footer.json": {
     "mtime": 1774873027.0552292,
     "ast_hash": "2c746b056e62ededd9357f6290c72571",
     "semantic_hash": "2c746b056e62ededd9357f6290c72571"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\data\\classic\\user\\home\\heroData.json": {
+  "frontend/src/data/classic/user/home/heroData.json": {
     "mtime": 1774873027.055736,
     "ast_hash": "5e7e3a9b039254187152d59f3750bea7",
     "semantic_hash": "5e7e3a9b039254187152d59f3750bea7"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\data\\classic\\user\\shop\\shopData.ts": {
+  "frontend/src/data/classic/user/shop/shopData.ts": {
     "mtime": 1774873027.0567415,
     "ast_hash": "dddf188f8368460893582d521b918db5",
     "semantic_hash": "dddf188f8368460893582d521b918db5"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\data\\classic\\user\\types\\types.ts": {
+  "frontend/src/data/classic/user/types/types.ts": {
     "mtime": 1774873027.0577374,
     "ast_hash": "922538381cab23d1ac2fa86cbf9408c9",
     "semantic_hash": "922538381cab23d1ac2fa86cbf9408c9"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\admin\\admin.api.ts": {
+  "frontend/src/features/admin/admin.api.ts": {
     "mtime": 1777649494.8277268,
     "ast_hash": "e1eef7b7ca6e5b632b92d5dca52e64de",
     "semantic_hash": "e1eef7b7ca6e5b632b92d5dca52e64de"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\admin\\admin.hooks.ts": {
+  "frontend/src/features/admin/admin.hooks.ts": {
     "mtime": 1777647869.8109024,
     "ast_hash": "6f4ced06d50f510e72bd111b6c72b846",
     "semantic_hash": "6f4ced06d50f510e72bd111b6c72b846"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\auth\\auth.api.ts": {
+  "frontend/src/features/auth/auth.api.ts": {
     "mtime": 1777809153.172254,
     "ast_hash": "776fdb7191ab416bb4805593ca1834a0",
     "semantic_hash": "776fdb7191ab416bb4805593ca1834a0"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\auth\\auth.hooks.ts": {
+  "frontend/src/features/auth/auth.hooks.ts": {
     "mtime": 1779361875.525911,
     "ast_hash": "8be8db18d322f5ec4764a7d7f9aa55f2",
     "semantic_hash": "8be8db18d322f5ec4764a7d7f9aa55f2"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\disputes\\disputes.api.ts": {
+  "frontend/src/features/disputes/disputes.api.ts": {
     "mtime": 1779361875.5308979,
     "ast_hash": "01565b48369626ec53fe1d229d78f8b7",
     "semantic_hash": "01565b48369626ec53fe1d229d78f8b7"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\disputes\\disputes.hooks.ts": {
+  "frontend/src/features/disputes/disputes.hooks.ts": {
     "mtime": 1779361875.528902,
     "ast_hash": "1cb43502394e33a04a5c9846d4791285",
     "semantic_hash": "1cb43502394e33a04a5c9846d4791285"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\items\\items.api.ts": {
+  "frontend/src/features/items/items.api.ts": {
     "mtime": 1778158439.133159,
     "ast_hash": "c412384970dea2a777bc73619c57cf8d",
     "semantic_hash": "c412384970dea2a777bc73619c57cf8d"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\items\\items.hooks.ts": {
+  "frontend/src/features/items/items.hooks.ts": {
     "mtime": 1778157088.5782413,
     "ast_hash": "8b8d1433ce7300d11f6bbc1fb76740e9",
     "semantic_hash": "8b8d1433ce7300d11f6bbc1fb76740e9"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\messages\\messages.api.ts": {
+  "frontend/src/features/messages/messages.api.ts": {
     "mtime": 1777653857.6779196,
     "ast_hash": "5d4e82b33007ed3f3f16a531c09d3d91",
     "semantic_hash": "5d4e82b33007ed3f3f16a531c09d3d91"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\messages\\messages.hooks.ts": {
+  "frontend/src/features/messages/messages.hooks.ts": {
     "mtime": 1777653870.3413575,
     "ast_hash": "7ac855655116913e8d0e05e5169b2a03",
     "semantic_hash": "7ac855655116913e8d0e05e5169b2a03"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\notifications\\components\\NotificationsList.tsx": {
+  "frontend/src/features/notifications/components/NotificationsList.tsx": {
     "mtime": 1779361875.5631173,
     "ast_hash": "104a774e140330a2e8fb1b9883e1afd6",
     "semantic_hash": "104a774e140330a2e8fb1b9883e1afd6"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\notifications\\notifications.api.ts": {
+  "frontend/src/features/notifications/notifications.api.ts": {
     "mtime": 1779361875.5719159,
     "ast_hash": "b0b0e5351ca085c7d90435397645341b",
     "semantic_hash": "b0b0e5351ca085c7d90435397645341b"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\notifications\\notifications.hooks.ts": {
+  "frontend/src/features/notifications/notifications.hooks.ts": {
     "mtime": 1779361875.5336084,
     "ast_hash": "322cdf1b9b1960c4cdf193a1d8f73d37",
     "semantic_hash": "322cdf1b9b1960c4cdf193a1d8f73d37"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\offers\\components\\OffersList.tsx": {
+  "frontend/src/features/offers/components/OffersList.tsx": {
     "mtime": 1779361875.565113,
     "ast_hash": "8cf80ef8390c6a6d33554b1ba3b4e38e",
     "semantic_hash": "8cf80ef8390c6a6d33554b1ba3b4e38e"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\offers\\offers.api.ts": {
+  "frontend/src/features/offers/offers.api.ts": {
     "mtime": 1779361875.5249138,
     "ast_hash": "33c0f084ba5cc05608dccedbe7a5fd51",
     "semantic_hash": "33c0f084ba5cc05608dccedbe7a5fd51"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\offers\\offers.hooks.ts": {
+  "frontend/src/features/offers/offers.hooks.ts": {
     "mtime": 1779361875.525911,
     "ast_hash": "16cf33903c1c4cc151ae79753edca8ba",
     "semantic_hash": "16cf33903c1c4cc151ae79753edca8ba"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\profile\\profile.api.ts": {
+  "frontend/src/features/profile/profile.api.ts": {
     "mtime": 1777815021.6932256,
     "ast_hash": "39d78112f059f76ba2458e799c1a24c4",
     "semantic_hash": "39d78112f059f76ba2458e799c1a24c4"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\profile\\profile.hooks.ts": {
+  "frontend/src/features/profile/profile.hooks.ts": {
     "mtime": 1777813794.621371,
     "ast_hash": "5bae50af357decfc40e4546207fa03cc",
     "semantic_hash": "5bae50af357decfc40e4546207fa03cc"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\reviews\\reviews.api.ts": {
+  "frontend/src/features/reviews/reviews.api.ts": {
     "mtime": 1779361875.5249138,
     "ast_hash": "ceb2e74ff2f71b39c8633fc5fe04513e",
     "semantic_hash": "ceb2e74ff2f71b39c8633fc5fe04513e"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\reviews\\reviews.hooks.ts": {
+  "frontend/src/features/reviews/reviews.hooks.ts": {
     "mtime": 1779361875.5336084,
     "ast_hash": "41097c92dbd502141800ab2beabe5384",
     "semantic_hash": "41097c92dbd502141800ab2beabe5384"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\taxonomy\\taxonomy.api.ts": {
-    "mtime": 1777647774.9224062,
-    "ast_hash": "125e76df8846fb4b24e405df2b5dec2e",
-    "semantic_hash": "125e76df8846fb4b24e405df2b5dec2e"
+  "frontend/src/features/taxonomy/taxonomy.api.ts": {
+    "mtime": 1783491789.5287297,
+    "ast_hash": "2de5dd1cb55e813fda1760242f21089e",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\taxonomy\\taxonomy.hooks.ts": {
+  "frontend/src/features/taxonomy/taxonomy.hooks.ts": {
     "mtime": 1778058703.4104815,
     "ast_hash": "04ba001772db7f82605700e28db50d57",
     "semantic_hash": "04ba001772db7f82605700e28db50d57"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\trades\\components\\TradesList.tsx": {
+  "frontend/src/features/trades/components/TradesList.tsx": {
     "mtime": 1779361875.523916,
     "ast_hash": "1a44f0c3f658bf2417d983236ebc77a3",
     "semantic_hash": "1a44f0c3f658bf2417d983236ebc77a3"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\trades\\trades.api.ts": {
+  "frontend/src/features/trades/trades.api.ts": {
     "mtime": 1779361875.5641148,
     "ast_hash": "bdd6d5bd35a188c4560583d3e97459a5",
     "semantic_hash": "bdd6d5bd35a188c4560583d3e97459a5"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\trades\\trades.hooks.ts": {
+  "frontend/src/features/trades/trades.hooks.ts": {
     "mtime": 1779361875.532609,
     "ast_hash": "c8c136e2668ada0f65e1f0c767aeac63",
     "semantic_hash": "c8c136e2668ada0f65e1f0c767aeac63"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\upload\\upload.api.ts": {
+  "frontend/src/features/upload/upload.api.ts": {
     "mtime": 1778155660.8213248,
     "ast_hash": "838985ff41393442ff97666ef9138d2a",
     "semantic_hash": "838985ff41393442ff97666ef9138d2a"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\features\\upload\\upload.hooks.ts": {
+  "frontend/src/features/upload/upload.hooks.ts": {
     "mtime": 1778155668.9347668,
     "ast_hash": "a46fdbee1bdaa0b52da1b28934ab7d3e",
     "semantic_hash": "a46fdbee1bdaa0b52da1b28934ab7d3e"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\lib\\auth-storage.ts": {
+  "frontend/src/lib/auth-storage.ts": {
     "mtime": 1774881197.0643396,
     "ast_hash": "4741834df8ad80b2c4b9cb974ca457a5",
     "semantic_hash": "4741834df8ad80b2c4b9cb974ca457a5"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\lib\\utils.ts": {
+  "frontend/src/lib/utils.ts": {
     "mtime": 1774873027.0856633,
     "ast_hash": "1d8011eb18769078bf77502b220daa5e",
     "semantic_hash": "1d8011eb18769078bf77502b220daa5e"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\styles.d.ts": {
+  "frontend/src/styles.d.ts": {
     "mtime": 1774873027.0866597,
     "ast_hash": "3043171e1cb6cc951c11c4cb01e4ce6b",
     "semantic_hash": "3043171e1cb6cc951c11c4cb01e4ce6b"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\themes\\index.ts": {
+  "frontend/src/themes/index.ts": {
     "mtime": 1778154723.5827007,
     "ast_hash": "442f2c562a842d2e723eacbe9e4f01b6",
     "semantic_hash": "442f2c562a842d2e723eacbe9e4f01b6"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\themes\\modern\\checkout\\checkout-section\\index.tsx": {
+  "frontend/src/themes/modern/checkout/checkout-section/index.tsx": {
     "mtime": 1774873027.214162,
     "ast_hash": "76a1b5b0ad53791c3fcb44e4bc722cd6",
     "semantic_hash": "76a1b5b0ad53791c3fcb44e4bc722cd6"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\themes\\modern\\checkout\\index.ts": {
+  "frontend/src/themes/modern/checkout/index.ts": {
     "mtime": 1774873027.2151613,
     "ast_hash": "61eba5c086db2730ec6871c33299d64d",
     "semantic_hash": "61eba5c086db2730ec6871c33299d64d"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\themes\\modern\\index.ts": {
+  "frontend/src/themes/modern/index.ts": {
     "mtime": 1778154316.964411,
     "ast_hash": "b6856c0df6bb469b790c664bc2694004",
     "semantic_hash": "b6856c0df6bb469b790c664bc2694004"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\themes\\modern\\product\\index.ts": {
+  "frontend/src/themes/modern/product/index.ts": {
     "mtime": 1774873027.2406917,
     "ast_hash": "f5d1051596e2779c3c1a820fae6f8800",
     "semantic_hash": "f5d1051596e2779c3c1a820fae6f8800"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\src\\themes\\modern\\product\\product-detail\\index.tsx": {
-    "mtime": 1779361875.5719159,
-    "ast_hash": "e3a53d74c1aae25110b73cd548d07554",
-    "semantic_hash": "e3a53d74c1aae25110b73cd548d07554"
+  "frontend/src/themes/modern/product/product-detail/index.tsx": {
+    "mtime": 1780828535.2932422,
+    "ast_hash": "c34b702e28f2a7eeff3dd28a833bd176",
+    "semantic_hash": ""
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\tailwind.config.ts": {
+  "frontend/tailwind.config.ts": {
     "mtime": 1774873027.2914252,
     "ast_hash": "9e88cac588ef74aadacf9a6a48abcaab",
     "semantic_hash": "9e88cac588ef74aadacf9a6a48abcaab"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\tsconfig.json": {
+  "frontend/tsconfig.json": {
     "mtime": 1774873027.2924223,
     "ast_hash": "cfa4afed07c91fd928be2e6da3c8a2a6",
     "semantic_hash": "cfa4afed07c91fd928be2e6da3c8a2a6"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\.agents\\rules\\graphify.md": {
+  ".agents/rules/graphify.md": {
     "mtime": 1780824482.219286,
     "ast_hash": "a0e4d192b9e2e17256124dbfc8e24e6a",
     "semantic_hash": "a0e4d192b9e2e17256124dbfc8e24e6a"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\.agents\\workflows\\graphify.md": {
+  ".agents/workflows/graphify.md": {
     "mtime": 1780824482.225854,
     "ast_hash": "637776aa6f7496d069afe7520c845c8a",
     "semantic_hash": "637776aa6f7496d069afe7520c845c8a"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\README.md": {
+  "README.md": {
     "mtime": 1778056390.7219496,
     "ast_hash": "fb7ef67429663ea6fd5e02d51bcd5779",
     "semantic_hash": "fb7ef67429663ea6fd5e02d51bcd5779"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\SwapIt_Progress_Report.md": {
-    "mtime": 1778056598.2934005,
+  "SwapIt_Progress_Report.md": {
+    "mtime": 1781536055.5897086,
     "ast_hash": "53c206aa5767565f71db7aeca08e8704",
     "semantic_hash": "53c206aa5767565f71db7aeca08e8704"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\FYPDoc.html": {
+  "frontend/FYPDoc.html": {
     "mtime": 1774873026.8161132,
     "ast_hash": "f2b10c3d69780027581377a356fc682a",
     "semantic_hash": "f2b10c3d69780027581377a356fc682a"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\FYPDoc.md": {
+  "frontend/FYPDoc.md": {
     "mtime": 1774873026.8181076,
     "ast_hash": "0e71d000fc391dce1363008502cd7983",
     "semantic_hash": "0e71d000fc391dce1363008502cd7983"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\FYP_Report_Content_Update.md": {
+  "frontend/FYP_Report_Content_Update.md": {
     "mtime": 1774873026.819105,
     "ast_hash": "43b9551d308e253a715947fd1f407cdd",
     "semantic_hash": "43b9551d308e253a715947fd1f407cdd"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\README.md": {
+  "frontend/README.md": {
     "mtime": 1774873026.8201015,
     "ast_hash": "9162add00befbcdb432430f405c4ad8d",
     "semantic_hash": "9162add00befbcdb432430f405c4ad8d"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\wwwroot\\uploads\\items\\b6c6bda7-8168-4f24-850e-baad7b36e69c.png": {
+  "backend/src/API/wwwroot/uploads/items/b6c6bda7-8168-4f24-850e-baad7b36e69c.png": {
     "mtime": 1778156379.1703157,
     "ast_hash": "6d08ed1907d870ec7958a28c07eda418",
     "semantic_hash": "6d08ed1907d870ec7958a28c07eda418"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\backend\\src\\API\\wwwroot\\uploads\\items\\bfacfaa8-a1be-48d1-9e2e-b3ce37ff01bf.png": {
+  "backend/src/API/wwwroot/uploads/items/bfacfaa8-a1be-48d1-9e2e-b3ce37ff01bf.png": {
     "mtime": 1778156106.6402786,
     "ast_hash": "6d08ed1907d870ec7958a28c07eda418",
     "semantic_hash": "6d08ed1907d870ec7958a28c07eda418"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\public\\classic\\shop\\placeholder-product.jpg": {
+  "frontend/public/classic/shop/placeholder-product.jpg": {
     "mtime": 1774873026.8462608,
     "ast_hash": "b2f9abf69d4ff6a00f8a371a262e9459",
     "semantic_hash": "b2f9abf69d4ff6a00f8a371a262e9459"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\public\\file.svg": {
+  "frontend/public/file.svg": {
     "mtime": 1774873026.8482554,
     "ast_hash": "d09f95206c3fa0bb9bd9fefabfd0ea71",
     "semantic_hash": "d09f95206c3fa0bb9bd9fefabfd0ea71"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\public\\globe.svg": {
+  "frontend/public/globe.svg": {
     "mtime": 1774873026.8482554,
     "ast_hash": "2aaafa6a49b6563925fe440891e32717",
     "semantic_hash": "2aaafa6a49b6563925fe440891e32717"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\public\\next.svg": {
+  "frontend/public/next.svg": {
     "mtime": 1774873026.849252,
     "ast_hash": "8e061864f388b47f33a1c3780831193e",
     "semantic_hash": "8e061864f388b47f33a1c3780831193e"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\public\\vercel.svg": {
+  "frontend/public/vercel.svg": {
     "mtime": 1774873026.85025,
     "ast_hash": "c0af2f507b369b085b35ef4bbe3bcf1e",
     "semantic_hash": "c0af2f507b369b085b35ef4bbe3bcf1e"
   },
-  "C:\\Users\\abdul\\Desktop\\SwapIt\\frontend\\public\\window.svg": {
+  "frontend/public/window.svg": {
     "mtime": 1774873026.8572319,
     "ast_hash": "a2760511c65806022ad20adf74370ff3",
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
+  },
+  "backend/src/Application/Features/Items/Queries/GetItemById/GetItemByIdQuery.cs": {
+    "mtime": 1780825707.0471857,
+    "ast_hash": "be07e8c5e5dd209dedcd279a5cb0fb8a",
+    "semantic_hash": ""
+  },
+  "agent.md": {
+    "mtime": 1783495580.2993183,
+    "ast_hash": "91e2255f817dd131632d5909cd4aa215",
+    "semantic_hash": ""
+  },
+  "backend/src/API/wwwroot/uploads/items/c38c4aa6-e1f1-4ac6-a9af-6b2ee166828c.png": {
+    "mtime": 1780824996.425805,
+    "ast_hash": "3d1f136c53c5eb358b2596479f9f3db3",
+    "semantic_hash": ""
+  },
+  "frontend/public/placeholder.png": {
+    "mtime": 1780827413.912646,
+    "ast_hash": "55c5890d43817542ea7a67641cfd6e8a",
+    "semantic_hash": ""
   }
 }

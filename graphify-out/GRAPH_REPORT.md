@@ -1,13 +1,18 @@
-# Graph Report - .  (2026-06-07)
+# Graph Report - SwapIt  (2026-07-08)
 
 ## Corpus Check
-- 282 files · ~105,429 words
+- 275 files · ~137,691 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1428 nodes · 1935 edges · 158 communities (118 shown, 40 thin omitted)
-- Extraction: 99% EXTRACTED · 1% INFERRED · 0% AMBIGUOUS · INFERRED: 10 edges (avg confidence: 0.8)
+- 1592 nodes · 2097 edges · 185 communities (142 shown, 43 thin omitted)
+- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 10 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
+
+## Graph Freshness
+- Built from commit: `5f49388a`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - [[_COMMUNITY_Module Group 0|Module Group 0]]
@@ -152,6 +157,32 @@
 - [[_COMMUNITY_Module Group 142|Module Group 142]]
 - [[_COMMUNITY_Module Group 143|Module Group 143]]
 - [[_COMMUNITY_Module Group 146|Module Group 146]]
+- [[_COMMUNITY_Community 158|Community 158]]
+- [[_COMMUNITY_Community 159|Community 159]]
+- [[_COMMUNITY_Community 160|Community 160]]
+- [[_COMMUNITY_Community 161|Community 161]]
+- [[_COMMUNITY_Community 162|Community 162]]
+- [[_COMMUNITY_Community 163|Community 163]]
+- [[_COMMUNITY_Community 164|Community 164]]
+- [[_COMMUNITY_Community 165|Community 165]]
+- [[_COMMUNITY_Community 166|Community 166]]
+- [[_COMMUNITY_Community 167|Community 167]]
+- [[_COMMUNITY_Community 168|Community 168]]
+- [[_COMMUNITY_Community 169|Community 169]]
+- [[_COMMUNITY_Community 170|Community 170]]
+- [[_COMMUNITY_Community 171|Community 171]]
+- [[_COMMUNITY_Community 172|Community 172]]
+- [[_COMMUNITY_Community 173|Community 173]]
+- [[_COMMUNITY_Community 174|Community 174]]
+- [[_COMMUNITY_Community 175|Community 175]]
+- [[_COMMUNITY_Community 176|Community 176]]
+- [[_COMMUNITY_Community 177|Community 177]]
+- [[_COMMUNITY_Community 178|Community 178]]
+- [[_COMMUNITY_Community 179|Community 179]]
+- [[_COMMUNITY_Community 180|Community 180]]
+- [[_COMMUNITY_Community 181|Community 181]]
+- [[_COMMUNITY_Community 182|Community 182]]
+- [[_COMMUNITY_Community 183|Community 183]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `useAppContext()` - 29 edges
@@ -161,9 +192,9 @@
 5. `compilerOptions` - 16 edges
 6. `apiClient` - 13 edges
 7. `Badge()` - 13 edges
-8. `HttpGet` - 12 edges
-9. `List` - 8 edges
-10. `AdminContextType` - 7 edges
+8. `3.2 Product Backlog` - 13 edges
+9. `3.2 Product Backlog` - 13 edges
+10. `HttpGet` - 12 edges
 
 ## Surprising Connections (you probably didn't know these)
 - `AdminLoginPage()` --calls--> `useAppContext()`  [INFERRED]
@@ -180,19 +211,19 @@
 ## Import Cycles
 - None detected.
 
-## Communities (158 total, 40 thin omitted)
+## Communities (185 total, 43 thin omitted)
 
 ### Community 0 - "Module Group 0"
-Cohesion: 0.07
-Nodes (50): approveSuggestion(), changeAdminPassword(), createAdminCategory(), DashboardStats, Diagnostics, DisputeAdmin, getAdminCategories(), getAdminDisputes() (+42 more)
+Cohesion: 0.06
+Nodes (56): approveSuggestion(), changeAdminPassword(), createAdminCategory(), DashboardStats, Diagnostics, DisputeAdmin, getAdminCategories(), getAdminDisputes() (+48 more)
 
 ### Community 1 - "Module Group 1"
-Cohesion: 0.06
-Nodes (30): useDashboardStats(), AdminContext, AdminContextType, AdminDashboard(), colors, coupons, dashboardStats, MOCK_EVENTS (+22 more)
+Cohesion: 0.12
+Nodes (9): colors, coupons, mockCategories, mockInvoices, mockProducts, reviews, sizes, Invoice (+1 more)
 
 ### Community 2 - "Module Group 2"
-Cohesion: 0.05
-Nodes (37): CancellationToken, HttpPost, IActionResult, Task, CancellationToken, CreateItemCommand, HttpGet, HttpPost (+29 more)
+Cohesion: 0.22
+Nodes (10): CancellationToken, CreateItemCommand, HttpGet, HttpPost, HttpPut, IActionResult, Task, UpdateItemCommand (+2 more)
 
 ### Community 3 - "Module Group 3"
 Cohesion: 0.10
@@ -211,8 +242,8 @@ Cohesion: 0.05
 Nodes (42): dependencies, autoprefixer, axios, class-variance-authority, clsx, date-fns, embla-carousel-react, framer-motion (+34 more)
 
 ### Community 7 - "Module Group 7"
-Cohesion: 0.09
-Nodes (28): ConfirmTradePage(), fetchTenant(), fetchTenant(), ItemDetailPage(), useItemByIdQuery(), useCreateOfferMutation(), containerVariants, Item (+20 more)
+Cohesion: 0.06
+Nodes (42): OffersList(), Props, ConfirmTradePage(), fetchTenant(), fetchTenant(), ItemDetailPage(), useItemByIdQuery(), MyOffersPage() (+34 more)
 
 ### Community 8 - "Module Group 8"
 Cohesion: 0.07
@@ -223,12 +254,12 @@ Cohesion: 0.12
 Nodes (20): CreateItemPayload, createItemRequest(), deleteItemRequest(), getItemByIdRequest(), GetItemsParams, getItemsRequest(), GetItemsResponse, ItemResponse (+12 more)
 
 ### Community 10 - "Module Group 10"
-Cohesion: 0.10
-Nodes (18): useAdminDisputes(), AdminProvider(), ThemeContext, ThemeContextType, ThemeProvider(), useTheme(), DisputesPage(), Navbar() (+10 more)
+Cohesion: 0.24
+Nodes (8): ThemeContext, ThemeContextType, ThemeProvider(), useTheme(), Navbar(), NavbarProps, ThemeToggle(), adminData
 
 ### Community 11 - "Module Group 11"
-Cohesion: 0.17
-Nodes (14): OffersList(), Props, MyOffersPage(), createOffer(), CreateOfferPayload, decideOffer(), DecideOfferPayload, getOffers() (+6 more)
+Cohesion: 0.14
+Nodes (16): AdminContext, AdminContextType, AdminProvider(), mockDisputes, mockOffers, mockOrders, mockUsers, systemNotifications (+8 more)
 
 ### Community 12 - "Module Group 12"
 Cohesion: 0.10
@@ -292,7 +323,7 @@ Nodes (12): AboutPageData, AboutSection, AppContextType, CartItem, ContactFormDa
 
 ### Community 27 - "Module Group 27"
 Cohesion: 0.24
-Nodes (8): AdminGuard(), Props, useLoginMutation(), LogisticsField, TradeConfirmationPage(), TradeLogistics, useAppContext(), UserLoginPage()
+Nodes (10): LandingPage(), AdminGuard(), Props, useLoginMutation(), useAppContext(), useItemsQuery(), UserLoginPage(), MarketplaceCard() (+2 more)
 
 ### Community 28 - "Module Group 28"
 Cohesion: 0.27
@@ -307,12 +338,12 @@ Cohesion: 0.18
 Nodes (3): Button(), buttonVariants, PaginationLinkProps
 
 ### Community 31 - "Module Group 31"
-Cohesion: 0.25
-Nodes (8): LandingPage(), useItemsQuery(), categories, CategoryNav(), Props, MarketplaceCard(), MarketplaceItem, Props
+Cohesion: 0.12
+Nodes (16): 1. AI-Driven Asset Intelligence, 2. Secure Trade & Escrow Protocol, 3. Advanced Negotiation Engine, 4. Dynamic Taxonomy & Governance, 5. Reputation & Trust Ecosystem, 6. Real-Time Communication Hub, Backend, Backend (+8 more)
 
 ### Community 32 - "Module Group 32"
-Cohesion: 0.31
-Nodes (9): useRegisterMutation(), useCreateItemMutation(), AssetPostingPage(), IconMap, UserSignupPage(), useCategories(), useProvinces(), useSubmitSuggestion() (+1 more)
+Cohesion: 0.24
+Nodes (10): useCreateItemMutation(), categories, CategoryNav(), IconMap, Props, AssetPostingPage(), IconMap, useCategories() (+2 more)
 
 ### Community 33 - "Module Group 33"
 Cohesion: 0.24
@@ -331,8 +362,8 @@ Cohesion: 0.20
 Nodes (3): CardProps, ButtonVariant, cardMotionVariants
 
 ### Community 39 - "Module Group 39"
-Cohesion: 0.28
-Nodes (6): apiClient, createDispute(), CreateDisputePayload, DisputeDto, disputesQueryKey, tradesQueryKey
+Cohesion: 0.38
+Nodes (4): createDispute(), CreateDisputePayload, DisputeDto, disputesQueryKey
 
 ### Community 40 - "Module Group 40"
 Cohesion: 0.25
@@ -347,8 +378,8 @@ Cohesion: 0.28
 Nodes (7): CancellationToken, Task, ValidationBehavior, IPipelineBehavior, RequestHandlerDelegate, TRequest, TResponse
 
 ### Community 43 - "Module Group 43"
-Cohesion: 0.31
-Nodes (7): Category, CategoryAttribute, getCategories(), getProvinces(), Province, submitSuggestion(), SuggestionPayload
+Cohesion: 0.23
+Nodes (10): useRegisterMutation(), UserSignupPage(), Category, CategoryAttribute, getCategories(), getProvinces(), Province, submitSuggestion() (+2 more)
 
 ### Community 44 - "Module Group 44"
 Cohesion: 0.39
@@ -399,8 +430,8 @@ Cohesion: 0.36
 Nodes (6): CancellationToken, List, Task, ConversationDto, GetConversationsQueryHandler, GetConversationsQuery
 
 ### Community 56 - "Module Group 56"
-Cohesion: 0.36
-Nodes (6): CancellationToken, List, Task, GetMyPostsQuery, ItemResponseDto, GetMyPostsQueryHandler
+Cohesion: 0.33
+Nodes (7): CancellationToken, ItemResponseDto, List, Task, GetMyPostsQuery, ItemResponseDto, GetMyPostsQueryHandler
 
 ### Community 57 - "Module Group 57"
 Cohesion: 0.43
@@ -487,8 +518,8 @@ Cohesion: 0.33
 Nodes (3): MarketplaceHeader(), Props, metadata
 
 ### Community 79 - "Module Group 79"
-Cohesion: 0.38
-Nodes (4): ReviewDto, submitReview(), SubmitReviewPayload, reviewsQueryKey
+Cohesion: 0.28
+Nodes (6): apiClient, ReviewDto, submitReview(), SubmitReviewPayload, reviewsQueryKey, tradesQueryKey
 
 ### Community 80 - "Module Group 80"
 Cohesion: 0.38
@@ -590,25 +621,117 @@ Nodes (3): ApiResponse, PaginationInfo, TableColumn
 Cohesion: 0.50
 Nodes (3): ChartData, DashboardStats, RecentActivity
 
+### Community 158 - "Community 158"
+Cohesion: 0.15
+Nodes (13): 3.2.10 Trust & Reputation System, 3.2.11 Notification System, 3.2.12 Non-Functional Requirements, 3.2.1 User Authentication, 3.2.2 Profile Management, 3.2.3 Post Ad (Asset Deployment), 3.2.4 Marketplace Discovery, 3.2.5 AI Valuation & Smart Match (+5 more)
+
+### Community 159 - "Community 159"
+Cohesion: 0.15
+Nodes (13): 3.2.10 Non-Functional Requirements, 3.2.10 Trust & Reputation System, 3.2.11 Notification System, 3.2.1 User Authentication, 3.2.2 Profile Management, 3.2.3 Post Ad (Asset Deployment), 3.2.4 Marketplace Discovery, 3.2.5 AI Valuation & Smart Match (+5 more)
+
+### Community 160 - "Community 160"
+Cohesion: 0.17
+Nodes (11): 1. Core Modules Completed, 2. Current Focus: Module Verification (Unit Testing), 3. Upcoming Milestone: AI Intelligence Integration, ⦁ Advanced Admin Command Center, ⦁ AI Asset Evaluation (LTP), ⦁ Asset Posting & Management (User Panel), ⦁ Real-Time Notification & Messaging System, ⦁ Scalable Backend Architecture (+3 more)
+
+### Community 161 - "Community 161"
+Cohesion: 0.31
+Nodes (7): CancellationToken, HttpGet, HttpPut, IActionResult, Task, UpdateProfileCommand, ProfileController
+
+### Community 162 - "Community 162"
+Cohesion: 0.29
+Nodes (7): CancellationToken, HttpPost, IActionResult, Task, AuthController, LoginRequestDto, RegisterRequestDto
+
+### Community 163 - "Community 163"
+Cohesion: 0.20
+Nodes (10): 2.1 Customer, 2.2 Stakeholders, 2.3 Affected Groups with social or economic impact, 2.4 Dependencies/ External Systems, 2.5.1 Related Projects, 2.5.2 Feature Comparison, 2.5 Related Projects with feature comparison, 2.6 Context Diagram (+2 more)
+
+### Community 164 - "Community 164"
+Cohesion: 0.20
+Nodes (10): 2.1 Customer, 2.2 Stakeholders, 2.3 Affected Groups with social or economic impact, 2.4 Dependencies/ External Systems, 2.5.1 Related Projects, 2.5.2 Feature Comparison, 2.5 Related Projects with feature comparison, 2.6 Context Diagram (+2 more)
+
+### Community 165 - "Community 165"
+Cohesion: 0.20
+Nodes (7): adminRoutes, IconType, Item, RouteSection, Sidebar(), SidebarProps, SubMenuItem
+
+### Community 166 - "Community 166"
+Cohesion: 0.22
+Nodes (7): CancellationToken, HttpPost, IActionResult, Task, ControllerBase, ReviewsController, SubmitReviewRequestDto
+
+### Community 167 - "Community 167"
+Cohesion: 0.33
+Nodes (6): HttpPost, IActionResult, List, Task, UploadController, IFormFile
+
+### Community 168 - "Community 168"
+Cohesion: 0.22
+Nodes (9): 4.4.1 Sprint 1 Planning Meeting Minutes, 4.4.2 Sprint 1 Backlog, 4.4.3 Sprint 1 Design Class Diagram, 4.4.4 Sprint 1 Sequence Diagram, 4.4.5 Sprint 1 Decision Table, 4.4.6 Sprint 1 Extended Test Cases, 4.4.7 Sprint 1 Review Meeting, 4.4.8 Sprint 1 Retrospective Meeting (+1 more)
+
+### Community 169 - "Community 169"
+Cohesion: 0.22
+Nodes (9): 4.4.1 Sprint 1 Planning Meeting Minutes, 4.4.2 Sprint 1 Backlog, 4.4.3 Sprint 1 Design Class Diagram, 4.4.4 Sprint 1 Sequence Diagram, 4.4.5 Sprint 1 Decision Table, 4.4.6 Sprint 1 Extended Test Cases, 4.4.7 Sprint 1 Review Meeting, 4.4.8 Sprint 1 Retrospective Meeting (+1 more)
+
+### Community 170 - "Community 170"
+Cohesion: 0.25
+Nodes (7): 3.1 List of Actors, 3.3 Figma UI/UX Designs, 3. Requirements Analysis, Definitions and Acronyms, FYP Report Content for SwapIt, List of Figures/Tables, ⦁ Table of Contents
+
+### Community 171 - "Community 171"
+Cohesion: 0.25
+Nodes (7): 3.1 List of Actors, 3.3 Figma UI/UX Designs, 3. Requirements Analysis, Definitions and Acronyms, FYP Report Content for SwapIt, List of Figures/Tables, ⦁ Table of Contents
+
+### Community 173 - "Community 173"
+Cohesion: 0.38
+Nodes (5): CancellationToken, ItemResponseDto, Task, GetItemByIdQueryHandler, GetItemByIdQuery
+
+### Community 174 - "Community 174"
+Cohesion: 0.29
+Nodes (7): 1.1 Problem Statement, 1.2 Objectives, 1.3 Scope of the Project, 1.4 Significance of the Project, 1.5 Artificial Intelligence features, 1.6 Project Deliverables, 1. Introduction
+
+### Community 175 - "Community 175"
+Cohesion: 0.29
+Nodes (7): 5.1 System context Diagram, 5.2 System Container Diagram, 5.3 Component Diagram, 5.4 Code Diagrams, 5.5 ERD, 5.6 Data Dictionary, 5. System Architecture
+
+### Community 176 - "Community 176"
+Cohesion: 0.29
+Nodes (7): 1.1 Problem Statement, 1.2 Objectives, 1.3 Scope of the Project, 1.4 Significance of the Project, 1.5 Artificial Intelligence features, 1.6 Project Deliverables, 1. Introduction
+
+### Community 177 - "Community 177"
+Cohesion: 0.29
+Nodes (7): 5.1 System Context Diagram, 5.2 System Container Diagram, 5.3 Component Diagram, 5.4 Code Diagrams, 5.5 ERD (Entity Relationship Diagram), 5.6 Data Dictionary, 5. System Architecture
+
+### Community 178 - "Community 178"
+Cohesion: 0.50
+Nodes (3): LogisticsField, TradeConfirmationPage(), TradeLogistics
+
+### Community 179 - "Community 179"
+Cohesion: 0.50
+Nodes (4): 4.1 Jira, 4.2 Slack, 4.3 Github Repository, 4. Project Planning and Execution using Sprints
+
+### Community 180 - "Community 180"
+Cohesion: 0.50
+Nodes (4): 4.1 Jira, 4.2 Slack, 4.3 Github Repository, 4. Project Planning and Execution using Sprints
+
+### Community 181 - "Community 181"
+Cohesion: 0.50
+Nodes (3): Deploy on Vercel, Getting Started, Learn More
+
 ## Knowledge Gaps
-- **482 isolated node(s):** `HttpContext`, `Task`, `IApplicationBuilder`, `AdminProfileDto`, `DashboardStatsDto` (+477 more)
+- **606 isolated node(s):** `HttpContext`, `Task`, `IApplicationBuilder`, `AdminProfileDto`, `DashboardStatsDto` (+601 more)
   These have ≤1 connection - possible missing edges or undocumented components.
-- **40 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **43 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `useAppContext()` connect `Module Group 27` to `Module Group 0`, `Module Group 32`, `Module Group 7`, `Module Group 9`, `Module Group 10`, `Module Group 11`, `Module Group 78`, `Module Group 16`, `Module Group 18`, `Module Group 29`, `Module Group 31`?**
-  _High betweenness centrality (0.016) - this node is a cross-community bridge._
-- **Why does `apiClient` connect `Module Group 39` to `Module Group 0`, `Module Group 9`, `Module Group 11`, `Module Group 43`, `Module Group 13`, `Module Group 79`, `Module Group 16`, `Module Group 80`, `Module Group 18`, `Module Group 19`?**
+- **Why does `useAppContext()` connect `Module Group 27` to `Module Group 0`, `Module Group 7`, `Module Group 9`, `Module Group 10`, `Module Group 43`, `Module Group 78`, `Module Group 16`, `Community 178`, `Module Group 18`, `Module Group 29`?**
+  _High betweenness centrality (0.014) - this node is a cross-community bridge._
+- **Why does `apiClient` connect `Module Group 79` to `Module Group 0`, `Module Group 39`, `Module Group 7`, `Module Group 9`, `Module Group 43`, `Module Group 13`, `Module Group 16`, `Module Group 80`, `Module Group 18`, `Module Group 19`?**
   _High betweenness centrality (0.009) - this node is a cross-community bridge._
-- **Why does `AdminController` connect `Module Group 3` to `Module Group 2`?**
-  _High betweenness centrality (0.007) - this node is a cross-community bridge._
+- **Why does `AdminController` connect `Module Group 3` to `Community 166`?**
+  _High betweenness centrality (0.006) - this node is a cross-community bridge._
 - **Are the 4 inferred relationships involving `useAppContext()` (e.g. with `AdminLoginPage()` and `UserLoginPage()`) actually correct?**
   _`useAppContext()` has 4 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `HttpContext`, `Task`, `IApplicationBuilder` to the rest of the system?**
-  _482 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _606 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Module Group 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.06716417910447761 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.058596491228070174 - nodes in this community are weakly interconnected._
 - **Should `Module Group 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.06168831168831169 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.12121212121212122 - nodes in this community are weakly interconnected._

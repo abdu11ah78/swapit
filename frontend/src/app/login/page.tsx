@@ -3,11 +3,12 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { motion } from "framer-motion"
-import { Mail, Lock, Eye, EyeOff, ArrowRight, Shield } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Mail, Lock, Eye, EyeOff, ArrowRight, Shield, AlertTriangle, X } from "lucide-react"
 import toast from "react-hot-toast"
-import { useAppContext } from "@/context/AppContext" // Changed path to AppContext
+import { useAppContext } from "@/context/AppContext"
 import { useLoginMutation } from "@/features/auth/auth.hooks"
+import { apiClient } from "@/api/axios"
 
 export default function UserLoginPage() {
     const router = useRouter()
@@ -17,6 +18,12 @@ export default function UserLoginPage() {
     const [showPassword, setShowPassword] = useState(false)
     const loginMutation = useLoginMutation()
     const isLoading = loginMutation.isPending
+
+    // Banned account state
+    const [showBanModal, setShowBanModal] = useState(false)
+    const [bannedEmail, setBannedEmail] = useState("")
+    const [reopenReason, setReopenReason] = useState("")
+    const [isSubmittingReopen, setIsSubmittingReopen] = useState(false)
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -32,12 +39,34 @@ export default function UserLoginPage() {
             toast.success("Welcome back!")
             router.push('/')
         } catch (err: any) {
-            showAlert({
-                title: "Login Failed",
-                message: err?.response?.data?.message || "Invalid credentials. Please verify your email and password and try again.",
-                type: "error",
-                confirmText: "Try Again"
-            })
+            const status = err?.response?.status
+            if (status === 403) {
+                // Account is banned
+                setBannedEmail(email)
+                setShowBanModal(true)
+            } else {
+                showAlert({
+                    title: "Login Failed",
+                    message: err?.response?.data?.message || "Invalid credentials. Please verify your email and password and try again.",
+                    type: "error",
+                    confirmText: "Try Again"
+                })
+            }
+        }
+    }
+
+    const handleReopenRequest = async (e: React.FormEvent) => {
+        e.preventDefault()
+        if (!reopenReason.trim()) return
+        setIsSubmittingReopen(true)
+        try {
+            await apiClient.post("/auth/request-reopen", { email: bannedEmail, reason: reopenReason })
+            setShowBanModal(false)
+            toast.success("Your account reopening request has been submitted. An admin will review it shortly.")
+        } catch {
+            toast.error("Failed to submit request. Please try again later.")
+        } finally {
+            setIsSubmittingReopen(false)
         }
     }
 
@@ -134,6 +163,64 @@ export default function UserLoginPage() {
                     Secure encrypted login
                 </div>
             </motion.div>
+
+            {/* Banned Account Modal */}
+            <AnimatePresence>
+                {showBanModal && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+                    >
+                        <motion.div
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                            className="w-full max-w-md bg-white rounded-3xl p-8 shadow-2xl relative"
+                        >
+                            <button
+                                onClick={() => setShowBanModal(false)}
+                                className="absolute top-4 right-4 p-2 text-slate-300 hover:text-slate-500 transition-colors"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+
+                            <div className="text-center mb-6">
+                                <div className="w-16 h-16 bg-red-50 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                    <AlertTriangle className="w-8 h-8 text-red-500" />
+                                </div>
+                                <h2 className="text-2xl font-black text-slate-800 tracking-tight mb-2">Account Banned</h2>
+                                <p className="text-slate-500 text-sm">
+                                    Your account has been suspended by an administrator. You can submit a request to have it reviewed.
+                                </p>
+                            </div>
+
+                            <form onSubmit={handleReopenRequest} className="space-y-4">
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Reason for Reopening</label>
+                                    <textarea
+                                        value={reopenReason}
+                                        onChange={(e) => setReopenReason(e.target.value)}
+                                        placeholder="Explain why you believe your account should be reopened..."
+                                        rows={4}
+                                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl p-4 text-slate-700 placeholder:text-slate-300 focus:outline-none focus:border-[#115e59]/20 focus:ring-4 focus:ring-[#115e59]/5 transition-all text-sm resize-none"
+                                        required
+                                    />
+                                </div>
+                                <button
+                                    type="submit"
+                                    disabled={isSubmittingReopen || !reopenReason.trim()}
+                                    className="w-full py-3 bg-[#115e59] text-white font-black tracking-widest rounded-2xl text-xs disabled:opacity-50 transition-all hover:bg-[#4d7c0f] active:scale-95"
+                                >
+                                    {isSubmittingReopen ? "SUBMITTING..." : "SUBMIT REOPENING REQUEST"}
+                                </button>
+                            </form>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     )
 }
+

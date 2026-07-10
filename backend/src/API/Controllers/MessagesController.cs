@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SwapIt.Application.Features.Messages.Commands.SendMessage;
 using SwapIt.Application.Features.Messages.Queries.GetChatMessages;
 using SwapIt.Application.Features.Messages.Queries.GetConversations;
+using SwapIt.Application.Features.Messages.Queries.GetUserConversation;
 
 namespace SwapIt.API.Controllers;
 
@@ -17,6 +18,13 @@ public sealed class MessagesController(IMediator mediator) : ControllerBase
     {
         var result = await mediator.Send(new GetConversationsQuery(), cancellationToken);
         return Ok(new { conversations = result });
+    }
+
+    [HttpGet("user/{userId}")]
+    public async Task<IActionResult> GetUserConversation(string userId, CancellationToken cancellationToken)
+    {
+        var result = await mediator.Send(new GetUserConversationQuery(userId), cancellationToken);
+        return Ok(result);
     }
 
     [HttpGet("{userId}")]
