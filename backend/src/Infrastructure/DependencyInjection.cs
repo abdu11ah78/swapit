@@ -22,6 +22,15 @@ public static class DependencyInjection
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IFileService, LocalFileService>();
 
+        // AI Appraisal microservice HTTP client
+        var aiServiceUrl = configuration["AiService:BaseUrl"] ?? "http://localhost:8000";
+        services.AddHttpClient("SwapItAI", client =>
+        {
+            client.BaseAddress = new Uri(aiServiceUrl);
+            client.Timeout = TimeSpan.FromSeconds(30);
+        });
+        services.AddScoped<IAppraisalService, AppraisalService>();
+
         return services;
     }
 }

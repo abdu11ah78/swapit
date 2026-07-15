@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState, useRef, useEffect, useMemo } from "react"
+import { AnimatePresence } from "framer-motion"
 import { Search, Send, MoreVertical, Phone, Video, Image as ImageIcon, Smile, ShieldCheck, Mail, Zap, Loader2, ShieldAlert, X } from "lucide-react"
 import { useConversationsQuery, useChatMessagesQuery, useSendMessageMutation, useUserConversationQuery } from "@/features/messages/messages.hooks"
 import { useAppContext } from "@/context/AppContext"

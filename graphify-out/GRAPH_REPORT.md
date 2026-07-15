@@ -1,16 +1,16 @@
-# Graph Report - SwapIt  (2026-07-08)
+# Graph Report - SwapIt  (2026-07-12)
 
 ## Corpus Check
-- 275 files · ~137,691 words
+- 280 files · ~139,345 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 1592 nodes · 2097 edges · 185 communities (142 shown, 43 thin omitted)
+- 1645 nodes · 2186 edges · 188 communities (145 shown, 43 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 10 edges (avg confidence: 0.8)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `5f49388a`
+- Built from commit: `aaf856b6`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -183,14 +183,18 @@
 - [[_COMMUNITY_Community 181|Community 181]]
 - [[_COMMUNITY_Community 182|Community 182]]
 - [[_COMMUNITY_Community 183|Community 183]]
+- [[_COMMUNITY_Community 184|Community 184]]
+- [[_COMMUNITY_Community 185|Community 185]]
+- [[_COMMUNITY_Community 186|Community 186]]
+- [[_COMMUNITY_Community 187|Community 187]]
 
 ## God Nodes (most connected - your core abstractions)
 1. `useAppContext()` - 29 edges
-2. `AdminController` - 21 edges
-3. `ActionResult` - 19 edges
-4. `Task` - 17 edges
+2. `AdminController` - 23 edges
+3. `ActionResult` - 21 edges
+4. `Task` - 19 edges
 5. `compilerOptions` - 16 edges
-6. `apiClient` - 13 edges
+6. `apiClient` - 15 edges
 7. `Badge()` - 13 edges
 8. `3.2 Product Backlog` - 13 edges
 9. `3.2 Product Backlog` - 13 edges
@@ -203,23 +207,23 @@
   frontend/src/app/admin/settings/page.tsx → frontend/src/context/AppContext.tsx
 - `SettingsPage()` --calls--> `useAppContext()`  [INFERRED]
   frontend/src/app/(user)/settings/page.tsx → frontend/src/context/AppContext.tsx
+- `UserLoginPage()` --calls--> `useAppContext()`  [INFERRED]
+  frontend/src/app/login/page.tsx → frontend/src/context/AppContext.tsx
 - `MessengerPage()` --calls--> `useAppContext()`  [EXTRACTED]
   frontend/src/app/(user)/messenger/page.tsx → frontend/src/context/AppContext.tsx
-- `NotificationsPage()` --calls--> `useMarkNotificationReadMutation()`  [INFERRED]
-  frontend/src/app/(user)/notifications/page.tsx → frontend/src/features/notifications/notifications.hooks.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (185 total, 43 thin omitted)
+## Communities (188 total, 43 thin omitted)
 
 ### Community 0 - "Module Group 0"
-Cohesion: 0.06
-Nodes (56): approveSuggestion(), changeAdminPassword(), createAdminCategory(), DashboardStats, Diagnostics, DisputeAdmin, getAdminCategories(), getAdminDisputes() (+48 more)
+Cohesion: 0.11
+Nodes (29): approveSuggestion(), banUser(), createAdminCategory(), DashboardStats, Diagnostics, DisputeAdmin, getAdminCategories(), getAdminDisputes() (+21 more)
 
 ### Community 1 - "Module Group 1"
-Cohesion: 0.12
-Nodes (9): colors, coupons, mockCategories, mockInvoices, mockProducts, reviews, sizes, Invoice (+1 more)
+Cohesion: 0.15
+Nodes (9): colors, coupons, mockCategories, mockInvoices, mockProducts, Invoice, Item, ItemCategory (+1 more)
 
 ### Community 2 - "Module Group 2"
 Cohesion: 0.22
@@ -254,12 +258,12 @@ Cohesion: 0.12
 Nodes (20): CreateItemPayload, createItemRequest(), deleteItemRequest(), getItemByIdRequest(), GetItemsParams, getItemsRequest(), GetItemsResponse, ItemResponse (+12 more)
 
 ### Community 10 - "Module Group 10"
-Cohesion: 0.24
-Nodes (8): ThemeContext, ThemeContextType, ThemeProvider(), useTheme(), Navbar(), NavbarProps, ThemeToggle(), adminData
+Cohesion: 0.19
+Nodes (11): useAdminDisputes(), AdminProvider(), ThemeContext, ThemeContextType, ThemeProvider(), useTheme(), Navbar(), NavbarProps (+3 more)
 
 ### Community 11 - "Module Group 11"
-Cohesion: 0.14
-Nodes (16): AdminContext, AdminContextType, AdminProvider(), mockDisputes, mockOffers, mockOrders, mockUsers, systemNotifications (+8 more)
+Cohesion: 0.18
+Nodes (13): AdminContext, AdminContextType, mockDisputes, mockOffers, mockOrders, mockUsers, systemNotifications, Dispute (+5 more)
 
 ### Community 12 - "Module Group 12"
 Cohesion: 0.10
@@ -278,16 +282,16 @@ Cohesion: 0.12
 Nodes (16): Category, CategoryAttribute, Dispute, EmailVerificationToken, Item, ItemAttributeValue, Message, Notification (+8 more)
 
 ### Community 16 - "Module Group 16"
-Cohesion: 0.21
-Nodes (14): ChatMessagesResponse, ConversationDto, ConversationsResponse, getChatMessages(), getConversations(), MessageDto, sendMessage(), SendMessagePayload (+6 more)
+Cohesion: 0.19
+Nodes (17): ChatMessagesResponse, ConversationDto, ConversationsResponse, getChatMessages(), getConversations(), getUserConversation(), MessageDto, sendMessage() (+9 more)
 
 ### Community 17 - "Module Group 17"
 Cohesion: 0.13
 Nodes (15): ASPNETCORE_ENVIRONMENT, applicationUrl, commandName, dotnetRunMessages, environmentVariables, launchBrowser, applicationUrl, commandName (+7 more)
 
 ### Community 18 - "Module Group 18"
-Cohesion: 0.24
-Nodes (10): LoginPayload, loginRequest(), LoginResponse, RegisterPayload, registerRequest(), RegisterResponse, clearAccessToken(), getAccessToken() (+2 more)
+Cohesion: 0.22
+Nodes (11): apiClient, LoginPayload, loginRequest(), LoginResponse, RegisterPayload, registerRequest(), RegisterResponse, useLoginMutation() (+3 more)
 
 ### Community 19 - "Module Group 19"
 Cohesion: 0.19
@@ -310,8 +314,8 @@ Cohesion: 0.23
 Nodes (9): CancellationToken, HttpGet, HttpPatch, HttpPost, IActionResult, Task, OffersController, CreateOfferRequestDto (+1 more)
 
 ### Community 24 - "Module Group 24"
-Cohesion: 0.23
-Nodes (9): CancellationToken, HttpGet, HttpPatch, HttpPost, IActionResult, Task, TradesController, CreateTradeRequestDto (+1 more)
+Cohesion: 0.05
+Nodes (37): CancellationToken, HttpPatch, HttpPost, IActionResult, Task, CancellationToken, HttpGet, HttpPut (+29 more)
 
 ### Community 25 - "Module Group 25"
 Cohesion: 0.18
@@ -322,16 +326,16 @@ Cohesion: 0.15
 Nodes (12): AboutPageData, AboutSection, AppContextType, CartItem, ContactFormData, ContactInfo, Order, OrderResponse (+4 more)
 
 ### Community 27 - "Module Group 27"
-Cohesion: 0.24
-Nodes (10): LandingPage(), AdminGuard(), Props, useLoginMutation(), useAppContext(), useItemsQuery(), UserLoginPage(), MarketplaceCard() (+2 more)
+Cohesion: 0.18
+Nodes (11): LandingPage(), AdminGuard(), Props, useAppContext(), useItemsQuery(), MarketplaceHeader(), Props, MarketplaceCard() (+3 more)
 
 ### Community 28 - "Module Group 28"
-Cohesion: 0.27
+Cohesion: 0.29
 Nodes (8): CancellationToken, HttpGet, HttpPost, IActionResult, Task, MessagesController, SendMessageRequest, SendMessageRequest
 
 ### Community 29 - "Module Group 29"
-Cohesion: 0.20
-Nodes (10): CustomAlert(), CustomModalProps, ModalType, typeStyles, AlertConfig, AppContext, AppContextType, CartItem (+2 more)
+Cohesion: 0.16
+Nodes (13): AUTH_PATHS, CustomAlert(), CustomModalProps, ModalType, typeStyles, AlertConfig, AppContext, AppContextType (+5 more)
 
 ### Community 30 - "Module Group 30"
 Cohesion: 0.18
@@ -342,12 +346,12 @@ Cohesion: 0.12
 Nodes (16): 1. AI-Driven Asset Intelligence, 2. Secure Trade & Escrow Protocol, 3. Advanced Negotiation Engine, 4. Dynamic Taxonomy & Governance, 5. Reputation & Trust Ecosystem, 6. Real-Time Communication Hub, Backend, Backend (+8 more)
 
 ### Community 32 - "Module Group 32"
-Cohesion: 0.24
-Nodes (10): useCreateItemMutation(), categories, CategoryNav(), IconMap, Props, AssetPostingPage(), IconMap, useCategories() (+2 more)
+Cohesion: 0.23
+Nodes (14): useAdminOffers(), useAdminProducts(), useAdminTrades(), useUpdateDisputeStatus(), DisputesPage(), ItemsPage(), OffersPage(), TradesPage() (+6 more)
 
 ### Community 33 - "Module Group 33"
-Cohesion: 0.24
-Nodes (8): CancellationToken, HttpPatch, HttpPost, IActionResult, Task, DisputesController, CreateDisputeRequestDto, UpdateDisputeRequestDto
+Cohesion: 0.21
+Nodes (6): reviews, sizes, mockNotifications, Badge(), BadgeProps, badgeVariants
 
 ### Community 36 - "Module Group 36"
 Cohesion: 0.24
@@ -378,16 +382,16 @@ Cohesion: 0.28
 Nodes (7): CancellationToken, Task, ValidationBehavior, IPipelineBehavior, RequestHandlerDelegate, TRequest, TResponse
 
 ### Community 43 - "Module Group 43"
-Cohesion: 0.23
-Nodes (10): useRegisterMutation(), UserSignupPage(), Category, CategoryAttribute, getCategories(), getProvinces(), Province, submitSuggestion() (+2 more)
+Cohesion: 0.10
+Nodes (24): useRegisterMutation(), useCreateItemMutation(), categories, CategoryNav(), IconMap, Props, AssetPostingPage(), IconMap (+16 more)
 
 ### Community 44 - "Module Group 44"
 Cohesion: 0.39
 Nodes (6): GetAdminItemsQueryHandler, ItemAdminDto, CancellationToken, List, Task, GetAdminItemsQuery
 
 ### Community 45 - "Module Group 45"
-Cohesion: 0.36
-Nodes (6): AdminProfileDto, GetAdminProfileQueryHandler, CancellationToken, Task, GetAdminProfileQuery, IRequestHandler
+Cohesion: 0.43
+Nodes (5): AdminProfileDto, GetAdminProfileQueryHandler, CancellationToken, Task, GetAdminProfileQuery
 
 ### Community 46 - "Module Group 46"
 Cohesion: 0.36
@@ -426,8 +430,8 @@ Cohesion: 0.36
 Nodes (6): CancellationToken, List, MessageDto, Task, GetChatMessagesQueryHandler, GetChatMessagesQuery
 
 ### Community 55 - "Module Group 55"
-Cohesion: 0.36
-Nodes (6): CancellationToken, List, Task, ConversationDto, GetConversationsQueryHandler, GetConversationsQuery
+Cohesion: 0.33
+Nodes (7): CancellationToken, ConversationDto, List, Task, ConversationDto, GetConversationsQueryHandler, GetConversationsQuery
 
 ### Community 56 - "Module Group 56"
 Cohesion: 0.33
@@ -514,20 +518,20 @@ Cohesion: 0.29
 Nodes (6): ctaLink, ctaText, headline, id, imageUrl, subtext
 
 ### Community 78 - "Module Group 78"
-Cohesion: 0.33
-Nodes (3): MarketplaceHeader(), Props, metadata
+Cohesion: 0.22
+Nodes (6): changeAdminPassword(), getMaintenanceStatus(), getSystemDiagnostics(), toggleMaintenanceMode(), updateAdminName(), AdminSettingsPage()
 
 ### Community 79 - "Module Group 79"
-Cohesion: 0.28
-Nodes (6): apiClient, ReviewDto, submitReview(), SubmitReviewPayload, reviewsQueryKey, tradesQueryKey
+Cohesion: 0.32
+Nodes (5): ReviewDto, submitReview(), SubmitReviewPayload, reviewsQueryKey, tradesQueryKey
 
 ### Community 80 - "Module Group 80"
 Cohesion: 0.38
-Nodes (4): MultiUploadResponse, uploadImageRequest(), uploadImagesRequest(), UploadResponse
+Nodes (5): CancellationToken, ConversationDto, Task, GetUserConversationQueryHandler, GetUserConversationQuery
 
 ### Community 81 - "Module Group 81"
-Cohesion: 0.40
-Nodes (4): ApproveSuggestionCommandHandler, ApproveSuggestionCommand, CancellationToken, Task
+Cohesion: 0.33
+Nodes (5): ApproveSuggestionCommandHandler, ApproveSuggestionCommand, CancellationToken, Task, IRequestHandler
 
 ### Community 82 - "Module Group 82"
 Cohesion: 0.40
@@ -634,12 +638,12 @@ Cohesion: 0.17
 Nodes (11): 1. Core Modules Completed, 2. Current Focus: Module Verification (Unit Testing), 3. Upcoming Milestone: AI Intelligence Integration, ⦁ Advanced Admin Command Center, ⦁ AI Asset Evaluation (LTP), ⦁ Asset Posting & Management (User Panel), ⦁ Real-Time Notification & Messaging System, ⦁ Scalable Backend Architecture (+3 more)
 
 ### Community 161 - "Community 161"
-Cohesion: 0.31
-Nodes (7): CancellationToken, HttpGet, HttpPut, IActionResult, Task, UpdateProfileCommand, ProfileController
+Cohesion: 0.40
+Nodes (4): useDashboardStats(), AdminDashboard(), dashboardStats, salesChartData
 
 ### Community 162 - "Community 162"
-Cohesion: 0.29
-Nodes (7): CancellationToken, HttpPost, IActionResult, Task, AuthController, LoginRequestDto, RegisterRequestDto
+Cohesion: 0.26
+Nodes (9): CancellationToken, HttpPost, IActionResult, Task, AuthController, RequestReopenRequestDto, LoginRequestDto, RegisterRequestDto (+1 more)
 
 ### Community 163 - "Community 163"
 Cohesion: 0.20
@@ -650,16 +654,16 @@ Cohesion: 0.20
 Nodes (10): 2.1 Customer, 2.2 Stakeholders, 2.3 Affected Groups with social or economic impact, 2.4 Dependencies/ External Systems, 2.5.1 Related Projects, 2.5.2 Feature Comparison, 2.5 Related Projects with feature comparison, 2.6 Context Diagram (+2 more)
 
 ### Community 165 - "Community 165"
-Cohesion: 0.20
-Nodes (7): adminRoutes, IconType, Item, RouteSection, Sidebar(), SidebarProps, SubMenuItem
+Cohesion: 0.22
+Nodes (6): adminRoutes, IconType, Item, RouteSection, SidebarProps, SubMenuItem
 
 ### Community 166 - "Community 166"
-Cohesion: 0.22
-Nodes (7): CancellationToken, HttpPost, IActionResult, Task, ControllerBase, ReviewsController, SubmitReviewRequestDto
+Cohesion: 0.40
+Nodes (4): BanUserCommandHandler, CancellationToken, Task, BanUserCommand
 
 ### Community 167 - "Community 167"
-Cohesion: 0.33
-Nodes (6): HttpPost, IActionResult, List, Task, UploadController, IFormFile
+Cohesion: 0.40
+Nodes (4): UnbanUserCommandHandler, CancellationToken, Task, UnbanUserCommand
 
 ### Community 168 - "Community 168"
 Cohesion: 0.22
@@ -713,25 +717,41 @@ Nodes (4): 4.1 Jira, 4.2 Slack, 4.3 Github Repository, 4. Project Planning and E
 Cohesion: 0.50
 Nodes (3): Deploy on Vercel, Getting Started, Learn More
 
+### Community 184 - "Community 184"
+Cohesion: 0.29
+Nodes (6): 1. Database & DB Context Configured, 2. Exception Handling (Clean API Responses), 3. Account Bans & Admin Moderation, 4. Messenger Backend, 5. Frontend Enhancements, Session 3: Full Implementation of Moderation, Message Requests, Reopening & Messenger Upgrades
+
+### Community 185 - "Community 185"
+Cohesion: 0.40
+Nodes (4): CancellationToken, Task, RequestReopenCommandHandler, RequestReopenCommand
+
+### Community 186 - "Community 186"
+Cohesion: 0.70
+Nodes (4): useAdminUsers(), useBanUser(), useUnbanUser(), UsersPage()
+
+### Community 187 - "Community 187"
+Cohesion: 0.40
+Nodes (3): ExceptionContext, ExceptionFilterAttribute, ApiExceptionFilter
+
 ## Knowledge Gaps
-- **606 isolated node(s):** `HttpContext`, `Task`, `IApplicationBuilder`, `AdminProfileDto`, `DashboardStatsDto` (+601 more)
+- **623 isolated node(s):** `ExceptionContext`, `HttpContext`, `Task`, `IApplicationBuilder`, `AdminProfileDto` (+618 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **43 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `useAppContext()` connect `Module Group 27` to `Module Group 0`, `Module Group 7`, `Module Group 9`, `Module Group 10`, `Module Group 43`, `Module Group 78`, `Module Group 16`, `Community 178`, `Module Group 18`, `Module Group 29`?**
-  _High betweenness centrality (0.014) - this node is a cross-community bridge._
-- **Why does `apiClient` connect `Module Group 79` to `Module Group 0`, `Module Group 39`, `Module Group 7`, `Module Group 9`, `Module Group 43`, `Module Group 13`, `Module Group 16`, `Module Group 80`, `Module Group 18`, `Module Group 19`?**
-  _High betweenness centrality (0.009) - this node is a cross-community bridge._
-- **Why does `AdminController` connect `Module Group 3` to `Community 166`?**
-  _High betweenness centrality (0.006) - this node is a cross-community bridge._
+- **Why does `useAppContext()` connect `Module Group 27` to `Module Group 7`, `Module Group 9`, `Module Group 10`, `Module Group 43`, `Module Group 78`, `Module Group 16`, `Community 178`, `Module Group 18`, `Module Group 29`?**
+  _High betweenness centrality (0.012) - this node is a cross-community bridge._
+- **Why does `apiClient` connect `Module Group 18` to `Module Group 0`, `Module Group 39`, `Module Group 7`, `Module Group 9`, `Module Group 43`, `Module Group 13`, `Module Group 79`, `Module Group 16`, `Module Group 19`, `Module Group 29`?**
+  _High betweenness centrality (0.010) - this node is a cross-community bridge._
+- **Why does `AdminController` connect `Module Group 3` to `Module Group 24`?**
+  _High betweenness centrality (0.007) - this node is a cross-community bridge._
 - **Are the 4 inferred relationships involving `useAppContext()` (e.g. with `AdminLoginPage()` and `UserLoginPage()`) actually correct?**
   _`useAppContext()` has 4 INFERRED edges - model-reasoned connections that need verification._
-- **What connects `HttpContext`, `Task`, `IApplicationBuilder` to the rest of the system?**
-  _606 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `ExceptionContext`, `HttpContext`, `Task` to the rest of the system?**
+  _623 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Module Group 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.058596491228070174 - nodes in this community are weakly interconnected._
-- **Should `Module Group 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.12121212121212122 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.10984848484848485 - nodes in this community are weakly interconnected._
+- **Should `Module Group 3` be split into smaller, more focused modules?**
+  _Cohesion score 0.10083256244218317 - nodes in this community are weakly interconnected._

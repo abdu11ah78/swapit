@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SwapIt.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f49388aef3326895c3c2254bea317694790fc6f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+aaf856b65fd9b60aeba0198f9fcd38ffd2e71bdf")]
 [assembly: System.Reflection.AssemblyProductAttribute("SwapIt.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SwapIt.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
