@@ -5,15 +5,20 @@ using SwapIt.API.Common.Middleware;
 using SwapIt.API.Common.Services;
 using SwapIt.Application;
 using SwapIt.Application.Common.Interfaces;
+using SwapIt.Application.Common.Services;
 using SwapIt.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<SwapIt.API.Common.Filters.ApiExceptionFilter>();
+});
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+builder.Services.AddSingleton<ISystemSettings, SystemSettings>();
 
 var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "SwapIt.API";
 var jwtAudience = builder.Configuration["Jwt:Audience"] ?? "SwapIt.Client";
@@ -38,17 +43,36 @@ builder.Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.WithOrigins("http://localhost:3000")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
+
+var app = builder.Build(); 
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    // Seed database
+    using var scope = app.Services.CreateScope();
+    var context = scope.ServiceProvider.GetRequiredService<IApplicationDbContext>();
+    await context.SeedAsync();
 }
 
 app.UseApiExceptionHandling();
+app.UseStaticFiles();
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -27,11 +27,18 @@ public sealed class LoginCommandHandler(
             throw new AppException("Invalid credentials", 401);
         }
 
+        if (user.IsBanned)
+        {
+            throw new AppException("Your account has been banned by the administrator.", 403);
+        }
+
         return new LoginResponseDto
         {
             Token = tokenService.GenerateAccessToken(user),
             Role = user.Role.ToString().ToUpperInvariant(),
-            UserId = user.Id
+            UserId = user.Id,
+            Name = user.Name,
+            Image = user.Image
         };
     }
 }

@@ -1,9 +1,0 @@
-export * as Home from "./home";
-export * as Shop from "./shop";
-export * as Product from "./product";
-export * as Checkout from "./checkout";
-export * as Cart from "./cart";
-export * as Portfolio from "./portfolio";
-export * as About from "./about";
-export * as Contact from "./contact";
-export * as Blog from "./blogs";

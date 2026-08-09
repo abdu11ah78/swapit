@@ -28,7 +28,7 @@ interface Props {
 
 export function MarketplaceCard({ item }: Props) {
     const router = useRouter()
-    const { addToWishlist, wishlist, isAiMode } = useAppContext()
+    const { addToWishlist, removeFromWishlist, wishlist, isAiMode, isLoggedIn: contextLoggedIn } = useAppContext()
     const [isHovered, setIsHovered] = useState(false)
 
     const isLiked = wishlist.some(w => w.id === item.id)
@@ -36,8 +36,7 @@ export function MarketplaceCard({ item }: Props) {
     const handleProtectedAction = (e: React.MouseEvent, action: () => void) => {
         e.preventDefault()
         e.stopPropagation()
-        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true"
-        if (!isLoggedIn) {
+        if (!contextLoggedIn) {
             router.push("/login")
         } else {
             action()
@@ -46,13 +45,17 @@ export function MarketplaceCard({ item }: Props) {
 
     const handleLike = (e: React.MouseEvent) => {
         handleProtectedAction(e, () => {
-            addToWishlist({
-                id: item.id,
-                name: item.name,
-                price: parseInt(item.price.replace(/[^0-9]/g, "")) || 0,
-                imageUrl: item.image,
-                quantity: 1
-            })
+            if (isLiked) {
+                removeFromWishlist(item.id)
+            } else {
+                addToWishlist({
+                    id: item.id,
+                    name: item.name,
+                    price: parseInt(item.price.replace(/[^0-9]/g, "")) || 0,
+                    imageUrl: item.image,
+                    quantity: 1
+                })
+            }
         })
     }
 

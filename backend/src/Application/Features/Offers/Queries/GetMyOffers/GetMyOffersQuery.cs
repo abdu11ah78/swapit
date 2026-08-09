@@ -22,6 +22,7 @@ public sealed class GetMyOffersQueryHandler(IApplicationDbContext dbContext)
             .AsNoTracking()
             .Include(x => x.Items)
             .Include(x => x.Trade)
+                .ThenInclude(t => t.MainItem)
             .Where(x =>
                 x.MakerId == request.UserId ||
                 x.Trade.BuyerId == request.UserId ||
@@ -31,7 +32,13 @@ public sealed class GetMyOffersQueryHandler(IApplicationDbContext dbContext)
 
         return new GetMyOffersResponseDto
         {
-            Offers = offers.Select(x => x.Adapt<OfferResponseDto>()).ToList()
+            Offers = offers.Select(x => {
+                var dto = x.Adapt<OfferResponseDto>();
+                return dto with { 
+                    TradeTitle = x.Trade?.MainItem?.Title,
+                    ItemIds = x.Items.Select(i => i.ItemId).ToList()
+                };
+            }).ToList()
         };
     }
 }

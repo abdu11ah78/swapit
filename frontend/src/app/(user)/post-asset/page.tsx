@@ -1,59 +1,128 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Plus, Camera, Zap, Shield, HelpCircle, ArrowRight, Tag, MapPin, Scale, ChevronRight, Smartphone, Car, Watch, Laptop, Camera as CameraIcon, Gamepad2, Home, Sofa, Utensils, Sparkles } from "lucide-react"
+import { Plus, Camera, Zap, Shield, HelpCircle, ArrowRight, Tag, MapPin, Scale, ChevronRight, Smartphone, Car, Watch, Laptop, Camera as CameraIcon, Gamepad2, Home, Sofa, Utensils, Sparkles, Cpu, Microwave, Dog, Briefcase, Bike, Settings, Shirt, Smile, BookOpen, Palette, Wrench } from "lucide-react"
 import { useRouter } from "next/navigation"
 
-const categories = [
-    { id: 'mobiles', name: 'Mobiles & Tech', icon: Smartphone, color: '#115e59' },
-    { id: 'vehicles', name: 'Vehicles', icon: Car, color: '#4d7c0f' },
-    { id: 'electronics', name: 'Electronics', icon: Laptop, color: '#115e59' },
-    { id: 'watches', name: 'Watches', icon: Watch, color: '#4d7c0f' },
-    { id: 'gaming', name: 'Gaming', icon: Gamepad2, color: '#115e59' },
-    { id: 'property', name: 'Property', icon: Home, color: '#4d7c0f' },
-    { id: 'furniture', name: 'Furniture', icon: Sofa, color: '#115e59' },
-    { id: 'kitchen', name: 'Kitchen', icon: Utensils, color: '#4d7c0f' },
-]
+import { useCategories, useProvinces, useSubmitSuggestion } from "@/features/taxonomy/taxonomy.hooks"
+import { useCreateItemMutation } from "@/features/items/items.hooks"
+import { useUploadImageMutation } from "@/features/upload/upload.hooks"
+import { toast } from "sonner"
+import { useRef } from "react"
 
-const productTypes: Record<string, string[]> = {
-    mobiles: ['Smartphones', 'Tablets', 'Accessories', 'Wearables'],
-    vehicles: ['Cars', 'Motorcycles', 'Spare Parts', 'Accessories'],
-    electronics: ['Laptops', 'Desktops', 'Cameras', 'Audio Gear'],
-    watches: ['Luxury Watches', 'Smart Watches', 'Vintage Pieces'],
-    gaming: ['Consoles', 'PC Components', 'Games', 'Collectibles'],
-    property: ['Plots', 'Apartments', 'Houses', 'Commercial'],
-    furniture: ['Living Room', 'Bedroom', 'Office', 'Outdoor'],
-    kitchen: ['Appliances', 'Cookware', 'Dining', 'Storage'],
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace('/api', '') ?? "https://localhost:7052";
+
+const IconMap: Record<string, any> = {
+    Smartphone, Car, Laptop, Watch, Gamepad2, Home, Sofa, Utensils, Sparkles, Cpu, Microwave, Dog, Briefcase, HelpCircle, Bike, Settings, Shirt, Smile, BookOpen, Palette, Wrench, Zap
 }
 
 export default function AssetPostingPage() {
     const router = useRouter()
     const [step, setStep] = useState(1)
+    const { data: categories = [], isLoading: isLoadingCats } = useCategories()
+    const { data: provinces = [] } = useProvinces()
+    const submitSuggestion = useSubmitSuggestion()
+    const createItemMutation = useCreateItemMutation()
+    const uploadImageMutation = useUploadImageMutation()
+    const fileInputRef = useRef<HTMLInputElement>(null)
+
+    const [selectedLevel1, setSelectedLevel1] = useState<any | null>(null)
+    const [selectedLevel2, setSelectedLevel2] = useState<any | null>(null)
+
     const [selection, setSelection] = useState({
         category: '',
         productType: '',
         name: '',
         condition: 'New',
+        provinceId: '',
         location: '',
         tradeFor: '',
         details: '',
         usage: '',
-        defects: ''
+        defects: '',
+        dynamicAttributes: {} as Record<string, string>
     })
+
+    const [suggesting, setSuggesting] = useState<null | 'Category' | 'Attribute'>(null)
+    const [suggestionName, setSuggestionName] = useState("")
 
     // AI Evaluation State
     const [isEvaluating, setIsEvaluating] = useState(false)
     const [evaluationResult, setEvaluationResult] = useState<number | null>(null)
     const [images, setImages] = useState<string[]>([])
 
-    const handleNext = () => setStep(prev => prev + 1)
-    const handleBack = () => setStep(prev => prev - 1)
+    const currentCategories = useMemo(() => {
+        if (!selectedLevel1) {
+            return categories.filter(c => !c.parentId && c.isActive);
+        }
+        if (!selectedLevel2) {
+            return categories.filter(c => c.parentId === selectedLevel1.id && c.isActive);
+        }
+        return categories.filter(c => c.parentId === selectedLevel2.id && c.isActive);
+    }, [categories, selectedLevel1, selectedLevel2]);
 
-    const handleImageUpload = () => {
-        // Simulating image upload
-        const newImage = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=500&q=60"
-        setImages([...images, newImage])
+    const handleCategoryClick = (cat: any) => {
+        const hasChildren = categories.some(c => c.parentId === cat.id);
+        if (hasChildren) {
+            if (!selectedLevel1) {
+                setSelectedLevel1(cat);
+            } else if (!selectedLevel2) {
+                setSelectedLevel2(cat);
+            }
+        } else {
+            // Leaf category selected
+            setSelection(prev => ({ ...prev, category: cat.id, dynamicAttributes: {} }));
+            
+            // Check for Type selection attribute
+            const hasTypeAttr = cat.attributes?.some((a: any) => a.name.toLowerCase().includes('type'));
+            if (hasTypeAttr) {
+                setStep(2);
+            } else {
+                setSelection(prev => ({ ...prev, productType: 'General' }));
+                setStep(3);
+            }
+        }
+    }
+
+    const handleNext = () => setStep(prev => prev + 1)
+    const handleBack = () => {
+        if (step === 2) {
+            setSelectedLevel1(null);
+            setSelectedLevel2(null);
+            setSelection(prev => ({ ...prev, category: '', productType: '' }));
+            setStep(1);
+        } else {
+            setStep(prev => prev - 1);
+        }
+    }
+
+    const handleBackFromStep3 = () => {
+        const cat = categories.find(c => c.id === selection.category);
+        const hasTypeAttr = cat?.attributes?.some((a: any) => a.name.toLowerCase().includes('type'));
+        if (hasTypeAttr) {
+            setStep(2);
+        } else {
+            setSelectedLevel1(null);
+            setSelectedLevel2(null);
+            setSelection(prev => ({ ...prev, category: '', productType: '' }));
+            setStep(1);
+        }
+    }
+
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+
+        const loadingToast = toast.loading("Uploading evidence to secure vault...")
+        try {
+            const { url } = await uploadImageMutation.mutateAsync({ file, folder: "items" })
+            const fullUrl = url.startsWith('http') ? url : `${API_BASE_URL}${url}`
+            setImages([...images, fullUrl])
+            toast.success("Evidence secured", { id: loadingToast })
+        } catch (error) {
+            toast.error("Upload failed. Node connection unstable.", { id: loadingToast })
+        }
     }
 
     const handleRemoveImage = (index: number) => {
@@ -70,6 +139,38 @@ export default function AssetPostingPage() {
         }, 2500)
     }
 
+    const handleFinalSubmit = async () => {
+        if (!selection.name || !selection.category || !evaluationResult) {
+            toast.error("Please complete all required fields and run AI evaluation.")
+            return
+        }
+
+        const category = categories.find(c => c.id === selection.category);
+        const productTypeAttribute = category?.attributes.find(a => a.name.toLowerCase().includes('type'));
+        
+        const finalAttributes = { ...selection.dynamicAttributes };
+        if (productTypeAttribute && selection.productType && selection.productType !== 'General') {
+            finalAttributes[productTypeAttribute.id] = selection.productType;
+        }
+
+        try {
+            await createItemMutation.mutateAsync({
+                title: selection.name,
+                description: `${selection.details}\n\nUsage: ${selection.usage}\nDefects: ${selection.defects}\nTrading For: ${selection.tradeFor}`,
+                images: images.join(','),
+                categoryId: selection.category,
+                provinceId: selection.provinceId || undefined,
+                condition: selection.condition,
+                location: selection.location || undefined,
+                ltpValue: evaluationResult,
+                dynamicAttributes: finalAttributes
+            })
+
+        } catch (error) {
+            // Error handled by mutation onError
+        }
+    }
+
     return (
         <div className="min-h-screen bg-[#fcfcfc] text-[#115e59] selection:bg-[#4d7c0f]/20 font-sans pt-32 pb-20 px-4">
             <div className="max-w-4xl mx-auto">
@@ -77,10 +178,10 @@ export default function AssetPostingPage() {
                 <div className="mb-12 text-center">
                     <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#4d7c0f]/10 border border-[#4d7c0f]/20 rounded-full mb-6">
                         <Plus size={14} className="text-[#4d7c0f]" />
-                        <span className="text-[10px] font-black text-[#4d7c0f] uppercase tracking-[0.2em]">Marketplace Lister</span>
+                        <span className="text-[10px] font-black text-[#4d7c0f] uppercase tracking-[0.2em]">Post Ad</span>
                     </div>
-                    <h1 className="text-5xl font-black text-[#115e59] tracking-tighter uppercase mb-4">List Your <span className="text-[#4d7c0f]">Item</span></h1>
-                    <p className="text-slate-500 font-medium max-w-xl mx-auto">Complete the details below to verify your item and begin trading.</p>
+                    <h1 className="text-5xl font-black text-[#115e59] tracking-tighter uppercase mb-4">Post Your <span className="text-[#4d7c0f]">Item</span></h1>
+                    <p className="text-slate-500 font-medium max-w-xl mx-auto">Complete the details below to list your item and begin trading.</p>
                 </div>
 
                 {/* Progress Indicators */}
@@ -111,35 +212,106 @@ export default function AssetPostingPage() {
                             <div className="space-y-10">
                                 <div className="text-center">
                                     <h2 className="text-2xl font-black text-[#115e59] uppercase tracking-tighter mb-2">Select Category</h2>
-                                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Identify the classification for your item</p>
+                                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Select the category for your item</p>
+                                </div>
+
+                                {/* Breadcrumbs path */}
+                                <div className="flex flex-wrap items-center justify-center gap-2 mb-8 text-[10px] font-black text-[#115e59]/50 uppercase tracking-widest bg-slate-50 py-2.5 px-6 rounded-full w-fit mx-auto border border-slate-100">
+                                    <button 
+                                        onClick={() => { setSelectedLevel1(null); setSelectedLevel2(null); }}
+                                        className={`hover:text-[#4d7c0f] transition-colors ${!selectedLevel1 ? 'text-[#4d7c0f]' : ''}`}
+                                    >
+                                        All
+                                    </button>
+                                    {selectedLevel1 && (
+                                        <>
+                                            <ChevronRight size={12} className="text-slate-300" />
+                                            <button 
+                                                onClick={() => { setSelectedLevel2(null); }}
+                                                className={`hover:text-[#4d7c0f] transition-colors ${!selectedLevel2 ? 'text-[#4d7c0f]' : ''}`}
+                                            >
+                                                {selectedLevel1.name}
+                                            </button>
+                                        </>
+                                    )}
+                                    {selectedLevel2 && (
+                                        <>
+                                            <ChevronRight size={12} className="text-slate-300" />
+                                            <span className="text-[#4d7c0f]">
+                                                {selectedLevel2.name}
+                                            </span>
+                                        </>
+                                    )}
                                 </div>
 
                                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    {categories.map((cat) => (
-                                        <button
-                                            key={cat.id}
-                                            onClick={() => { setSelection({ ...selection, category: cat.id }); handleNext() }}
-                                            className={`group p-6 rounded-[2.5rem] border transition-all flex flex-col items-center gap-4 hover:scale-105 active:scale-95 ${selection.category === cat.id ? 'bg-[#115e59] border-[#115e59] text-white shadow-xl shadow-[#115e59]/20' : 'bg-white border-slate-100 text-[#115e59] hover:border-[#4d7c0f]'}`}
-                                        >
-                                            <div className={`p-4 rounded-2xl transition-all ${selection.category === cat.id ? 'bg-white/20' : 'bg-slate-50 group-hover:bg-[#4d7c0f]/10'}`}>
-                                                <cat.icon className={selection.category === cat.id ? "text-white" : "text-[#4d7c0f]"} size={24} />
-                                            </div>
-                                            <span className="text-[10px] font-black uppercase tracking-widest text-center">{cat.name}</span>
-                                        </button>
-                                    ))}
+                                    {currentCategories.map((cat) => {
+                                        const Icon = IconMap[cat.icon] || HelpCircle
+                                        const isSelected = selection.category === cat.id
+                                        return (
+                                            <button
+                                                key={cat.id}
+                                                onClick={() => handleCategoryClick(cat)}
+                                                className={`group p-6 rounded-[2.5rem] border transition-all flex flex-col items-center gap-4 hover:scale-105 active:scale-95 ${isSelected ? 'bg-[#115e59] border-[#115e59] text-white shadow-xl shadow-[#115e59]/20' : 'bg-white border-slate-100 text-[#115e59] hover:border-[#4d7c0f]'}`}
+                                            >
+                                                <div className={`p-4 rounded-2xl transition-all ${isSelected ? 'bg-white/20' : 'bg-slate-50 group-hover:bg-[#4d7c0f]/10'}`}>
+                                                    <Icon className={isSelected ? "text-white" : "text-[#4d7c0f]"} size={24} />
+                                                </div>
+                                                <span className="text-[10px] font-black uppercase tracking-widest text-center">{cat.name}</span>
+                                            </button>
+                                        )
+                                    })}
+                                    <button
+                                        onClick={() => setSuggesting('Category')}
+                                        className="group p-6 rounded-[2.5rem] border border-dashed border-slate-200 transition-all flex flex-col items-center gap-4 hover:border-[#4d7c0f] hover:bg-[#4d7c0f]/5"
+                                    >
+                                        <div className="p-4 rounded-2xl bg-slate-50 group-hover:bg-[#4d7c0f]/10">
+                                            <HelpCircle className="text-slate-300 group-hover:text-[#4d7c0f]" size={24} />
+                                        </div>
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-center text-slate-400 group-hover:text-[#4d7c0f]">Other / Suggest</span>
+                                    </button>
                                 </div>
+
+                                {suggesting === 'Category' && (
+                                    <div className="flex flex-col gap-4 p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                                        <p className="text-[10px] font-black text-[#115e59] uppercase tracking-widest">Suggest New Category</p>
+                                        <div className="flex gap-2">
+                                            <input
+                                                type="text"
+                                                className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-2 text-xs font-bold"
+                                                placeholder="Category Name"
+                                                value={suggestionName}
+                                                onChange={(e) => setSuggestionName(e.target.value)}
+                                            />
+                                            <button
+                                                onClick={async () => {
+                                                    if (!suggestionName) return
+                                                    await submitSuggestion.mutateAsync({ type: 'Category', name: suggestionName })
+                                                    setSuggesting(null)
+                                                    setSuggestionName("")
+                                                }}
+                                                className="bg-[#115e59] text-white px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest"
+                                            >
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         )}
 
                         {step === 2 && (
                             <div className="space-y-10">
                                 <div className="text-center">
-                                    <h2 className="text-2xl font-black text-[#115e59] uppercase tracking-tighter mb-2">Refine Product Type</h2>
-                                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Specific classification for optimized matching</p>
+                                    <h2 className="text-2xl font-black text-[#115e59] uppercase tracking-tighter mb-2">Select Product Type</h2>
+                                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Pick a specific type for better results</p>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    {productTypes[selection.category]?.map((type) => (
+                                    {categories.find(c => c.id === selection.category)?.attributes
+                                        .filter(a => a.name.toLowerCase().includes('type') && a.type === 'selection')
+                                        .flatMap(a => JSON.parse(a.options || '[]'))
+                                        .map((type: string) => (
                                         <button
                                             key={type}
                                             onClick={() => { setSelection({ ...selection, productType: type }); handleNext() }}
@@ -149,6 +321,16 @@ export default function AssetPostingPage() {
                                             <ChevronRight size={16} className={selection.productType === type ? "text-white" : "text-slate-300 group-hover:text-[#4d7c0f]"} />
                                         </button>
                                     ))}
+                                    {/* Fallback if no specific type attribute */}
+                                    {(!categories.find(c => c.id === selection.category)?.attributes.some(a => a.name.toLowerCase().includes('type'))) && (
+                                        <button
+                                            onClick={() => { setSelection({ ...selection, productType: 'General' }); handleNext() }}
+                                            className="p-5 rounded-2xl border border-slate-100 bg-white text-[#115e59] flex items-center justify-between group hover:border-[#4d7c0f]"
+                                        >
+                                            <span className="text-xs font-black uppercase tracking-widest">General / Standard</span>
+                                            <ChevronRight size={16} className="text-slate-300 group-hover:text-[#4d7c0f]" />
+                                        </button>
+                                    )}
                                 </div>
 
                                 <div className="pt-6 border-t border-slate-50 flex justify-center">
@@ -160,14 +342,14 @@ export default function AssetPostingPage() {
                         {step === 3 && (
                             <div className="space-y-10">
                                 <div className="text-center">
-                                    <h2 className="text-2xl font-black text-[#115e59] uppercase tracking-tighter mb-2">Item Intelligence</h2>
-                                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Final details to establish value</p>
+                                    <h2 className="text-2xl font-black text-[#115e59] uppercase tracking-tighter mb-2">Item Details</h2>
+                                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">Enter details to establish value</p>
                                 </div>
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     <div className="space-y-6">
                                         <div className="space-y-2">
-                                            <label className="text-[10px] font-black text-[#4d7c0f] uppercase tracking-widest">Item Name</label>
+                                            <label className="text-[10px] font-black text-[#4d7c0f] uppercase tracking-widest">Item Title</label>
                                             <input
                                                 type="text"
                                                 className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-bold text-[#115e59] focus:outline-none focus:border-[#115e59] transition-all"
@@ -191,13 +373,20 @@ export default function AssetPostingPage() {
                                                     </div>
                                                 ))}
                                                 <div
-                                                    onClick={handleImageUpload}
+                                                    onClick={() => fileInputRef.current?.click()}
                                                     className="aspect-square bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl flex flex-col items-center justify-center gap-2 cursor-pointer hover:border-[#115e59] transition-all group"
                                                 >
+                                                    <input 
+                                                        type="file" 
+                                                        ref={fileInputRef} 
+                                                        className="hidden" 
+                                                        accept="image/*"
+                                                        onChange={handleImageUpload}
+                                                    />
                                                     <div className="p-2 bg-white rounded-xl shadow-sm text-slate-300 group-hover:text-[#115e59] transition-all">
                                                         <Plus size={20} />
                                                     </div>
-                                                    <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Add</span>
+                                                    <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Add Images</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -216,27 +405,26 @@ export default function AssetPostingPage() {
                                     <div className="space-y-6">
                                         <div className="grid grid-cols-2 gap-4">
                                             <div className="space-y-2">
-                                                <label className="text-[10px] font-black text-[#4d7c0f] uppercase tracking-widest">Condition</label>
+                                                <label className="text-[10px] font-black text-[#4d7c0f] uppercase tracking-widest">State / Province</label>
                                                 <select
                                                     className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-bold text-[#115e59] appearance-none focus:outline-none focus:border-[#115e59]"
-                                                    value={selection.condition}
-                                                    onChange={(e) => setSelection({ ...selection, condition: e.target.value })}
+                                                    value={selection.provinceId}
+                                                    onChange={(e) => setSelection({ ...selection, provinceId: e.target.value })}
                                                 >
-                                                    <option>New / Mint</option>
-                                                    <option>Like New</option>
-                                                    <option>Excellent</option>
-                                                    <option>Good</option>
-                                                    <option>Fair</option>
+                                                    <option value="">Select State</option>
+                                                    {provinces.map(p => (
+                                                        <option key={p.id} value={p.id}>{p.name}</option>
+                                                    ))}
                                                 </select>
                                             </div>
                                             <div className="space-y-2">
-                                                <label className="text-[10px] font-black text-[#4d7c0f] uppercase tracking-widest">Location</label>
+                                                <label className="text-[10px] font-black text-[#4d7c0f] uppercase tracking-widest">City / Area</label>
                                                 <div className="relative">
                                                     <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#115e59]" />
                                                     <input
                                                         type="text"
                                                         className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 pl-12 pr-6 text-sm font-bold text-[#115e59] focus:outline-none focus:border-[#115e59]"
-                                                        placeholder="City, Country"
+                                                        placeholder="Specific Location"
                                                         value={selection.location}
                                                         onChange={(e) => setSelection({ ...selection, location: e.target.value })}
                                                     />
@@ -275,6 +463,44 @@ export default function AssetPostingPage() {
                                                 onChange={(e) => setSelection({ ...selection, tradeFor: e.target.value })}
                                             />
                                         </div>
+
+                                        {/* Dynamic Attributes */}
+                                        {categories.find(c => c.id === selection.category)?.attributes
+                                            .filter(a => !a.name.toLowerCase().includes('type'))
+                                            .map(attr => (
+                                            <div key={attr.id} className="space-y-2">
+                                                <label className="text-[10px] font-black text-[#4d7c0f] uppercase tracking-widest">{attr.name} {attr.isRequired && '*'}</label>
+                                                {attr.type === 'selection' ? (
+                                                    <select
+                                                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-bold text-[#115e59] appearance-none focus:outline-none focus:border-[#115e59]"
+                                                        value={selection.dynamicAttributes[attr.id] || ""}
+                                                        onChange={(e) => setSelection({
+                                                            ...selection,
+                                                            dynamicAttributes: { ...selection.dynamicAttributes, [attr.id]: e.target.value }
+                                                        })}
+                                                        required={attr.isRequired}
+                                                    >
+                                                        <option value="">Select {attr.name}</option>
+                                                        {JSON.parse(attr.options || '[]').map((opt: string) => (
+                                                            <option key={opt} value={opt}>{opt}</option>
+                                                        ))}
+                                                        <option value="other">Other...</option>
+                                                    </select>
+                                                ) : (
+                                                    <input
+                                                        type={attr.type === 'number' ? 'number' : 'text'}
+                                                        className="w-full bg-slate-50 border border-slate-100 rounded-2xl py-4 px-6 text-sm font-bold text-[#115e59] focus:outline-none focus:border-[#115e59]"
+                                                        placeholder={`Enter ${attr.name}`}
+                                                        value={selection.dynamicAttributes[attr.id] || ""}
+                                                        onChange={(e) => setSelection({
+                                                            ...selection,
+                                                            dynamicAttributes: { ...selection.dynamicAttributes, [attr.id]: e.target.value }
+                                                        })}
+                                                        required={attr.isRequired}
+                                                    />
+                                                )}
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
 
@@ -302,7 +528,7 @@ export default function AssetPostingPage() {
                                 )}
 
                                 <div className="flex gap-4 pt-4 border-t border-slate-100">
-                                    <button onClick={handleBack} className="flex-1 py-5 bg-slate-50 text-slate-400 font-black text-[10px] uppercase tracking-widest rounded-2xl hover:bg-slate-100 transition-all border border-slate-100">Back Selection</button>
+                                    <button onClick={handleBackFromStep3} className="flex-1 py-5 bg-slate-50 text-slate-400 font-black text-[10px] uppercase tracking-widest rounded-2xl hover:bg-slate-100 transition-all border border-slate-100">Back Selection</button>
 
                                     {!evaluationResult ? (
                                         <button
@@ -324,10 +550,13 @@ export default function AssetPostingPage() {
                                         </button>
                                     ) : (
                                         <button
-                                            onClick={() => router.push('/')}
-                                            className="flex-[2] py-5 bg-[#4d7c0f] text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-[#4d7c0f]/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 animate-in fade-in slide-in-from-bottom-4"
+                                            onClick={handleFinalSubmit}
+                                            disabled={createItemMutation.isPending}
+                                            className="flex-[2] py-5 bg-[#4d7c0f] text-white font-black text-[10px] uppercase tracking-[0.2em] rounded-2xl shadow-xl shadow-[#4d7c0f]/20 hover:scale-[1.02] active:scale-95 transition-all flex items-center justify-center gap-3 animate-in fade-in slide-in-from-bottom-4 disabled:opacity-50"
                                         >
-                                            ASCEND OFFERING <ArrowRight className="w-4 h-4" />
+                                            {createItemMutation.isPending ? "PROCESSING..." : (
+                                                <>POST AD <ArrowRight className="w-4 h-4" /></>
+                                            )}
                                         </button>
                                     )}
                                 </div>

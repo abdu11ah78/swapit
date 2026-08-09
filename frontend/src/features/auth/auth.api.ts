@@ -8,6 +8,7 @@ export type LoginPayload = {
 export type RegisterPayload = {
   name?: string;
   email: string;
+  phoneNumber?: string;
   password: string;
 };
 
@@ -15,6 +16,8 @@ export type LoginResponse = {
   token: string;
   role: string;
   userId: string;
+  name?: string;
+  image?: string;
 };
 
 type RegisterResponse = {

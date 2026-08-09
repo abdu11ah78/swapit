@@ -30,6 +30,18 @@ public sealed class UpdateDisputeCommandHandler(IApplicationDbContext dbContext)
         dispute.Resolution = request.Resolution;
         dispute.ReviewerId = request.UserId;
 
+        // Auto-unban if resolving an account reopening request
+        if (dispute.Status == DisputeStatus.Resolved && 
+            dispute.Reason.StartsWith("Account Reopening:") && 
+            dispute.ReportedUserId != null)
+        {
+            var bannedUser = await dbContext.Users.FindAsync([dispute.ReportedUserId], cancellationToken);
+            if (bannedUser != null)
+            {
+                bannedUser.IsBanned = false;
+            }
+        }
+
         dbContext.Notifications.Add(new Core.Entities.Notification(
             Guid.NewGuid().ToString("N"),
             NotificationType.DisputeUpdate,

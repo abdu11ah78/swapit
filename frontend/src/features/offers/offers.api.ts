@@ -10,6 +10,7 @@ export type OfferDto = {
   expiresAt: string | null;
   offeredItemId: string | null;
   parentOfferId: string | null;
+  tradeTitle?: string;
   itemIds: string[];
   createdAt: string;
 };

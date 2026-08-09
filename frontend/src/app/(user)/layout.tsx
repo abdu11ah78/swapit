@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "@/styles/globals.css";
 import { MarketplaceHeader } from "@/components/layout/Header";
-import { Footer } from '@/components/common/footer/footer';
 import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
@@ -19,7 +18,7 @@ export default function UserLayout({
         {children}
       </main>
       <Toaster position="top-right" reverseOrder={false} />
-      <Footer />
     </div>
   );
 }
+

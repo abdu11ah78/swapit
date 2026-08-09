@@ -4,76 +4,42 @@ import { Menu, Bell, User, LogOut, Settings, Search, Sun, Moon } from "lucide-re
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
-import { adminData } from "../../lib/mockData"
-
+import { useRouter } from "next/navigation"
+import { useTheme } from "../../context/ThemeContext"
+import { useAppContext } from "@/context/AppContext"
+import { useAdminDisputes } from "@/features/admin/admin.hooks"
 
 interface NavbarProps {
   onMenuClick: () => void;
-  // 🎯 NEW PROP: User data to be passed in
-  user: typeof adminData; 
 }
 
-// 🎯 Default user data for demonstration/fallback
-
-
-export function Navbar({ onMenuClick, user = adminData }: NavbarProps) {
+export function Navbar({ onMenuClick }: NavbarProps) {
   const [showUserMenu, setShowUserMenu] = useState(false)
-  const [notifications] = useState(3) 
-  const [isDark, setIsDark] = useState(false)
-  const [hasNotifications, setHasNotifications] = useState(true) 
+  const { theme, toggleTheme } = useTheme()
+  const { currentUser, logout } = useAppContext()
+  const router = useRouter()
+  const isDark = theme === "dark"
   const [mounted, setMounted] = useState(false)
 
-  // --- Theme Logic ---
+  // Fetch disputes as dynamic notifications (open disputes count)
+  const { data: disputes } = useAdminDisputes()
+  const openDisputes = disputes?.filter(d => d.status === "Open") || []
+  const hasNotifications = openDisputes.length > 0
+
   useEffect(() => {
     setMounted(true)
-    const savedTheme = localStorage.getItem('theme') || 'light'
-    const isDarkMode = savedTheme === 'dark'
-    setIsDark(isDarkMode)
-
-    if (isDarkMode) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
   }, [])
 
-  const toggleTheme = () => {
-    const newIsDark = !isDark
-    setIsDark(newIsDark)
-
-    localStorage.setItem('theme', newIsDark ? 'dark' : 'light')
-
-    if (newIsDark) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
+  const handleLogout = () => {
+    logout()
+    router.push("/admin/login")
   }
-  // -------------------
-
-  // 🎯 Timer used for debouncing hover exit to prevent accidental closing
-  let menuCloseTimer: NodeJS.Timeout | null = null;
-  
-  const handleMouseEnter = () => {
-    if (menuCloseTimer) {
-      clearTimeout(menuCloseTimer);
-      menuCloseTimer = null;
-    }
-    setShowUserMenu(true);
-  };
-
-  const handleMouseLeave = () => {
-    // Start a timer to close the menu after a short delay
-    menuCloseTimer = setTimeout(() => {
-      setShowUserMenu(false);
-    }, 150); // 150ms delay
-  };
 
   if (!mounted) return null; 
 
   return (
     <motion.nav
-      className="fixed top-0 left-0 right-0 z-30 h-20 bg-slate-950 border-b border-slate-800 shadow-sm transition-colors duration-200"
+      className="fixed top-0 left-0 right-0 z-30 h-20 bg-[var(--admin-navbar)] border-b border-[var(--admin-border)] shadow-sm transition-colors duration-200"
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
@@ -83,24 +49,26 @@ export function Navbar({ onMenuClick, user = adminData }: NavbarProps) {
         <div className="flex items-center gap-4">
           <motion.button
             onClick={onMenuClick}
-            className="lg:hidden p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors duration-150"
+            className="lg:hidden p-2 cursor-pointer hover:bg-[var(--admin-surface)] rounded-lg transition-colors duration-150"
             whileTap={{ scale: 0.95 }}
           >
-            <Menu size={20} className="text-gray-700 dark:text-gray-300" />
+            <Menu size={20} className="text-[var(--admin-text)]" />
           </motion.button>
 
           {/* Logo/Brand */}
-          <div className="text-xl font-bold text-white hidden sm:block">SwapIt Control Center</div>
+          <div className="text-xl font-bold text-[var(--admin-text)] hidden sm:block">
+            Swap<span className="text-[var(--admin-primary)]">It</span> Control Center
+          </div>
         </div>
 
         {/* Search bar */}
         <div className="hidden md:flex flex-1 max-w-md mx-4">
-          <div className="w-full relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500 dark:text-gray-400" />
+          <div className="w-full relative group">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-4 h-4 text-[var(--admin-text-muted)] group-focus-within:text-[var(--admin-primary)] transition-colors" />
             <input
               type="text"
               placeholder="Search users, items, trades..."
-              className="w-full pl-10 pr-4 py-2 rounded-lg bg-slate-900 text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-fuchsia-500 border border-slate-800"
+              className="admin-input admin-search-input"
             />
           </div>
         </div>
@@ -111,7 +79,7 @@ export function Navbar({ onMenuClick, user = adminData }: NavbarProps) {
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
-            className="p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors duration-150 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+            className="p-2 cursor-pointer hover:bg-[var(--admin-surface)] rounded-lg transition-colors duration-150 text-[var(--admin-text)]"
             aria-label="Toggle theme"
           >
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
@@ -120,71 +88,55 @@ export function Navbar({ onMenuClick, user = adminData }: NavbarProps) {
           {/* Notifications */}
           <div className="relative group">
             <motion.button
-              onClick={() => setHasNotifications(false)} 
-              className="relative p-2 cursor-pointer hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors duration-150 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+              className="relative p-2 cursor-pointer hover:bg-[var(--admin-surface)] rounded-lg transition-colors duration-150 text-[var(--admin-text)]"
               whileTap={{ scale: 0.95 }}
             >
               <Bell size={20} />
-              {(notifications > 0 || hasNotifications) && ( 
+              {hasNotifications && ( 
                 <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse" />
               )}
             </motion.button>
             
-            {/* Notification Dropdown (Uses group-hover) */}
-            <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-gray-200 dark:border-slate-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 pt-0">
-              <div className="p-4 border-b border-gray-200 dark:border-slate-700">
-                <h3 className="font-semibold text-gray-900 dark:text-white">Notifications</h3>
+            {/* Notification Dropdown */}
+            <div className="absolute right-0 mt-2 w-80 bg-[var(--admin-surface)] rounded-xl shadow-xl border border-[var(--admin-border)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+              <div className="p-4 border-b border-[var(--admin-border)] flex justify-between items-center">
+                <h3 className="font-bold text-[var(--admin-text)] text-sm">Notifications</h3>
+                <span className="text-[10px] font-black uppercase text-[var(--admin-primary)]">{openDisputes.length} New</span>
               </div>
-              <div className="max-h-64 overflow-y-auto">
-                <div className="p-4 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
-                  <p className="font-medium text-gray-900 dark:text-white">New Offer Received</p>
-                  <p className="text-xs mt-1">2 minutes ago</p>
-                </div>
-                <div className="p-4 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors border-t border-gray-100 dark:border-slate-700">
-                  <p className="font-medium text-gray-900 dark:text-white">Trade moved to Disputed</p>
-                  <p className="text-xs mt-1">1 hour ago</p>
-                </div>
-                <div className="p-4 text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors border-t border-gray-100 dark:border-slate-700">
-                  <p className="font-medium text-gray-900 dark:text-white">Smart match alerts generated</p>
-                  <p className="text-xs mt-1">3 hours ago</p>
-                </div>
-              </div>
-              <div className="p-3 border-t border-gray-200 dark:border-slate-700 text-center">
-                <a
-                  href="#"
-                  className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
-                >
-                  View all notifications
-                </a>
+              <div className="max-h-80 overflow-y-auto">
+                {openDisputes.length > 0 ? (
+                  openDisputes.map((d) => (
+                    <div key={d.id} className="p-4 text-sm border-b border-[var(--admin-border)] hover:bg-[var(--admin-bg)] cursor-pointer transition-colors last:border-0">
+                      <p className="font-bold text-[var(--admin-text)] text-xs">New Dispute Opened</p>
+                      <p className="text-[var(--admin-text-muted)] text-[11px] mt-1 line-clamp-1">{d.reason}</p>
+                      <p className="text-[10px] mt-2 font-mono text-[var(--admin-primary)] uppercase">{d.createdAt}</p>
+                    </div>
+                  ))
+                ) : (
+                  <div className="p-8 text-center">
+                    <Bell size={24} className="mx-auto text-[var(--admin-text-muted)] opacity-20" />
+                    <p className="text-xs text-[var(--admin-text-muted)] mt-2 font-medium">All clear! No new alerts.</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
 
-          {/* 🎯 User menu - Changed to hover trigger */}
-          <div 
-            className="relative"
-            onMouseEnter={handleMouseEnter} // Trigger open on hover
-            onMouseLeave={handleMouseLeave} // Trigger close on mouse leave (with delay)
-            // Optional: for touch devices that still need a click interaction
-            onClick={() => setShowUserMenu(!showUserMenu)}
-          >
+          {/* User menu */}
+          <div className="relative">
             <motion.button
-              // Removed onClick
-              className="flex items-center cursor-pointer gap-3 p-1.5 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors duration-150"
+              onClick={() => setShowUserMenu(!showUserMenu)}
+              className="flex items-center cursor-pointer gap-3 p-1.5 hover:bg-[var(--admin-surface)] rounded-lg transition-colors duration-150"
               whileTap={{ scale: 0.95 }}
             >
               <div className="hidden sm:flex flex-col items-end">
-                {/* 🎯 Dynamic User Data */}
-                <p className="text-sm font-medium text-gray-900 dark:text-white">{user.name}</p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">{user.title}</p>
+                <p className="text-sm font-bold text-[var(--admin-text)] leading-none">{currentUser?.name || "Admin"}</p>
+                <p className="text-[10px] font-black text-[var(--admin-primary)] uppercase mt-1 tracking-wider">{currentUser?.role || "Manager"}</p>
               </div>
-              <div className="w-9 h-9 rounded-full bg-linear-to-br from-emerald-400 to-emerald-600 flex items-center justify-center overflow-hidden">
-                <Image
-                  // 🎯 Dynamic User Data
-                  src={user.photoUrl}
-                  alt={user.name}
-                  width={36}
-                  height={36}
+              <div className="w-10 h-10 rounded-xl bg-[var(--admin-primary)] flex items-center justify-center overflow-hidden border-2 border-[var(--admin-primary)]/20 shadow-sm">
+                <img
+                  src={currentUser?.image || `https://ui-avatars.com/api/?name=${currentUser?.name || 'Admin'}&background=98A31D&color=fff`}
+                  alt="Admin Avatar"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -192,42 +144,40 @@ export function Navbar({ onMenuClick, user = adminData }: NavbarProps) {
 
             <AnimatePresence>
               {showUserMenu && (
-                <motion.div
-                  className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-gray-200 dark:border-slate-700 overflow-hidden"
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                >
-                  <div className="p-4 border-b border-gray-200 dark:border-slate-700">
-                    {/* 🎯 Dynamic User Data */}
-                    <p className="font-medium text-gray-900 dark:text-white">{user.name}</p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{user.email}</p>
-                  </div>
+                <>
+                  <div className="fixed inset-0 z-0" onClick={() => setShowUserMenu(false)} />
+                  <motion.div
+                    className="absolute right-0 mt-3 w-64 bg-[var(--admin-surface)] rounded-xl shadow-2xl border border-[var(--admin-border)] overflow-hidden z-10"
+                    initial={{ opacity: 0, scale: 0.95, y: -10 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95, y: -10 }}
+                  >
+                    <div className="p-5 bg-gradient-to-br from-[var(--admin-primary)]/10 to-transparent border-b border-[var(--admin-border)]">
+                      <p className="font-black text-[var(--admin-text)] text-sm">{currentUser?.name || "Admin"}</p>
+                      <p className="text-xs text-[var(--admin-text-muted)] mt-1 font-medium">{currentUser?.email || "admin@swapit.com"}</p>
+                    </div>
 
-                  <div className="py-2">
-                    <a
-                      href="/admin/users" 
-                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
-                    >
-                      <User size={16} />
-                      <span>Users</span>
-                    </a>
-                    <a
-                      href="/admin/settings"
-                      className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors border-t border-gray-100 dark:border-slate-700"
-                    >
-                      <Settings size={16} />
-                      <span>Settings</span>
-                    </a>
-                  </div>
+                    <div className="py-2">
+                      <button
+                        onClick={() => { router.push("/admin/settings"); setShowUserMenu(false); }}
+                        className="flex items-center gap-3 w-full px-5 py-3 text-sm font-bold text-[var(--admin-text)] hover:bg-[var(--admin-primary)]/5 hover:text-[var(--admin-primary)] transition-all"
+                      >
+                        <Settings size={18} />
+                        <span>Profile Settings</span>
+                      </button>
+                    </div>
 
-                  <div className="p-2 border-t border-gray-200 dark:border-slate-700">
-                    <button className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors">
-                      <LogOut size={16} />
-                      <span>Logout</span>
-                    </button>
-                  </div>
-                </motion.div>
+                    <div className="p-2 border-t border-[var(--admin-border)] bg-[var(--admin-bg)]/50">
+                      <button 
+                        onClick={handleLogout}
+                        className="flex items-center gap-3 w-full px-5 py-3 text-sm font-black text-red-500 hover:bg-red-500/10 rounded-lg transition-all group"
+                      >
+                        <LogOut size={18} className="group-hover:-translate-x-1 transition-transform" />
+                        <span>Logout Account</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                </>
               )}
             </AnimatePresence>
           </div>

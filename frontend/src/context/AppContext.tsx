@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react"
 import { clearAccessToken, getAccessToken } from "@/lib/auth-storage"
+import { CustomAlert, ModalType } from "@/components/common/CustomAlert"
 
 export type WalletItem = {
   id: string
@@ -31,15 +32,31 @@ export type AppContextType = {
   clearCart: () => void
   login: (user: CurrentUser) => void
   logout: () => void
+  updateUser: (user: Partial<CurrentUser>) => void
   isAiMode: boolean
   toggleAiMode: () => void
+  showAlert: (config: AlertConfig) => void
+}
+
+export type AlertConfig = {
+  title: string
+  message: string
+  type?: ModalType
+  confirmText?: string
+  cancelText?: string
+  onConfirm?: () => void
 }
 
 export type CurrentUser = {
   id?: string
   name?: string
   email?: string
+  image?: string
+  ltpBalance?: number
   location?: string
+  latitude?: number
+  longitude?: number
+  isLocationPublic?: boolean
   role?: string
   [key: string]: unknown
 }
@@ -57,31 +74,84 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
   // AI/View Mode state
   const [isAiMode, setIsAiMode] = useState(false)
 
+  // Alert state
+  const [alertConfig, setAlertConfig] = useState<AlertConfig & { isOpen: boolean }>({
+    isOpen: false,
+    title: "",
+    message: "",
+    type: "info"
+  })
+
+  const showAlert = (config: AlertConfig) => {
+    setAlertConfig({ ...config, isOpen: true })
+  }
+
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const storedLogin = localStorage.getItem("isLoggedIn") === "true" || !!getAccessToken()
+      const storedLogin = sessionStorage.getItem("isLoggedIn") === "true" || !!getAccessToken()
       if (storedLogin) {
         setIsLoggedIn(true)
-        setCurrentUser(JSON.parse(localStorage.getItem("currentUser") || "null") as CurrentUser | null)
+        setCurrentUser(JSON.parse(sessionStorage.getItem("currentUser") || "null") as CurrentUser | null)
       }
     }
   }, [])
 
   const login = (user: CurrentUser) => {
-    localStorage.setItem("isLoggedIn", "true")
-    localStorage.setItem("currentUser", JSON.stringify(user))
+    sessionStorage.setItem("isLoggedIn", "true")
+    sessionStorage.setItem("currentUser", JSON.stringify(user))
     setIsLoggedIn(true)
     setCurrentUser(user)
   }
 
   const logout = () => {
-    localStorage.removeItem("isLoggedIn")
-    localStorage.removeItem("currentUser")
+    sessionStorage.removeItem("isLoggedIn")
+    sessionStorage.removeItem("currentUser")
     clearAccessToken()
     setIsLoggedIn(false)
     setCurrentUser(null)
   }
+
+  const updateUser = (updatedFields: Partial<CurrentUser>) => {
+    setCurrentUser(prev => {
+      if (!prev) return null
+      const newUser = { ...prev, ...updatedFields }
+      sessionStorage.setItem("currentUser", JSON.stringify(newUser))
+      return newUser
+    })
+  }
+
+  // Background location sync
+  useEffect(() => {
+    if (isLoggedIn && currentUser?.isLocationPublic) {
+      const syncLocation = async () => {
+        if ("geolocation" in navigator) {
+          navigator.geolocation.getCurrentPosition(async (position) => {
+            const { latitude, longitude } = position.coords
+            // Only update if significantly different (e.g. > 0.01 degree ~ 1km)
+            const latDiff = Math.abs((currentUser.latitude as number || 0) - latitude)
+            const lonDiff = Math.abs((currentUser.longitude as number || 0) - longitude)
+            
+            if (latDiff > 0.01 || lonDiff > 0.01) {
+              try {
+                const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+                const data = await res.json()
+                const city = data.address.city || data.address.town || data.address.village || "Unknown City"
+                
+                // Call API directly or via a new function
+                // For now, we'll just log and assume the user will save in settings, 
+                // OR we could call the update API here.
+                console.log("Significant location change detected:", city)
+              } catch (e) {
+                console.error("Location sync failed", e)
+              }
+            }
+          })
+        }
+      }
+      syncLocation()
+    }
+  }, [isLoggedIn, currentUser?.isLocationPublic])
 
   const toggleAiMode = () => {
     setIsAiMode(prev => !prev)
@@ -153,11 +223,26 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
         clearCart: () => setWallet([]),
         login,
         logout,
+        updateUser,
         isAiMode,
-        toggleAiMode
+        toggleAiMode,
+        showAlert
       }}
     >
       {children}
+      <CustomAlert
+        isOpen={alertConfig.isOpen}
+        onClose={() => setAlertConfig(prev => ({ ...prev, isOpen: false }))}
+        onConfirm={() => {
+          alertConfig.onConfirm?.()
+          setAlertConfig(prev => ({ ...prev, isOpen: false }))
+        }}
+        title={alertConfig.title}
+        message={alertConfig.message}
+        type={alertConfig.type}
+        confirmText={alertConfig.confirmText}
+        cancelText={alertConfig.cancelText}
+      />
     </AppContext.Provider>
   )
 }

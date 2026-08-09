@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SwapIt.Application.Common.Interfaces;
 using SwapIt.Infrastructure.Auth;
 using SwapIt.Infrastructure.Persistence;
+using SwapIt.Infrastructure.Services;
 
 namespace SwapIt.Infrastructure;
 
@@ -12,13 +13,23 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection")
-            ?? "Server=(localdb)\\MSSQLLocalDB;Database=SwapItDb;Trusted_Connection=True;TrustServerCertificate=True;";
+            ?? "Server=DESKTOP-O2OTSGA\\SQLEXPRESS;Database=SwapItDb_v3;Trusted_Connection=True;TrustServerCertificate=True;";
 
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(connectionString));
         services.AddScoped<IApplicationDbContext>(sp => sp.GetRequiredService<ApplicationDbContext>());
         services.AddScoped<IPasswordService, PasswordService>();
         services.AddScoped<ITokenService, TokenService>();
+        services.AddScoped<IFileService, LocalFileService>();
+
+        // AI Appraisal microservice HTTP client
+        var aiServiceUrl = configuration["AiService:BaseUrl"] ?? "http://localhost:8000";
+        services.AddHttpClient("SwapItAI", client =>
+        {
+            client.BaseAddress = new Uri(aiServiceUrl);
+            client.Timeout = TimeSpan.FromSeconds(30);
+        });
+        services.AddScoped<IAppraisalService, AppraisalService>();
 
         return services;
     }

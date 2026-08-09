@@ -1,6 +1,6 @@
 namespace SwapIt.Application.Features.Offers.Dtos;
 
-public sealed class OfferResponseDto
+public sealed record OfferResponseDto
 {
     public string Id { get; init; } = string.Empty;
     public string TradeId { get; init; } = string.Empty;
@@ -11,6 +11,7 @@ public sealed class OfferResponseDto
     public DateTime? ExpiresAt { get; init; }
     public string? OfferedItemId { get; init; }
     public string? ParentOfferId { get; init; }
+    public string? TradeTitle { get; init; }
     public IReadOnlyList<string> ItemIds { get; init; } = [];
     public DateTime CreatedAt { get; init; }
 }

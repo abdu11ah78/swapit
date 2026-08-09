@@ -8,116 +8,10 @@ import { CategoryNav } from "@/components/layout/CategoryNav"
 import { MarketplaceCard, MarketplaceItem } from "@/components/products/MarketplaceCard"
 import { ArrowRight, Sparkles, SearchX } from "lucide-react"
 import { useAppContext } from "@/context/AppContext"
+import { useItemsQuery } from "@/features/items/items.hooks"
+import { formatDistanceToNow } from "date-fns"
 
-type HomeItem = MarketplaceItem & { category: string }
 
-// --- MOCK DATA (VARS FOR FUTURE BACKEND INTEGRATION) ---
-const MOCK_ITEMS: HomeItem[] = [
-    {
-        id: "iphone-14",
-        name: "iPhone 14 - 128GB (PTA Approved)",
-        price: "Rs 145,000",
-        points: "1,450 LTP",
-        tradeFor: "iPhone 13 Pro + 200 LTP",
-        location: "Gulberg, Lahore",
-        date: "2 hours ago",
-        image: "https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?auto=format&fit=crop&w=500&q=60",
-        condition: "Like New",
-        description: "Battery health 94%. No scratches. FaceID working. Only item-to-item swap with 13 Pro or 12 Pro Max with points adjustment.",
-        category: "mobiles"
-    },
-    {
-        id: "pixel-7",
-        name: "Google Pixel 7 Pro",
-        price: "Rs 98,000",
-        points: "980 LTP",
-        tradeFor: "Samsung S22 Ultra",
-        location: "Faisalabad",
-        date: "Yesterday",
-        image: "https://images.unsplash.com/photo-1678911820864-e2c567c655d7?auto=format&fit=crop&w=500&q=60",
-        condition: "Gently Used",
-        description: "12/128 variant. Dual SIM active. Want to trade with S22 Ultra (Phantom Black).",
-        category: "mobiles"
-    },
-    {
-        id: "s23-ultra",
-        name: "Samsung S23 Ultra - 512GB",
-        price: "Rs 210,000",
-        points: "2,100 LTP",
-        tradeFor: "Gaming Laptop (RTX 3070+)",
-        location: "Karachi",
-        date: "3 days ago",
-        image: "https://images.unsplash.com/photo-1678911820864-e2c567c655d7?auto=format&fit=crop&w=500&q=60",
-        condition: "New",
-        description: "Box opened for testing. Complete accessories. Looking for a high-end gaming laptop for development work.",
-        category: "mobiles"
-    },
-    {
-        id: "nothing-phone",
-        name: "Nothing Phone (2)",
-        price: "Rs 85,000",
-        points: "850 LTP",
-        tradeFor: "MacBook Air M1",
-        location: "Islamabad",
-        date: "5 mins ago",
-        image: "https://images.unsplash.com/photo-1691444158941-e945c9c9b9ec?auto=format&fit=crop&w=500&q=60",
-        condition: "Mint",
-        description: "Glyph interface working perfectly. 12/256 variant. Swap possible with M1 Macbook or iPad Pro.",
-        category: "mobiles"
-    },
-    {
-        id: "civic-2022",
-        name: "Honda Civic RS 2022",
-        price: "Rs 7,200,000",
-        points: "72,000 LTP",
-        tradeFor: "SUV / Toyota Fortuner",
-        location: "Lahore Cantt",
-        date: "1 day ago",
-        image: "https://images.unsplash.com/photo-1632245889027-8a060b2fe200?auto=format&fit=crop&w=500&q=60",
-        condition: "Excellent",
-        description: "First owner. Full insurance. Looking to upgrade to an SUV.",
-        category: "vehicles"
-    },
-    {
-        id: "vespa-vxl",
-        name: "Vespa VXL 150",
-        price: "Rs 450,000",
-        points: "4,500 LTP",
-        tradeFor: "iPhone 15 Pro Max",
-        location: "Rawalpindi",
-        date: "Just now",
-        image: "https://images.unsplash.com/photo-1541336032412-2048a678540d?auto=format&fit=crop&w=500&q=60",
-        condition: "Rarely Used",
-        description: "Stylish Vespa in limited red color. Low mileage. Looking for the latest iPhone or MacBook.",
-        category: "vehicles"
-    },
-    {
-        id: "macbook-pro",
-        name: "MacBook Pro M2 Max - 32GB/1TB",
-        price: "Rs 450,000",
-        points: "4,500 LTP",
-        tradeFor: "Desktop Build (RTX 4080+)",
-        location: "Defense, Karachi",
-        date: "10 hours ago",
-        image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=500&q=60",
-        condition: "Pristine",
-        description: "Maximum specs. Warranty active. Looking for a powerful workstation build.",
-        category: "electronics"
-    },
-    {
-        id: "ps5-slim",
-        name: "PS5 Slim (Disc Version) + 2 Controllers",
-        price: "Rs 165,000",
-        points: "1,650 LTP",
-        tradeFor: "Nintendo Switch OLED + LTP adjustment",
-        location: "Johar Town, Lahore",
-        date: "5 hours ago",
-        image: "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?auto=format&fit=crop&w=500&q=60",
-        condition: "New",
-        description: "Box packed PS5 Slim. Regional warranty. Want to swap with Switch OLED and points compensation.",
-        category: "electronics"
-    }
-]
 
 export default function LandingPage() {
     const { isLoggedIn } = useAppContext()
@@ -125,18 +19,38 @@ export default function LandingPage() {
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
     const [isMounted, setIsMounted] = useState(false)
 
+    // Fetch real items from backend
+    const { data: itemsData, isLoading } = useItemsQuery({
+        q: searchQuery || undefined,
+        category: selectedCategory || undefined,
+        sort: "latest"
+    })
+
     useEffect(() => {
         setIsMounted(true)
     }, [])
 
     const filteredItems = useMemo(() => {
-        return MOCK_ITEMS.filter(item => {
-            const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                item.description.toLowerCase().includes(searchQuery.toLowerCase())
-            const matchesCategory = selectedCategory ? item.category === selectedCategory : true
-            return matchesSearch && matchesCategory
-        })
-    }, [searchQuery, selectedCategory])
+        if (!itemsData?.items) return []
+
+        return itemsData.items.map(item => ({
+            id: item.id,
+            name: item.title,
+            price: `Rs ${item.ltpValue.toLocaleString()}`,
+            points: `${item.ltpValue.toLocaleString()} LTP`,
+            tradeFor: "Negotiable Swap", // Default since backend doesn't have tradeFor field yet
+            location: item.location,
+            date: formatDistanceToNow(new Date(item.createdAt), { addSuffix: true }),
+            image: item.images[0]
+                ? (item.images[0].startsWith("http")
+                    ? item.images[0].replace(/\\/g, '/')
+                    : `${(process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://localhost:7052/api").replace(/\/api$/, '')}/${item.images[0].replace(/\\/g, '/').startsWith('/') ? item.images[0].replace(/\\/g, '/').slice(1) : item.images[0].replace(/\\/g, '/')}`)
+                : "/placeholder.png",
+            condition: item.condition,
+            description: item.description,
+            category: item.category
+        }))
+    }, [itemsData])
 
     if (!isMounted) return null
 
@@ -281,7 +195,7 @@ export default function LandingPage() {
                             <span className="text-3xl font-black tracking-tighter text-[#115e59] italic mb-8 block">
                                 Swap<span className="text-[#4d7c0f] italic">It</span>
                             </span>
-                        <p className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] leading-loose">
+                            <p className="text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] leading-loose">
                                 Reimagining asset liquidity through the world&apos;s first decentralized barter network.
                             </p>
                         </div>
